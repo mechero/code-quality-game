@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="sonarUser" type="sonarUser" />
+
+	<xs:element name="sonarUserList" type="sonarUserList" />
+
+	<xs:complexType name="sonarUserList">
+		<xs:sequence>
+			<xs:element name="user" type="sonarUser" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="sonarUser" final="extension restriction">
+		<xs:sequence />
+		<xs:attribute name="alias" type="xs:string" />
+		<xs:attribute name="id" type="xs:string" use="required" />
+		<xs:attribute name="team" type="xs:string" />
+	</xs:complexType>
+</xs:schema>
+

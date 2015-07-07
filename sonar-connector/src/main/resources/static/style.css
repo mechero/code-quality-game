@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+tr {
+	font-size: small;
+}
+tr.cell-pos-1 {
+	background-color: gold;
+}
+
+tr.cell-pos-2 {
+	background-color: #dbdbdb;
+}
+
+tr.cell-pos-3 {
+	background-color: #edd083;
+}

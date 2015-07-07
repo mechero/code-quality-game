@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sonarUserList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../users.xsd">
+	<user id="pauldark" alias="Paul Dark" team="Team Alpha" />
+	<user id="diegojames" alias="Diego James" team="Team Omega" />
+</sonarUserList>
