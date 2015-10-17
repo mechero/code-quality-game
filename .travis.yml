@@ -1,2 +1,2 @@
 language: java
-script: cd code-quality-game
+script: cd sonar-connector
