@@ -1,2 +1,2 @@
 language: java
-script: cd sonar-connector
+before-install: cd sonar-connector
