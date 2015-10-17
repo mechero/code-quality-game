@@ -1,4 +1,4 @@
-# Code Quality Game
+# Code Quality Game [![Build Status](https://travis-ci.org/mechero/code-quality-game.svg?branch=master)](https://travis-ci.org/mechero/code-quality-game)
 A simple gamified web to improve code quality using SonarQube. 
 
 ## Introduction
