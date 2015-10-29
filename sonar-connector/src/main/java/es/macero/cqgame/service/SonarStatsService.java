@@ -44,6 +44,13 @@ public class SonarStatsService
     
     @Autowired
     private List<BadgeCalculator> badgeCalculators;
+    
+    @Autowired
+    public SonarStatsService(SonarUserRepository sonarUserRepository, List<BadgeCalculator> badgeCalculators)
+    {
+    	this.sonarDao = sonarUserRepository;
+    	this.badgeCalculators = badgeCalculators;
+    }
 
     @PostConstruct
     public void init()

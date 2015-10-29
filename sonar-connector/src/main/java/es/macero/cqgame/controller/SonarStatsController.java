@@ -15,8 +15,12 @@ import es.macero.cqgame.service.SonarStatsService;
 @RequestMapping("/legacykillers")
 public class SonarStatsController
 {
-    @Autowired
     private SonarStatsService sonarStatsService;
+    
+    @Autowired
+    public SonarStatsController(SonarStatsService sonarStatsService){
+    	this.sonarStatsService = sonarStatsService;
+    }
 
     @RequestMapping(value="/users", method = RequestMethod.GET)
     public String statsHome(Map<String, Object> model)
