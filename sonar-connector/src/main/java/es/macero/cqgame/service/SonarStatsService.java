@@ -38,18 +38,19 @@ public class SonarStatsService
     private Map<String, SonarUser> idsAndUsers;
 
     private Map<String, SonarStats> statsPerId;
-    
-    @Autowired
+
     private SonarUserRepository sonarDao;
+
+    private List<BadgeCalculator> badgeCalculators = new ArrayList<>();
     
     @Autowired
-    private List<BadgeCalculator> badgeCalculators;
-    
-    @Autowired
-    public SonarStatsService(SonarUserRepository sonarUserRepository, List<BadgeCalculator> badgeCalculators)
-    {
-    	this.sonarDao = sonarUserRepository;
-    	this.badgeCalculators = badgeCalculators;
+    public void setSonarDao(SonarUserRepository sonarDao) {
+        this.sonarDao = sonarDao;
+    }
+
+    @Autowired(required = false)
+    public void setBadgeCalculators(List<BadgeCalculator> badgeCalculators) {
+        this.badgeCalculators = badgeCalculators;
     }
 
     @PostConstruct

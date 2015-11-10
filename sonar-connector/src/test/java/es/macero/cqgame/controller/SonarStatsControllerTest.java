@@ -77,4 +77,5 @@ public class SonarStatsControllerTest{
 		this.mvc.perform(get("/legacykillers/users")).andExpect(status().isOk()).andExpect(view().name("sonarstats"))
 				.andExpect(model().attribute("stats", expectedStatsRows));
 	}
+
 }

@@ -8,6 +8,6 @@ import es.macero.cqgame.resultbeans.Issue;
 public interface BadgeCalculator
 {
 
-    public Optional<SonarBadge> badgeFromIssueList(List<Issue> issues);
+    Optional<SonarBadge> badgeFromIssueList(List<Issue> issues);
     
 }

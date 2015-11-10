@@ -15,20 +15,10 @@ public class ApplicationTest {
 	public SonarStatsService service() {
 		return Mockito.mock(SonarStatsService.class);
 	}
-	
-	@Bean
-	public SonarUserRepository repo() {
-		return Mockito.mock(SonarUserRepository.class);
-	}
 
 	@Bean
 	public SonarStatsController controller(SonarStatsService service) {
 		return new SonarStatsController(service);
-	}
-	
-	@Bean
-	public BadgeCalculator badgeCalculator() {
-		return new BadgeEarlyBird();
 	}
 	
 }
