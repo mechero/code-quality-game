@@ -9,15 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,10 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import es.macero.cqgame.app.Application;
 import es.macero.cqgame.app.ApplicationTest;
-import es.macero.cqgame.dao.SonarUserRepository;
-import es.macero.cqgame.domain.badges.BadgeCalculator;
 import es.macero.cqgame.domain.stats.SonarStatsRow;
 import es.macero.cqgame.service.SonarStatsService;
 
@@ -60,7 +52,6 @@ public class SonarStatsControllerTest{
 
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
 	}
 
