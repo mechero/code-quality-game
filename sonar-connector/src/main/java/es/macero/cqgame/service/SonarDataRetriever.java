@@ -87,8 +87,10 @@ public class SonarDataRetriever {
 
         public HttpHeaders getHeaders() {
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Basic " + creds);
-            headers.add("Accept", "application/json");
+            if(creds != null && !creds.trim().isEmpty()) {
+                headers.add("Authorization", "Basic " + creds);
+                headers.add("Accept", "application/json");
+            }
             return headers;
         }
 

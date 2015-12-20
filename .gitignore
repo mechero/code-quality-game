@@ -5,3 +5,6 @@
 **/.settings/
 **/.project
 **/.springBeans
+
+# IntelliJ configuration files
+**/.idea/
