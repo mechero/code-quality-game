@@ -12,59 +12,107 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "maxResultsReached",
+    "total",
+    "p",
+    "ps",
     "paging",
     "issues",
-    "components",
-    "projects",
-    "rules",
-    "users"
+    "components"
 })
 public class Issues {
 
-    @JsonProperty("maxResultsReached")
-    private Boolean maxResultsReached;
+    @JsonProperty("total")
+    private Integer total;
+    @JsonProperty("p")
+    private Integer p;
+    @JsonProperty("ps")
+    private Integer ps;
     @JsonProperty("paging")
     private Paging paging;
     @JsonProperty("issues")
     private List<Issue> issues = new ArrayList<Issue>();
     @JsonProperty("components")
     private List<Component> components = new ArrayList<Component>();
-    @JsonProperty("projects")
-    private List<Project> projects = new ArrayList<Project>();
-    @JsonProperty("rules")
-    private List<Rule> rules = new ArrayList<Rule>();
-    @JsonProperty("users")
-    private List<User> users = new ArrayList<User>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
      * 
      * @return
-     *     The maxResultsReached
+     *     The total
      */
-    @JsonProperty("maxResultsReached")
-    public Boolean getMaxResultsReached() {
-        return maxResultsReached;
+    @JsonProperty("total")
+    public Integer getTotal() {
+        return total;
     }
 
     /**
      * 
-     * @param maxResultsReached
-     *     The maxResultsReached
+     * @param total
+     *     The total
      */
-    @JsonProperty("maxResultsReached")
-    public void setMaxResultsReached(Boolean maxResultsReached) {
-        this.maxResultsReached = maxResultsReached;
+    @JsonProperty("total")
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
-    public Issues withMaxResultsReached(Boolean maxResultsReached) {
-        this.maxResultsReached = maxResultsReached;
+    public Issues withTotal(Integer total) {
+        this.total = total;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The p
+     */
+    @JsonProperty("p")
+    public Integer getP() {
+        return p;
+    }
+
+    /**
+     * 
+     * @param p
+     *     The p
+     */
+    @JsonProperty("p")
+    public void setP(Integer p) {
+        this.p = p;
+    }
+
+    public Issues withP(Integer p) {
+        this.p = p;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The ps
+     */
+    @JsonProperty("ps")
+    public Integer getPs() {
+        return ps;
+    }
+
+    /**
+     * 
+     * @param ps
+     *     The ps
+     */
+    @JsonProperty("ps")
+    public void setPs(Integer ps) {
+        this.ps = ps;
+    }
+
+    public Issues withPs(Integer ps) {
+        this.ps = ps;
         return this;
     }
 
@@ -143,79 +191,9 @@ public class Issues {
         return this;
     }
 
-    /**
-     * 
-     * @return
-     *     The projects
-     */
-    @JsonProperty("projects")
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    /**
-     * 
-     * @param projects
-     *     The projects
-     */
-    @JsonProperty("projects")
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
-
-    public Issues withProjects(List<Project> projects) {
-        this.projects = projects;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The rules
-     */
-    @JsonProperty("rules")
-    public List<Rule> getRules() {
-        return rules;
-    }
-
-    /**
-     * 
-     * @param rules
-     *     The rules
-     */
-    @JsonProperty("rules")
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
-
-    public Issues withRules(List<Rule> rules) {
-        this.rules = rules;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The users
-     */
-    @JsonProperty("users")
-    public List<User> getUsers() {
-        return users;
-    }
-
-    /**
-     * 
-     * @param users
-     *     The users
-     */
-    @JsonProperty("users")
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public Issues withUsers(List<User> users) {
-        this.users = users;
-        return this;
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

@@ -10,15 +10,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
     "pageIndex",
     "pageSize",
-    "total",
-    "fTotal",
-    "pages"
+    "total"
 })
 public class Paging {
 
@@ -28,10 +27,6 @@ public class Paging {
     private Integer pageSize;
     @JsonProperty("total")
     private Integer total;
-    @JsonProperty("fTotal")
-    private String fTotal;
-    @JsonProperty("pages")
-    private Integer pages;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -110,54 +105,9 @@ public class Paging {
         return this;
     }
 
-    /**
-     * 
-     * @return
-     *     The fTotal
-     */
-    @JsonProperty("fTotal")
-    public String getFTotal() {
-        return fTotal;
-    }
-
-    /**
-     * 
-     * @param fTotal
-     *     The fTotal
-     */
-    @JsonProperty("fTotal")
-    public void setFTotal(String fTotal) {
-        this.fTotal = fTotal;
-    }
-
-    public Paging withFTotal(String fTotal) {
-        this.fTotal = fTotal;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
-     *     The pages
-     */
-    @JsonProperty("pages")
-    public Integer getPages() {
-        return pages;
-    }
-
-    /**
-     * 
-     * @param pages
-     *     The pages
-     */
-    @JsonProperty("pages")
-    public void setPages(Integer pages) {
-        this.pages = pages;
-    }
-
-    public Paging withPages(Integer pages) {
-        this.pages = pages;
-        return this;
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

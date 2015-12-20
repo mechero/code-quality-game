@@ -9,7 +9,10 @@ import es.macero.cqgame.domain.users.SonarUser;
 import es.macero.cqgame.domain.util.IssueDateFormatter;
 import es.macero.cqgame.resultbeans.Issue;
 import es.macero.cqgame.util.Utils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -24,16 +27,21 @@ import java.util.stream.Collectors;
 @Service
 public class SonarStatsService {
 
-    public static final LocalDate LEGACY_LOCALDATETIME = LocalDate.of(2015, 2, 9);
-    public static final LocalDate COVERAGE_LOCALDATETIME = LocalDate.of(2015, 5, 29);
+    private static final Log log = LogFactory.getLog(SonarStatsService.class);
+
+    @Value("${legacyDate}")
+    private String legacyDateString;
+
+    @Value("${coverageDate}")
+    private String coverageDateString;
 
     private Map<String, SonarUser> idsAndUsers;
-
     private Map<String, SonarStats> statsPerId;
-
     private SonarUserRepository sonarDao;
-
     private List<BadgeCalculator> badgeCalculators = new ArrayList<>();
+
+    private LocalDate legacyDate;
+    private LocalDate coverageDate;
 
     @Autowired
     public void setSonarDao(SonarUserRepository sonarDao) {
@@ -49,6 +57,10 @@ public class SonarStatsService {
     public void init() {
         idsAndUsers = sonarDao.findAll().stream().collect(Collectors.toMap(SonarUser::getId, Function.identity()));
         statsPerId = new ConcurrentHashMap<>();
+        legacyDate = LocalDate.parse(legacyDateString);
+        coverageDate = LocalDate.parse(coverageDateString);
+        log.info("Legacy date is " + legacyDate);
+        log.info("Coverage date is " + coverageDate);
     }
 
     public Set<String> getIds() {
@@ -62,7 +74,7 @@ public class SonarStatsService {
     public void updateStats(String id, List<Issue> issues) {
         SonarStats stats = fromIssueList(issues);
         statsPerId.put(id, stats);
-        System.out.println("Processing " + id + "; Stats: " + stats);
+        log.info("Processing " + id + "; Stats: " + stats);
     }
 
     public Collection<SonarStatsRow> getSortedStatsPerUser() {
@@ -97,12 +109,13 @@ public class SonarStatsService {
 
     private SonarStats fromIssueList(List<Issue> issues) {
         // For the stats we only use those issues created before 'legacy date'
+        issues.stream().map(i -> IssueDateFormatter.format(i.getCreationDate())).forEach(log::info);
         List<Issue> issuesFilteredByLegacyDate = issues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
-                .isBefore(LEGACY_LOCALDATETIME)).collect(Collectors.toList());
+                .isBefore(legacyDate)).collect(Collectors.toList());
         List<Issue> issuesFilteredByCovDate = issues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
-                .isBefore(COVERAGE_LOCALDATETIME)).collect(Collectors.toList());
+                .isBefore(coverageDate)).collect(Collectors.toList());
 
         int debtSum = (int) issuesFilteredByLegacyDate.stream().map(Issue::getDebt)
                 .filter(c -> c != null).map(Utils::durationTranslator)

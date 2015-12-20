@@ -10,12 +10,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "key",
     "id",
+    "key",
+    "uuid",
+    "enabled",
     "qualifier",
     "name",
     "longName",
@@ -25,10 +28,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Component {
 
-    @JsonProperty("key")
-    private String key;
     @JsonProperty("id")
     private Integer id;
+    @JsonProperty("key")
+    private String key;
+    @JsonProperty("uuid")
+    private String uuid;
+    @JsonProperty("enabled")
+    private Boolean enabled;
     @JsonProperty("qualifier")
     private String qualifier;
     @JsonProperty("name")
@@ -43,6 +50,31 @@ public class Component {
     private Integer subProjectId;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /**
+     * 
+     * @return
+     *     The id
+     */
+    @JsonProperty("id")
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * 
+     * @param id
+     *     The id
+     */
+    @JsonProperty("id")
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Component withId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     /**
      * 
@@ -72,25 +104,50 @@ public class Component {
     /**
      * 
      * @return
-     *     The id
+     *     The uuid
      */
-    @JsonProperty("id")
-    public Integer getId() {
-        return id;
+    @JsonProperty("uuid")
+    public String getUuid() {
+        return uuid;
     }
 
     /**
      * 
-     * @param id
-     *     The id
+     * @param uuid
+     *     The uuid
      */
-    @JsonProperty("id")
-    public void setId(Integer id) {
-        this.id = id;
+    @JsonProperty("uuid")
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public Component withId(Integer id) {
-        this.id = id;
+    public Component withUuid(String uuid) {
+        this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The enabled
+     */
+    @JsonProperty("enabled")
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * 
+     * @param enabled
+     *     The enabled
+     */
+    @JsonProperty("enabled")
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Component withEnabled(Boolean enabled) {
+        this.enabled = enabled;
         return this;
     }
 
@@ -242,6 +299,11 @@ public class Component {
     public Component withSubProjectId(Integer subProjectId) {
         this.subProjectId = subProjectId;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

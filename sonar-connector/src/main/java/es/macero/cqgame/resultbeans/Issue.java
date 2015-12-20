@@ -12,64 +12,68 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
     "key",
+    "rule",
+    "severity",
     "component",
     "componentId",
     "project",
-    "rule",
-    "status",
+    "textRange",
+    "flows",
     "resolution",
-    "severity",
+    "status",
     "message",
-    "line",
     "debt",
-    "assignee",
+    "author",
+    "tags",
     "creationDate",
     "updateDate",
-    "fUpdateAge",
     "closeDate",
-    "comments"
+    "line"
 })
 public class Issue {
 
     @JsonProperty("key")
     private String key;
+    @JsonProperty("rule")
+    private String rule;
+    @JsonProperty("severity")
+    private String severity;
     @JsonProperty("component")
     private String component;
     @JsonProperty("componentId")
     private Integer componentId;
     @JsonProperty("project")
     private String project;
-    @JsonProperty("rule")
-    private String rule;
-    @JsonProperty("status")
-    private String status;
+    @JsonProperty("textRange")
+    private TextRange textRange;
+    @JsonProperty("flows")
+    private List<Object> flows = new ArrayList<Object>();
     @JsonProperty("resolution")
     private String resolution;
-    @JsonProperty("severity")
-    private String severity;
+    @JsonProperty("status")
+    private String status;
     @JsonProperty("message")
     private String message;
-    @JsonProperty("line")
-    private Integer line;
     @JsonProperty("debt")
     private String debt;
-    @JsonProperty("assignee")
-    private String assignee;
+    @JsonProperty("author")
+    private String author;
+    @JsonProperty("tags")
+    private List<String> tags = new ArrayList<String>();
     @JsonProperty("creationDate")
     private String creationDate;
     @JsonProperty("updateDate")
     private String updateDate;
-    @JsonProperty("fUpdateAge")
-    private String fUpdateAge;
     @JsonProperty("closeDate")
     private String closeDate;
-    @JsonProperty("comments")
-    private List<Comment> comments = new ArrayList<Comment>();
+    @JsonProperty("line")
+    private Integer line;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -95,6 +99,56 @@ public class Issue {
 
     public Issue withKey(String key) {
         this.key = key;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The rule
+     */
+    @JsonProperty("rule")
+    public String getRule() {
+        return rule;
+    }
+
+    /**
+     * 
+     * @param rule
+     *     The rule
+     */
+    @JsonProperty("rule")
+    public void setRule(String rule) {
+        this.rule = rule;
+    }
+
+    public Issue withRule(String rule) {
+        this.rule = rule;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The severity
+     */
+    @JsonProperty("severity")
+    public String getSeverity() {
+        return severity;
+    }
+
+    /**
+     * 
+     * @param severity
+     *     The severity
+     */
+    @JsonProperty("severity")
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public Issue withSeverity(String severity) {
+        this.severity = severity;
         return this;
     }
 
@@ -176,50 +230,50 @@ public class Issue {
     /**
      * 
      * @return
-     *     The rule
+     *     The textRange
      */
-    @JsonProperty("rule")
-    public String getRule() {
-        return rule;
+    @JsonProperty("textRange")
+    public TextRange getTextRange() {
+        return textRange;
     }
 
     /**
      * 
-     * @param rule
-     *     The rule
+     * @param textRange
+     *     The textRange
      */
-    @JsonProperty("rule")
-    public void setRule(String rule) {
-        this.rule = rule;
+    @JsonProperty("textRange")
+    public void setTextRange(TextRange textRange) {
+        this.textRange = textRange;
     }
 
-    public Issue withRule(String rule) {
-        this.rule = rule;
+    public Issue withTextRange(TextRange textRange) {
+        this.textRange = textRange;
         return this;
     }
 
     /**
      * 
      * @return
-     *     The status
+     *     The flows
      */
-    @JsonProperty("status")
-    public String getStatus() {
-        return status;
+    @JsonProperty("flows")
+    public List<Object> getFlows() {
+        return flows;
     }
 
     /**
      * 
-     * @param status
-     *     The status
+     * @param flows
+     *     The flows
      */
-    @JsonProperty("status")
-    public void setStatus(String status) {
-        this.status = status;
+    @JsonProperty("flows")
+    public void setFlows(List<Object> flows) {
+        this.flows = flows;
     }
 
-    public Issue withStatus(String status) {
-        this.status = status;
+    public Issue withFlows(List<Object> flows) {
+        this.flows = flows;
         return this;
     }
 
@@ -251,25 +305,25 @@ public class Issue {
     /**
      * 
      * @return
-     *     The severity
+     *     The status
      */
-    @JsonProperty("severity")
-    public String getSeverity() {
-        return severity;
+    @JsonProperty("status")
+    public String getStatus() {
+        return status;
     }
 
     /**
      * 
-     * @param severity
-     *     The severity
+     * @param status
+     *     The status
      */
-    @JsonProperty("severity")
-    public void setSeverity(String severity) {
-        this.severity = severity;
+    @JsonProperty("status")
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Issue withSeverity(String severity) {
-        this.severity = severity;
+    public Issue withStatus(String status) {
+        this.status = status;
         return this;
     }
 
@@ -301,31 +355,6 @@ public class Issue {
     /**
      * 
      * @return
-     *     The line
-     */
-    @JsonProperty("line")
-    public Integer getLine() {
-        return line;
-    }
-
-    /**
-     * 
-     * @param line
-     *     The line
-     */
-    @JsonProperty("line")
-    public void setLine(Integer line) {
-        this.line = line;
-    }
-
-    public Issue withLine(Integer line) {
-        this.line = line;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
      *     The debt
      */
     @JsonProperty("debt")
@@ -351,25 +380,50 @@ public class Issue {
     /**
      * 
      * @return
-     *     The assignee
+     *     The author
      */
-    @JsonProperty("assignee")
-    public String getAssignee() {
-        return assignee;
+    @JsonProperty("author")
+    public String getAuthor() {
+        return author;
     }
 
     /**
      * 
-     * @param assignee
-     *     The assignee
+     * @param author
+     *     The author
      */
-    @JsonProperty("assignee")
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
+    @JsonProperty("author")
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public Issue withAssignee(String assignee) {
-        this.assignee = assignee;
+    public Issue withAuthor(String author) {
+        this.author = author;
+        return this;
+    }
+
+    /**
+     * 
+     * @return
+     *     The tags
+     */
+    @JsonProperty("tags")
+    public List<String> getTags() {
+        return tags;
+    }
+
+    /**
+     * 
+     * @param tags
+     *     The tags
+     */
+    @JsonProperty("tags")
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public Issue withTags(List<String> tags) {
+        this.tags = tags;
         return this;
     }
 
@@ -426,31 +480,6 @@ public class Issue {
     /**
      * 
      * @return
-     *     The fUpdateAge
-     */
-    @JsonProperty("fUpdateAge")
-    public String getFUpdateAge() {
-        return fUpdateAge;
-    }
-
-    /**
-     * 
-     * @param fUpdateAge
-     *     The fUpdateAge
-     */
-    @JsonProperty("fUpdateAge")
-    public void setFUpdateAge(String fUpdateAge) {
-        this.fUpdateAge = fUpdateAge;
-    }
-
-    public Issue withFUpdateAge(String fUpdateAge) {
-        this.fUpdateAge = fUpdateAge;
-        return this;
-    }
-
-    /**
-     * 
-     * @return
      *     The closeDate
      */
     @JsonProperty("closeDate")
@@ -476,26 +505,31 @@ public class Issue {
     /**
      * 
      * @return
-     *     The comments
+     *     The line
      */
-    @JsonProperty("comments")
-    public List<Comment> getComments() {
-        return comments;
+    @JsonProperty("line")
+    public Integer getLine() {
+        return line;
     }
 
     /**
      * 
-     * @param comments
-     *     The comments
+     * @param line
+     *     The line
      */
-    @JsonProperty("comments")
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    @JsonProperty("line")
+    public void setLine(Integer line) {
+        this.line = line;
     }
 
-    public Issue withComments(List<Comment> comments) {
-        this.comments = comments;
+    public Issue withLine(Integer line) {
+        this.line = line;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
     @JsonAnyGetter

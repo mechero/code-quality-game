@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 public class SonarDataRetriever {
 
     private static final Log log = LogFactory.getLog(SonarDataRetriever.class);
-    public static final String GET_ISSUES_COMMAND = "/api/issues/search";
+    public static final String GET_ISSUES_COMMAND = "/api/issues/search?assignees={assignees}|resolutions={resolutions}|p={page}|ps={pageSize}";
 
     @Autowired
     SonarStatsService statsService;
@@ -69,11 +69,11 @@ public class SonarDataRetriever {
                 while (pageIndex <= totalPages) {
                     RestTemplate restTemplate = new RestTemplate();
                     HttpEntity<String> request = new HttpEntity<>(getHeaders());
-                    URI uri = getResolvedIssuesForAssignee(id, true, pageIndex);
+                    URI uri = getResolvedIssuesForAssignee(id, pageIndex);
                     ResponseEntity<Issues> response = restTemplate.exchange(uri, HttpMethod.GET, request, Issues.class);
                     if (pageIndex == 1) {
                         Paging paging = response.getBody().getPaging();
-                        totalPages = paging.getPages();
+                        totalPages = paging.getTotal();
                     }
                     issues.addAll(response.getBody().getIssues());
                     pageIndex++;
@@ -87,17 +87,17 @@ public class SonarDataRetriever {
 
         public HttpHeaders getHeaders() {
             HttpHeaders headers = new HttpHeaders();
-            if(creds != null && !creds.trim().isEmpty()) {
+            if (creds != null && !creds.trim().isEmpty()) {
                 headers.add("Authorization", "Basic " + creds);
                 headers.add("Accept", "application/json");
             }
             return headers;
         }
 
-        public URI getResolvedIssuesForAssignee(String assignee, boolean resolved, int pageIndex) {
+        public URI getResolvedIssuesForAssignee(String assignee, int pageIndex) {
             URI uri = UriComponentsBuilder.fromHttpUrl(sonarUrl + GET_ISSUES_COMMAND)
-                    .queryParam("assignees", assignee.toLowerCase() + "," + assignee.toUpperCase()).queryParam("resolved", resolved)
-                    .queryParam("pageIndex", pageIndex).queryParam("pageSize", 500).build().toUri();
+                    .buildAndExpand(assignee.toLowerCase() + "," + assignee.toUpperCase(), "FIXED", pageIndex, 500)
+                    .toUri();
             System.out.println(uri);
             return uri;
         }
