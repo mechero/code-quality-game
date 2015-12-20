@@ -1,11 +1,10 @@
 package es.macero.cqgame.domain.stats;
 
-import java.util.Collection;
-
 import es.macero.cqgame.domain.badges.SonarBadge;
 
-public final class SonarStatsRow
-{
+import java.util.Collection;
+
+public final class SonarStatsRow {
     private String userAlias;
     private String userTeam;
     private int totalPoints;
@@ -17,8 +16,7 @@ public final class SonarStatsRow
     private int info;
     private Collection<SonarBadge> badges;
 
-    public SonarStatsRow(String userAlias, String userTeam, int totalPoints, int totalPaidDebt, int blocker, int critical, int major, int minor, int info, Collection<SonarBadge> badges)
-    {
+    public SonarStatsRow(String userAlias, String userTeam, int totalPoints, int totalPaidDebt, int blocker, int critical, int major, int minor, int info, Collection<SonarBadge> badges) {
         super();
         this.userAlias = userAlias;
         this.userTeam = userTeam;
@@ -32,53 +30,43 @@ public final class SonarStatsRow
         this.badges = badges;
     }
 
-    public String getUserAlias()
-    {
+    public String getUserAlias() {
         return userAlias;
     }
 
-    public String getUserTeam()
-    {
+    public String getUserTeam() {
         return userTeam;
     }
 
-    public int getTotalPoints()
-    {
+    public int getTotalPoints() {
         return totalPoints;
     }
 
-    public int getTotalPaidDebt()
-    {
+    public int getTotalPaidDebt() {
         return totalPaidDebt;
     }
 
-    public int getBlocker()
-    {
+    public int getBlocker() {
         return blocker;
     }
 
-    public int getCritical()
-    {
+    public int getCritical() {
         return critical;
     }
 
-    public int getMajor()
-    {
+    public int getMajor() {
         return major;
     }
 
-    public int getMinor()
-    {
+    public int getMinor() {
         return minor;
     }
 
-    public int getInfo()
-    {
+    public int getInfo() {
         return info;
     }
-    
-    public Collection<SonarBadge> getBadges()
-    {
+
+    public Collection<SonarBadge> getBadges() {
         return badges;
     }
 

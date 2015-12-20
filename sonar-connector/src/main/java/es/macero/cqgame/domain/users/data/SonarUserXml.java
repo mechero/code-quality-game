@@ -4,67 +4,56 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public final class SonarUserXml
-{
+public final class SonarUserXml {
 
     private String id;
     private String alias;
     private String team;
 
-    public SonarUserXml(String id, String alias, String team)
-    {
+    public SonarUserXml(String id, String alias, String team) {
         super();
         this.id = id;
         this.alias = alias;
         this.team = team;
     }
 
-    public SonarUserXml(String id)
-    {
+    public SonarUserXml(String id) {
         this(id, null, null);
     }
 
-    public SonarUserXml()
-    {
+    public SonarUserXml() {
         this(null, null, null);
     }
 
     @XmlAttribute(required = true)
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
     @XmlAttribute(required = false)
-    public String getAlias()
-    {
+    public String getAlias() {
         return alias;
     }
 
     @XmlAttribute(required = false)
-    public String getTeam()
-    {
+    public String getTeam() {
         return team;
     }
-    
-    public void setId(String id)
-    {
+
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setAlias(String alias)
-    {
+    public void setAlias(String alias) {
         this.alias = alias;
     }
 
-    public void setTeam(String team)
-    {
+    public void setTeam(String team) {
         this.team = team;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((alias == null) ? 0 : alias.hashCode());
@@ -74,8 +63,7 @@ public final class SonarUserXml
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -83,33 +71,26 @@ public final class SonarUserXml
         if (getClass() != obj.getClass())
             return false;
         SonarUserXml other = (SonarUserXml) obj;
-        if (alias == null)
-        {
+        if (alias == null) {
             if (other.alias != null)
                 return false;
-        }
-        else if (!alias.equals(other.alias))
+        } else if (!alias.equals(other.alias))
             return false;
-        if (id == null)
-        {
+        if (id == null) {
             if (other.id != null)
                 return false;
-        }
-        else if (!id.equals(other.id))
+        } else if (!id.equals(other.id))
             return false;
-        if (team == null)
-        {
+        if (team == null) {
             if (other.team != null)
                 return false;
-        }
-        else if (!team.equals(other.team))
+        } else if (!team.equals(other.team))
             return false;
         return true;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SonarUserXml [id=" + id + ", alias=" + alias + ", team=" + team + "]";
     }
 

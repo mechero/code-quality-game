@@ -1,43 +1,36 @@
 package es.macero.cqgame.domain.badges;
 
-public class SonarBadge
-{
+public class SonarBadge {
     private String name;
     private String description;
     private int extraPoints;
 
-    public SonarBadge(String name, String description, int extraPoints)
-    {
+    public SonarBadge(String name, String description, int extraPoints) {
         super();
         this.name = name;
         this.description = description;
         this.extraPoints = extraPoints;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
-    
-    public int getExtraPoints()
-    {
+
+    public int getExtraPoints() {
         return extraPoints;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SonarBadge [name=" + name + ", description=" + description + "]";
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -45,8 +38,7 @@ public class SonarBadge
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -54,15 +46,13 @@ public class SonarBadge
         if (getClass() != obj.getClass())
             return false;
         SonarBadge other = (SonarBadge) obj;
-        if (name == null)
-        {
+        if (name == null) {
             if (other.name != null)
                 return false;
-        }
-        else if (!name.equals(other.name))
+        } else if (!name.equals(other.name))
             return false;
         return true;
     }
 
-    
+
 }

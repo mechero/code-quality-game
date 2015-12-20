@@ -1,11 +1,8 @@
 package es.macero.cqgame.service;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
+import es.macero.cqgame.resultbeans.Issue;
+import es.macero.cqgame.resultbeans.Issues;
+import es.macero.cqgame.resultbeans.Paging;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +19,10 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import es.macero.cqgame.resultbeans.Issue;
-import es.macero.cqgame.resultbeans.Issues;
-import es.macero.cqgame.resultbeans.Paging;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 @Service
 @EnableAsync

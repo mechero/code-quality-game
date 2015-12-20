@@ -1,48 +1,41 @@
 package es.macero.cqgame.domain.users;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import es.macero.cqgame.domain.users.data.SonarUserAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 @XmlJavaTypeAdapter(SonarUserAdapter.class)
-public final class SonarUser
-{
+public final class SonarUser {
 
     private String id;
     private String alias;
     private String team;
 
-    public SonarUser(String id, String alias, String team)
-    {
+    public SonarUser(String id, String alias, String team) {
         super();
         this.id = id;
         this.alias = alias;
         this.team = team;
     }
 
-    public SonarUser(String id)
-    {
+    public SonarUser(String id) {
         this(id, null, null);
     }
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public String getAlias()
-    {
+    public String getAlias() {
         return alias;
     }
 
-    public String getTeam()
-    {
+    public String getTeam() {
         return team;
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((alias == null) ? 0 : alias.hashCode());
@@ -52,8 +45,7 @@ public final class SonarUser
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -61,33 +53,26 @@ public final class SonarUser
         if (getClass() != obj.getClass())
             return false;
         SonarUser other = (SonarUser) obj;
-        if (alias == null)
-        {
+        if (alias == null) {
             if (other.alias != null)
                 return false;
-        }
-        else if (!alias.equals(other.alias))
+        } else if (!alias.equals(other.alias))
             return false;
-        if (id == null)
-        {
+        if (id == null) {
             if (other.id != null)
                 return false;
-        }
-        else if (!id.equals(other.id))
+        } else if (!id.equals(other.id))
             return false;
-        if (team == null)
-        {
+        if (team == null) {
             if (other.team != null)
                 return false;
-        }
-        else if (!team.equals(other.team))
+        } else if (!team.equals(other.team))
             return false;
         return true;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SonarUser [id=" + id + ", alias=" + alias + ", team=" + team + "]";
     }
 

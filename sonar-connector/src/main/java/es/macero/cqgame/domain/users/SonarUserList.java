@@ -1,31 +1,25 @@
 package es.macero.cqgame.domain.users;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 @XmlRootElement
-public class SonarUserList
-{
+public class SonarUserList {
     private List<SonarUser> users;
-    
-    public SonarUserList()
-    {
+
+    public SonarUserList() {
         users = new ArrayList<>();
     }
 
     @XmlElement(name = "user")
-    public List<SonarUser> getUsers()
-    {
+    public List<SonarUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<SonarUser> users)
-    {
+    public void setUsers(List<SonarUser> users) {
         this.users = users;
     }
-    
-    
+
 }
