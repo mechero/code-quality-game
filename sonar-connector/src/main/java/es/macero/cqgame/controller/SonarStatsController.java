@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/legacykillers")
+@RequestMapping(value = {"/legacykillers", "/"})
 public class SonarStatsController {
     private SonarStatsService sonarStatsService;
 
@@ -20,7 +20,7 @@ public class SonarStatsController {
         this.sonarStatsService = sonarStatsService;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = {"/users", ""}, method = RequestMethod.GET)
     public String statsHome(Map<String, Object> model) {
         Collection<SonarStatsRow> stats = sonarStatsService.getSortedStatsPerUser();
         model.put("stats", stats);

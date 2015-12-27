@@ -35,8 +35,11 @@ public class SonarDataRetriever {
     @Autowired
     SonarStatsService statsService;
 
-    @Value("${creds}")
-    private String base64Creds;
+    @Value("${sonarUser}")
+    private String sonarUser;
+
+    @Value("${sonarPassword}")
+    private String sonarPassword;
 
     @Value("${sonarUrl}")
     private String sonarUrl;
@@ -45,19 +48,21 @@ public class SonarDataRetriever {
     public void retrieveData() {
         // It seems that sonar doesn't allow parallel queries with same user since it creates a register for internal
         // stats and that causes an error when inserting into the database.
-        statsService.getIds().stream().forEach(new RequestLauncher(statsService, sonarUrl, base64Creds));
+        statsService.getIds().stream().forEach(new RequestLauncher(statsService, sonarUrl, sonarUser, sonarPassword));
     }
 
     private static final class RequestLauncher implements Consumer<String> {
 
         private SonarStatsService statsService;
         private String sonarUrl;
-        private String creds;
+        private String sonarUser;
+        private String sonarPassword;
 
-        public RequestLauncher(SonarStatsService statsService, String sonarUrl, String creds) {
+        public RequestLauncher(SonarStatsService statsService, String sonarUrl, String sonarUser, String sonarPassword) {
             this.statsService = statsService;
             this.sonarUrl = sonarUrl;
-            this.creds = creds;
+            this.sonarUser = sonarUser;
+            this.sonarPassword = sonarPassword;
         }
 
         @Override
@@ -86,12 +91,11 @@ public class SonarDataRetriever {
         }
 
         public HttpHeaders getHeaders() {
-            HttpHeaders headers = new HttpHeaders();
-            if (creds != null && !creds.trim().isEmpty()) {
-                headers.add("Authorization", "Basic " + creds);
-                headers.add("Accept", "application/json");
+            if (sonarUser != null && !sonarUser.trim().isEmpty()) {
+                return ApiHttpUtils.getHeaders(sonarUser, sonarPassword);
+            }else {
+                return new HttpHeaders();
             }
-            return headers;
         }
 
         public URI getResolvedIssuesForAssignee(String assignee, int pageIndex) {

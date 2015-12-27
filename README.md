@@ -9,20 +9,22 @@ You can find more information about the goal of this project in [my blog post](h
 ## Requirements
 * Java 1.8+
 * Maven: it's needed only to build the project, later you can deploy directly the jar file.
-* A SonarQube server to connect to. The application is tested with version 4.3.1.
-  * You need to create a user in SonarQube for this application to connect. 
+* A SonarQube server to connect to. The application is tested with version 5.2.
+  * You may need to create a user in SonarQube for this application to connect (if your server doesn't provide anonymous access). 
 
 ## Configuration
 First you'll need to list the users that are going to participate in the game. This is done through the `users.xml` file.
 ```xml
 <user id="pauldark" alias="Paul Dark" team="Team Alpha" />
 ```
-It's important that the `id` matches with the SonarQube username. The `alias` and `team` are free text, but take into account that for the Team aggregated Ranking you have to set it up to match for different users in the same team. 
+It's important that the `id` matches with the SonarQube username. The `alias` will be used for the rankings and the `team` is used for aggregated Ranking per teams. 
 
-Then you can open `application.properties` and setup the SonarQube server base URL and the credentials in Base 64, following the pattern `username:password`. There are many online sites that can help you with that, like [this one](https://www.base64encode.org/).
+In case your Sonarqube server doesn´t have anonymous access you need to specify credentials for accessing the API. You can create an user with basic permissions for that.
+
 ```
-# This example is user:password in Base 64
-creds=dXNlcjpwYXNzd29yZA==
+# Sample credentials for accessing the API
+sonarUser=cqgameUser
+sonarPassword=cqgam3
 ```
 
 Given that this application does not have memory it will use only the issues existing in Sonar. This is why I recommend you to extend the time window to delete old issues in Sonar (Project Settings -> General -> Database Cleaner -> 'Delete closed issues after' = 90). All the points/badges obtained will belong to that period of time, this is good to promote 'continuous fixing'.
