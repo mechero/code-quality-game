@@ -21,7 +21,8 @@ public class SonarUserRepository {
     @PostConstruct
     public void init() throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(SonarUserList.class);
-        list = (SonarUserList) context.createUnmarshaller().unmarshal(getClass().getClassLoader().getResourceAsStream("data/" + userDataFile));
+        list = (SonarUserList) context.createUnmarshaller()
+                .unmarshal(getClass().getClassLoader().getResourceAsStream("data/" + userDataFile));
     }
 
     public List<SonarUser> findAll() {

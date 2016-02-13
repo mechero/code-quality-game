@@ -1,8 +1,5 @@
 package es.macero.cqgame.util;
 
-/**
- * Created by Moisés on 20/12/2015.
- */
 public class SonarViolationsCamp {
 
     public void testSomeBadPractices() {

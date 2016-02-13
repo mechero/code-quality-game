@@ -5,6 +5,7 @@ import es.macero.cqgame.domain.badges.BadgeCalculator;
 import es.macero.cqgame.domain.badges.SonarBadge;
 import es.macero.cqgame.domain.stats.SonarStats;
 import es.macero.cqgame.domain.stats.SonarStatsRow;
+import es.macero.cqgame.domain.stats.SonarStatsRowBuilder;
 import es.macero.cqgame.domain.users.SonarUser;
 import es.macero.cqgame.domain.util.IssueDateFormatter;
 import es.macero.cqgame.resultbeans.Issue;
@@ -82,10 +83,16 @@ public class SonarStatsService {
         for (Entry<String, SonarStats> entry : statsPerId.entrySet()) {
             SonarUser user = idsAndUsers.get(entry.getKey());
             SonarStats stats = entry.getValue();
-            rows.add(new SonarStatsRow(user.getAlias(), user.getTeam(), stats.getTotalPoints(),
-                    stats.getTotalPaidDebt(), stats.getBlocker(),
-                    stats.getCritical(), stats.getMajor(), stats.getMinor(),
-                    stats.getInfo(), stats.getBadges()));
+            rows.add(new SonarStatsRowBuilder(user.getAlias(), user.getTeam())
+                    .withTotalPoints(stats.getTotalPoints())
+                    .withTotalPaidDebt(stats.getTotalPaidDebt())
+                    .withBlocker(stats.getBlocker())
+                    .withCritical(stats.getCritical())
+                    .withMajor(stats.getMajor())
+                    .withMinor(stats.getMinor())
+                    .withInfo(stats.getInfo())
+                    .withBadges(stats.getBadges())
+                    .createSonarStatsRow());
         }
         return rows.stream().sorted((r1, r2) -> Integer.compare(r2.getTotalPoints(), r1.getTotalPoints())).collect(Collectors.toList());
     }
@@ -98,13 +105,18 @@ public class SonarStatsService {
     }
 
     private static SonarStatsRow combine(SonarStatsRow r1, SonarStatsRow r2) {
-        Set<SonarBadge> allBadges = new HashSet<SonarBadge>();
+        Set<SonarBadge> allBadges = new HashSet<>();
         allBadges.addAll(r1.getBadges());
         allBadges.addAll(r2.getBadges());
-        return new SonarStatsRow(r1.getUserAlias(), r1.getUserTeam(), r1.getTotalPoints() + r2.getTotalPoints(),
-                r1.getTotalPaidDebt() + r2.getTotalPaidDebt(), r1.getBlocker() + r2.getBlocker(),
-                r1.getCritical() + r2.getCritical(), r1.getMajor() + r2.getMajor(),
-                r1.getMinor() + r2.getMinor(), r1.getInfo() + r2.getInfo(), allBadges);
+        return new SonarStatsRowBuilder(r1.getUserAlias(), r1.getUserTeam())
+                .withTotalPoints(r1.getTotalPoints() + r2.getTotalPoints())
+                .withTotalPaidDebt(r1.getTotalPaidDebt() + r2.getTotalPaidDebt())
+                .withBlocker(r1.getBlocker() + r2.getBlocker())
+                .withCritical(r1.getCritical() + r2.getCritical())
+                .withMajor(r1.getMajor() + r2.getMajor())
+                .withMinor(r1.getMinor() + r2.getMinor())
+                .withInfo(r1.getInfo() + r2.getInfo())
+                .withBadges(allBadges).createSonarStatsRow();
     }
 
     private SonarStats fromIssueList(List<Issue> issues) {
@@ -112,10 +124,10 @@ public class SonarStatsService {
         issues.stream().map(i -> IssueDateFormatter.format(i.getCreationDate())).forEach(log::info);
         List<Issue> issuesFilteredByLegacyDate = issues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
-                .isBefore(legacyDate)).collect(Collectors.toList());
+                        .isBefore(legacyDate)).collect(Collectors.toList());
         List<Issue> issuesFilteredByCovDate = issues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
-                .isBefore(coverageDate)).collect(Collectors.toList());
+                        .isBefore(coverageDate)).collect(Collectors.toList());
 
         int debtSum = (int) issuesFilteredByLegacyDate.stream().map(Issue::getDebt)
                 .filter(c -> c != null).map(Utils::durationTranslator)
