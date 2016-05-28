@@ -49,24 +49,33 @@ public class SonarStatsControllerTest{
 	SonarStatsService sonarStatsService;
 
 	private MockMvc mvc;
+	private List<SonarStatsRow> statRows;
 
 	@Before
 	public void setUp() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+
+		// Creates test data
+		final SonarStatsRow statsRow1 = new SonarStatsRow(JOHN_ONE, TEAM_ONE, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
+			CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
+		final SonarStatsRow statsRow2 = new SonarStatsRow(JOHN_TWO, TEAM_TWO, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
+			CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
+		statRows = Arrays.asList(statsRow1, statsRow2);
+
+		Mockito.when(sonarStatsService.getSortedStatsPerUser()).thenReturn(statRows);
+		Mockito.when(sonarStatsService.getSortedStatsPerTeam()).thenReturn(statRows);
 	}
 
 	@Test
 	public void testGetUsers() throws Exception {
-		SonarStatsRow statsRow1 = new SonarStatsRow(JOHN_ONE, TEAM_ONE, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
-				CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
-		SonarStatsRow statsRow2 = new SonarStatsRow(JOHN_TWO, TEAM_TWO, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
-				CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
-		List<SonarStatsRow> expectedStatsRows = Arrays.asList(statsRow1, statsRow2);
-
-		Mockito.when(sonarStatsService.getSortedStatsPerUser()).thenReturn(expectedStatsRows);
-		
 		this.mvc.perform(get("/legacykillers/users")).andExpect(status().isOk()).andExpect(view().name("sonarstats"))
-				.andExpect(model().attribute("stats", expectedStatsRows));
+				.andExpect(model().attribute("stats", statRows));
+	}
+
+	@Test
+	public void testGetTeams() throws Exception {
+		this.mvc.perform(get("/legacykillers/teams")).andExpect(status().isOk()).andExpect(view().name("sonarstats"))
+			.andExpect(model().attribute("statsTeams", statRows));
 	}
 
 }
