@@ -1,9 +1,14 @@
 package es.macero.cqgame.controller;
 
-import es.macero.cqgame.app.ApplicationTest;
-import es.macero.cqgame.domain.stats.SonarStatsRow;
-import es.macero.cqgame.domain.stats.SonarStatsRowBuilder;
-import es.macero.cqgame.service.SonarStatsService;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import es.macero.cqgame.app.ApplicationTest;
+import es.macero.cqgame.domain.stats.SonarStatsRow;
+import es.macero.cqgame.service.SonarStatsService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -47,22 +49,33 @@ public class SonarStatsControllerTest{
 	SonarStatsService sonarStatsService;
 
 	private MockMvc mvc;
+	private List<SonarStatsRow> statRows;
 
 	@Before
 	public void setUp() {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+
+		// Creates test data
+		final SonarStatsRow statsRow1 = new SonarStatsRow(JOHN_ONE, TEAM_ONE, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
+			CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
+		final SonarStatsRow statsRow2 = new SonarStatsRow(JOHN_TWO, TEAM_TWO, TOTAL_POINTS, TOTAL_PAID_DEBT, BLOCKER,
+			CRITICAL, MAJOR, MINOR, INFO, new ArrayList<>());
+		statRows = Arrays.asList(statsRow1, statsRow2);
+
+		Mockito.when(sonarStatsService.getSortedStatsPerUser()).thenReturn(statRows);
+		Mockito.when(sonarStatsService.getSortedStatsPerTeam()).thenReturn(statRows);
 	}
 
 	@Test
 	public void testGetUsers() throws Exception {
-		SonarStatsRow statsRow1 = new SonarStatsRowBuilder(JOHN_ONE, TEAM_ONE).withTotalPoints(TOTAL_POINTS).withTotalPaidDebt(TOTAL_PAID_DEBT).withBlocker(BLOCKER).withCritical(CRITICAL).withMajor(MAJOR).withMinor(MINOR).withInfo(INFO).withBadges(new ArrayList<>()).createSonarStatsRow();
-		SonarStatsRow statsRow2 = new SonarStatsRowBuilder(JOHN_TWO, TEAM_TWO).withTotalPoints(TOTAL_POINTS).withTotalPaidDebt(TOTAL_PAID_DEBT).withBlocker(BLOCKER).withCritical(CRITICAL).withMajor(MAJOR).withMinor(MINOR).withInfo(INFO).withBadges(new ArrayList<>()).createSonarStatsRow();
-		List<SonarStatsRow> expectedStatsRows = Arrays.asList(statsRow1, statsRow2);
-
-		Mockito.when(sonarStatsService.getSortedStatsPerUser()).thenReturn(expectedStatsRows);
-		
 		this.mvc.perform(get("/legacykillers/users")).andExpect(status().isOk()).andExpect(view().name("sonarstats"))
-				.andExpect(model().attribute("stats", expectedStatsRows));
+				.andExpect(model().attribute("stats", statRows));
+	}
+
+	@Test
+	public void testGetTeams() throws Exception {
+		this.mvc.perform(get("/legacykillers/teams")).andExpect(status().isOk()).andExpect(view().name("sonarstats"))
+			.andExpect(model().attribute("statsTeams", statRows));
 	}
 
 }

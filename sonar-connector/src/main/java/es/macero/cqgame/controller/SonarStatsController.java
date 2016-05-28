@@ -16,19 +16,19 @@ public class SonarStatsController {
     private SonarStatsService sonarStatsService;
 
     @Autowired
-    public SonarStatsController(SonarStatsService sonarStatsService) {
+    public SonarStatsController(final SonarStatsService sonarStatsService) {
         this.sonarStatsService = sonarStatsService;
     }
 
     @RequestMapping(value = {"/users", ""}, method = RequestMethod.GET)
-    public String statsHome(Map<String, Object> model) {
+    public String statsHome(final Map<String, Object> model) {
         Collection<SonarStatsRow> stats = sonarStatsService.getSortedStatsPerUser();
         model.put("stats", stats);
         return "sonarstats";
     }
 
     @RequestMapping(value = "/teams", method = RequestMethod.GET)
-    public String statsTeams(Map<String, Object> model) {
+    public String statsTeams(final Map<String, Object> model) {
         Collection<SonarStatsRow> stats = sonarStatsService.getSortedStatsPerTeam();
         model.put("statsTeams", stats);
         return "sonarstats";
