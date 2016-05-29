@@ -16,7 +16,7 @@ public final class SonarStatsRow {
     private int info;
     private Collection<SonarBadge> badges;
 
-    SonarStatsRow(String userAlias, String userTeam, int totalPoints, int totalPaidDebt, int blocker, int critical, int major, int minor, int info, Collection<SonarBadge> badges) {
+    public SonarStatsRow(String userAlias, String userTeam, int totalPoints, int totalPaidDebt, int blocker, int critical, int major, int minor, int info, Collection<SonarBadge> badges) {
         super();
         this.userAlias = userAlias;
         this.userTeam = userTeam;
