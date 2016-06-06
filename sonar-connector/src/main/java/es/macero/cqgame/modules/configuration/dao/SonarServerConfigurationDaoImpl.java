@@ -34,7 +34,7 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
            return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
                     properties.getProperty(USER_PROPERTY), properties.getProperty(PASSWORD_PROPERTY));
         } catch (final IOException e) {
-            log.error("Error loading configuration", e);
+            log.warn("Configuration file can't be found, using application properties file.");
         }
         return null;
     }
