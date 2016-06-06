@@ -1,16 +1,14 @@
 package es.macero.cqgame.modules.configuration.service;
 
-import es.macero.cqgame.modules.configuration.dao.SonarServerConfigurationDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import es.macero.cqgame.modules.configuration.domain.SonarServerConfiguration;
+import es.macero.cqgame.modules.configuration.domain.sonar.SonarServerStatus;
 
-@Service
-final class SonarServerConfigurationService {
+public interface SonarServerConfigurationService {
+    SonarServerStatus checkServerDetails(SonarServerConfiguration config);
 
-    private SonarServerConfigurationDao sonarServerConfigurationDao;
+    boolean checkServerAuthentication(SonarServerConfiguration config);
 
-    @Autowired
-    public SonarServerConfigurationService(SonarServerConfigurationDao sonarServerConfigurationDao) {
-        this.sonarServerConfigurationDao = sonarServerConfigurationDao;
-    }
+    boolean saveConfiguration(SonarServerConfiguration configuration);
+
+    SonarServerConfiguration getConfiguration();
 }
