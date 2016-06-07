@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Legacy-Code Killers</title>
 <link rel="stylesheet"
@@ -26,87 +27,8 @@
 			</div>
 		</div>
 		<div class="content pure-u-4-5">
-			<table class="pure-table pure-table-horizontal" th:if="${stats}">
-				<thead>
-					<tr>
-						<th>Rank</th>
-						<th>User</th>
-						<th>Team</th>
-						<th>Blockers</th>
-						<th>Criticals</th>
-						<th>Majors</th>
-						<th>Minors</th>
-						<th>Infos</th>
-						<th>Points</th>
-						<th style="width: 30%">Badges</th>
-					</tr>
-				</thead>
-				<tbody>
-					<th:block th:each="stat,iter : ${stats}">
-						<tr th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count}">
-							<td><div th:text="${iter.count}"
-									th:if="${iter.count &gt; 3}"></div> <img
-								th:if="${iter.count == 1}"
-								th:attr="src=@{/png/first31.png},title='Max Contributor',alt='Max Contributor'" />
-								<img th:if="${iter.count == 2 or iter.count == 3}"
-								th:attr="src=@{/png/medal61.png},title='Great Contributor',alt='Great Contributor'" /></td>
-							<td th:text="${stat.userAlias}" style="font-weight: bold;">User</td>
-							<td th:text="${stat.userTeam}">Team</td>
-							<td th:text="${stat.blocker}">Blockers</td>
-							<td th:text="${stat.critical}">Criticals</td>
-							<td th:text="${stat.major}">Majors</td>
-							<td th:text="${stat.minor}">Minors</td>
-							<td th:text="${stat.info}">Infos</td>
-							<td th:text="${stat.totalPoints}"
-								th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count} : ''"
-								style="font-weight: bold;">Points</td>
-							<td><table th:if="${stat.badges}">
-									<tr th:each="badge : ${stat.badges}" style="font-size: x-small;text-align: left;">
-										<td><img
-											th:attr="src=@{/png/thumb16.png},title='Badge',alt='Badge'"/></td>
-										<td th:text="${badge.name}">Badge name</td>
-										<td th:text="${badge.description}">Badge Description</td>
-									</tr>
-								</table></td>
-						</tr>
-					</th:block>
-				</tbody>
-			</table>
-			<table class="pure-table pure-table-horizontal" th:if="${statsTeams}">
-				<thead>
-					<tr>
-						<th>Rank</th>
-						<th>Team</th>
-						<th>Blockers</th>
-						<th>Criticals</th>
-						<th>Majors</th>
-						<th>Minors</th>
-						<th>Infos</th>
-						<th>Points</th>
-					</tr>
-				</thead>
-				<tbody>
-					<th:block th:each="stat,iter : ${statsTeams}">
-						<tr th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count}">
-							<td><div th:text="${iter.count}"
-									th:if="${iter.count &gt; 3}"></div> <img
-								th:if="${iter.count == 1}"
-								th:attr="src=@{/png/first31.png},title='Max Contributor',alt='Max Contributor'" />
-								<img th:if="${iter.count == 2 or iter.count == 3}"
-								th:attr="src=@{/png/medal61.png},title='Great Contributor',alt='Great Contributor'" /></td>
-							<td th:text="${stat.userTeam}" style="font-weight: bold;">Team</td>
-							<td th:text="${stat.blocker}">Blockers</td>
-							<td th:text="${stat.critical}">Criticals</td>
-							<td th:text="${stat.major}">Majors</td>
-							<td th:text="${stat.minor}">Minors</td>
-							<td th:text="${stat.info}">Infos</td>
-							<td th:text="${stat.totalPoints}"
-								th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count} : ''"
-								style="font-weight: bold;">Points</td>
-						</tr>
-					</th:block>
-				</tbody>
-			</table>
+			<div th:replace="fragment-team-stats :: team-stats"></div>
+			<div th:replace="fragment-user-stats :: user-stats"></div>
 		</div>
 	</div>
 </body>

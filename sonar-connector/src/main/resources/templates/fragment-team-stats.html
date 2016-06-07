@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<table class="pure-table pure-table-horizontal" th:fragment="team-stats" th:if="${statsTeams}">
+    <thead>
+    <tr>
+        <th>Rank</th>
+        <th>Team</th>
+        <th>Blockers</th>
+        <th>Criticals</th>
+        <th>Majors</th>
+        <th>Minors</th>
+        <th>Infos</th>
+        <th>Points</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="stat,iter : ${statsTeams}">
+        <tr th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count}">
+            <td><div th:text="${iter.count}"
+                     th:if="${iter.count &gt; 3}"></div> <img
+                    th:if="${iter.count == 1}"
+                    th:attr="src=@{/png/first31.png},title='Max Contributor',alt='Max Contributor'" />
+                <img th:if="${iter.count == 2 or iter.count == 3}"
+                     th:attr="src=@{/png/medal61.png},title='Great Contributor',alt='Great Contributor'" /></td>
+            <td th:text="${stat.userTeam}" style="font-weight: bold;">Team</td>
+            <td th:text="${stat.blocker}">Blockers</td>
+            <td th:text="${stat.critical}">Criticals</td>
+            <td th:text="${stat.major}">Majors</td>
+            <td th:text="${stat.minor}">Minors</td>
+            <td th:text="${stat.info}">Infos</td>
+            <td th:text="${stat.totalPoints}"
+                th:class="${iter.count &lt; 4}? 'cell-pos-' + ${iter.count} : ''"
+                style="font-weight: bold;">Points</td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
