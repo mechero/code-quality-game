@@ -3,6 +3,8 @@ package es.macero.cqgame.modules.configuration.dao;
 import es.macero.cqgame.modules.configuration.domain.SonarServerConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -23,20 +25,30 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
 
     private SonarServerConfiguration sonarServerConfiguration;
 
-    public SonarServerConfigurationDaoImpl() {
+    private final String defaultUrl;
+    private final String defaultUser;
+    private final String defaultPassword;
+
+    @Autowired
+    public SonarServerConfigurationDaoImpl(@Value("${sonarUser}") final String sonarUser,
+                                           @Value("${sonarPassword}") final String sonarPassword,
+                                           @Value("${sonarUrl}") final String sonarUrl) {
+        this.defaultUrl = sonarUrl;
+        this.defaultUser = sonarUser;
+        this.defaultPassword = sonarPassword;
         this.sonarServerConfiguration = readConfigurationFromFile(PROPERTIES_FILE_NAME);
     }
 
-    private static SonarServerConfiguration readConfigurationFromFile(final String propertiesFileName) {
+    private SonarServerConfiguration readConfigurationFromFile(final String propertiesFileName) {
         final Properties properties = new Properties();
         try {
             properties.load(new FileReader(propertiesFileName));
-           return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
+            return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
                     properties.getProperty(USER_PROPERTY), properties.getProperty(PASSWORD_PROPERTY));
         } catch (final IOException e) {
             log.warn("Configuration file can't be found, using application properties file.");
+            return new SonarServerConfiguration(defaultUrl, defaultUser, defaultPassword);
         }
-        return null;
     }
 
     @Override

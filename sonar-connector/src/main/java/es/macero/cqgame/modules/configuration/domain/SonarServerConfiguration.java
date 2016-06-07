@@ -1,11 +1,11 @@
 package es.macero.cqgame.modules.configuration.domain;
 
 public class SonarServerConfiguration {
-    private String url;
-    private String user;
-    private String password;
+    private final String url;
+    private final String user;
+    private final String password;
 
-    public SonarServerConfiguration(String url, String user, String password) {
+    public SonarServerConfiguration(final String url, final String user, final String password) {
         this.url = url;
         this.user = user;
         this.password = password;

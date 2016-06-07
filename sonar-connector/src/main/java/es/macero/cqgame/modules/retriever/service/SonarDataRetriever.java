@@ -1,15 +1,14 @@
 package es.macero.cqgame.modules.retriever.service;
 
+import es.macero.cqgame.modules.configuration.service.SonarServerConfigurationService;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issues;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Paging;
-
 import es.macero.cqgame.modules.stats.service.SonarStatsService;
 import es.macero.cqgame.util.ApiHttpUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -36,24 +35,22 @@ final class SonarDataRetriever {
 	private static final String GET_ISSUES_COMMAND = "/api/issues/search?assignees={assignees}|resolutions={resolutions}|p={page}|ps={pageSize}";
 
 	private final SonarStatsService statsService;
-	private final String sonarUser;
-	private final String sonarPassword;
-	private final String sonarUrl;
+	private final SonarServerConfigurationService configurationService;
 
 	@Autowired
-	public SonarDataRetriever(final SonarStatsService statsService, @Value("${sonarUser}") final String sonarUser,
-		@Value("${sonarPassword}") final String sonarPassword, @Value("${sonarUrl}") final String sonarUrl) {
+	public SonarDataRetriever(final SonarStatsService statsService, final SonarServerConfigurationService configurationService) {
 		this.statsService = statsService;
-		this.sonarUser = sonarUser;
-		this.sonarPassword = sonarPassword;
-		this.sonarUrl = sonarUrl;
+		this.configurationService = configurationService;
 	}
 
 	@Scheduled(fixedRate = 10 * 60000)
 	public void retrieveData() {
 		// It seems that sonar doesn't allow parallel queries with same user since it creates a register for internal
 		// stats and that causes an error when inserting into the database.
-		statsService.getIds().stream().forEach(new RequestLauncher(statsService, sonarUrl, sonarUser, sonarPassword));
+		statsService.getIds().stream().forEach(
+				new RequestLauncher(statsService, configurationService.getConfiguration().getUrl(),
+						configurationService.getConfiguration().getUser(),
+						configurationService.getConfiguration().getPassword()));
 	}
 
 	private static final class RequestLauncher implements Consumer<String> {
