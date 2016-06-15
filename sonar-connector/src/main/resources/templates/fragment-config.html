@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<form class="pure-form pure-form-aligned" th:fragment="config-form" th:action="@{/configuration}" th:object="${configuration}" method="post">
+    <fieldset>
+        <legend>Sonar Server Configuration</legend>
+        <div class="pure-control-group">
+            <label for="url">Sonar URL</label>
+            <input id="url" type="text" th:field="*{url}"/>
+        </div>
+        <div class="pure-control-group">
+            <label for="user">Username</label>
+            <input id="user" type="text" th:field="*{user}"/>
+        </div>
+        <div class="pure-control-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" th:field="*{password}"/>
+        </div>
+        <div class="pure-controls">
+            <button class="pure-button pure-button-primary" type="submit">Save</button>
+        </div>
+    </fieldset>
+</form>
+<h1 class="content-subhead">Server status</h1>
+</body>
+</html>

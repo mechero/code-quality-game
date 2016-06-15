@@ -42,7 +42,9 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
     private SonarServerConfiguration readConfigurationFromFile(final String propertiesFileName) {
         final Properties properties = new Properties();
         try {
-            properties.load(new FileReader(propertiesFileName));
+            final File file = new File(propertiesFileName);
+            log.info("Loading Sonar server configuration from: " + file.getAbsolutePath());
+            properties.load(new FileReader(file));
             return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
                     properties.getProperty(USER_PROPERTY), properties.getProperty(PASSWORD_PROPERTY));
         } catch (final IOException e) {
