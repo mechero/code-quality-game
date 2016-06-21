@@ -24,6 +24,12 @@ public class SonarServerConfigurationController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getConfiguration(final Map<String, Object> model) {
+		model.put("configuration", configurationService.getConfiguration());
+		return "configuration";
+	}
+
+	@RequestMapping(value = "/server-status", method = RequestMethod.GET)
+	public String getServerStatus(final Map<String, Object> model) {
 		final SonarServerConfiguration configuration = configurationService.getConfiguration();
 		model.put("configuration", configuration);
 		model.put("serverStatus", configurationService.checkServerDetails(configuration));
@@ -37,4 +43,5 @@ public class SonarServerConfigurationController {
 		model.put("serverStatus", configurationService.checkServerDetails(configuration));
 		return "configuration";
 	}
+
 }

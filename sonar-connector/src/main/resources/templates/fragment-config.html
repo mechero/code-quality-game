@@ -4,7 +4,8 @@
 <div class="posts" th:fragment="config-form">
     <h1 class="content-subhead">Sonar Server Configuration</h1>
     <section class="post">
-        <form class="pure-form pure-form-aligned" th:action="@{/configuration}" th:object="${configuration}" method="post">
+        <form class="pure-form pure-form-aligned" th:action="@{/configuration}" th:object="${configuration}"
+              method="post">
             <fieldset>
                 <div class="pure-control-group">
                     <label for="url">Sonar URL</label>
@@ -25,9 +26,14 @@
         </form>
     </section>
     <h1 class="content-subhead">Sonar Server Status</h1>
-    <section class="post">
-        <div th:text="#{*{serverStatus.status}}"></div>
-        <div th:text="*{serverStatus.message}"></div>
+    <form th:action="@{/configuration/server-status}" method="get">
+        <div class="pure-controls">
+            <button class="pure-button pure-button-primary" type="submit">Check Server Status</button>
+        </div>
+    </form>
+    <section class="post" th:if="${serverStatus != null}">
+        <h3 th:text="#{*{serverStatus.status}}"></h3>
+        <p th:text="*{serverStatus.message}"></p>
     </section>
 </div>
 </body>

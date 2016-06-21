@@ -44,11 +44,16 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
         try {
             final File file = new File(propertiesFileName);
             log.info("Loading Sonar server configuration from: " + file.getAbsolutePath());
-            properties.load(new FileReader(file));
-            return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
-                    properties.getProperty(USER_PROPERTY), properties.getProperty(PASSWORD_PROPERTY));
-        } catch (final IOException e) {
-            log.warn("Configuration file can't be found, using application properties file.");
+            if (file.exists()) {
+                properties.load(new FileReader(file));
+                return new SonarServerConfiguration(properties.getProperty(URL_PROPERTY),
+                        properties.getProperty(USER_PROPERTY), properties.getProperty(PASSWORD_PROPERTY));
+            } else {
+                log.warn("Configuration file can't be found, using application properties file.");
+                return new SonarServerConfiguration(defaultUrl, defaultUser, defaultPassword);
+            }
+        } catch (final Exception e) {
+            log.error("Error loading configuration file. Loading defaults from application properties file", e);
             return new SonarServerConfiguration(defaultUrl, defaultUser, defaultPassword);
         }
     }

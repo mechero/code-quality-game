@@ -44,7 +44,7 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
             final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser(), config.getPassword());
             HttpEntity<String> request = new HttpEntity<>(authHeaders);
             final ResponseEntity<SonarServerStatus> response = restTemplate
-                    .exchange("http://" + config.getUrl() + API_SYSTEM_STATUS,
+                    .exchange(config.getUrl() + API_SYSTEM_STATUS,
                             HttpMethod.GET, request, SonarServerStatus.class);
             log.info("Response received from server: " + response.getBody());
             return response.getBody();
@@ -72,7 +72,7 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
         final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser(), config.getPassword());
         HttpEntity<String> request = new HttpEntity<>(authHeaders);
         final ResponseEntity<SonarAuthenticationResponse> response = restTemplate
-                .exchange("http://" + config.getUrl() + API_AUTHENTICATION_VALIDATE,
+                .exchange(config.getUrl() + API_AUTHENTICATION_VALIDATE,
                         HttpMethod.GET, request, SonarAuthenticationResponse.class);
         log.info("Response to authentication attempt: " + response.getBody());
         return response.getBody().isValid();
