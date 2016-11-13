@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-md-3">
+        <h1>{{title}}</h1>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" routerLinkActive="active"><a routerLink="/teams">Teams</a></li>
+            <li role="presentation" routerLinkActive="active"><a routerLink="/members">Members</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>
