@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Team} from "./team";
+import {Team} from "./Team";
 import {TEAMS} from "./mock-teams";
 
 @Injectable()

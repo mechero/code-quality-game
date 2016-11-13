@@ -1,4 +1,4 @@
-import {Team} from "./team";
+import {Team} from "./Team";
 
 export const TEAMS: Team[] = [
     { id: 11, name: 'Senores Patatas' },

@@ -1,5 +1,5 @@
 {
-  "name": "angular-quickstart",
+  "name": "code-quality-game",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",

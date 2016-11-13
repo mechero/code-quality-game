@@ -12,11 +12,11 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
-var members_component_1 = require('./members.component');
-var teams_component_1 = require('./teams.component');
+var members_component_1 = require('./members/members.component');
+var teams_component_1 = require('./teams/teams.component');
 var app_component_1 = require('./app.component');
-var teams_service_1 = require('./teams.service');
-var member_service_1 = require('./member.service');
+var teams_service_1 = require('./teams/teams.service');
+var member_service_1 = require('./members/member.service');
 var app_routing_module_1 = require('./app-routing.module');
 var AppModule = (function () {
     function AppModule() {

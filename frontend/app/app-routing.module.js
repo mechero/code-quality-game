@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var teams_component_1 = require('./teams.component');
-var members_component_1 = require('./members.component');
+var teams_component_1 = require('./teams/teams.component');
+var members_component_1 = require('./members/members.component');
 var routes = [
     { path: '', redirectTo: '/teams', pathMatch: 'full' },
     { path: 'teams', component: teams_component_1.TeamsComponent },

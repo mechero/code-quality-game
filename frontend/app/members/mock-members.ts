@@ -1,6 +1,6 @@
-"use strict";
-exports.MEMBERS = [
+import { Member } from './Member';
+
+export const MEMBERS: Member[] = [
     { id: 1, name: 'Mr. Patatan' },
     { id: 2, name: 'Mr. Patatuelas' }
 ];
-//# sourceMappingURL=mock-members.js.map
