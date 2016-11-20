@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Member } from './Member';
 import {StatsRow} from '../common/StatsRow';
 import {SERVER_URL} from '../config.component';
 import 'rxjs/add/operator/toPromise';
@@ -19,9 +18,9 @@ export class MemberService {
             .catch(this.handleError);
     }
 
-    getMember(id: number): Promise<Member> {
-        return this.getMembers().then(members => members.find(member => member.id === id));
-    }
+    // getMember(id: number): Promise<Member> {
+    //     return this.getMembers().then(members => members.find(member => member.id === id));
+    // }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import {Team} from './Team';
 import {SERVER_URL} from '../config.component';
 import {StatsRow} from '../common/StatsRow';
 
@@ -17,9 +16,9 @@ export class TeamsService {
             .then(response => response.json() as StatsRow[])
             .catch(this.handleError);
     } 
-    getTeam(id: number): Promise<Team[]> {
-        return this.getTeams().then(teams => teams.find(team => team.id === id));
-    }
+    // getTeam(id: number): Promise<Team[]> {
+    //     return this.getTeams().then(teams => teams.find(team => team.id === id));
+    // }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
