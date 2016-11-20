@@ -79,17 +79,6 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
     }
 
     /**
-     * Saves the server configuration
-     *
-     * @param configuration The server configuration
-     * @return true if the configuration was saved
-     */
-    @Override
-    public boolean saveConfiguration(final SonarServerConfiguration configuration) {
-        return sonarServerConfigurationDao.saveConfiguration(configuration);
-    }
-
-    /**
      * Retrieves the server configuration
      *
      * @return the Sonar server configuration object

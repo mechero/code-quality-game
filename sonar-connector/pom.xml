@@ -8,6 +8,7 @@
     <description>Code Quality Game</description>
     <packaging>war</packaging>
     <properties>
+        <java.version>1.8</java.version>
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.exclusions>**/resultbeans/*.java</sonar.exclusions>
@@ -17,7 +18,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.1.4.RELEASE</version>
+        <version>1.4.2.RELEASE</version>
     </parent>
 
     <build>
