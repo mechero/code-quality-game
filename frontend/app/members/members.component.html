@@ -1,8 +1,23 @@
 <h3>Member Stats</h3>
 <div class="grid grid-pad">
-    <a *ngFor="let member of members"> <!-- [routerLink]="['/detail', team.id]" class="col-1-4">-->
-        <div class="module hero">
-            <h4>{{member.name}}</h4>
-        </div>
-    </a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Medals</th>
+            <th>Ranking</th>
+            <th>Name</th>
+            <th>Team</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let member of members; let i = index" [ngClass]="{'warning': i===0}">
+            <td *ngIf="i === 0"><img src="img/first31.png"/></td>
+            <td *ngIf="i === 1 || i === 2"><img src="img/medal61.png"/></td>
+            <td *ngIf="i >= 3"></td>
+            <th scope="row">{{i + 1}}</th>
+            <td>{{member.userAlias}}</td>
+            <td>{{member.userTeam}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
