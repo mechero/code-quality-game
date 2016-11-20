@@ -23,7 +23,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @Service
@@ -32,7 +34,7 @@ import java.util.function.Consumer;
 final class SonarDataRetriever {
 
 	private static final Log log = LogFactory.getLog(SonarDataRetriever.class);
-	private static final String GET_ISSUES_COMMAND = "/api/issues/search?assignees={assignees}|resolutions={resolutions}|p={page}|ps={pageSize}";
+	private static final String GET_ISSUES_COMMAND = "/api/issues/search?assignees={assignees}|p={page}|ps={pageSize}";
 
 	private final SonarStatsService statsService;
 	private final SonarServerConfigurationService configurationService;
@@ -71,17 +73,18 @@ final class SonarDataRetriever {
 		public void accept(final String id) {
 			try {
 				int pageIndex = 1;
-				int totalPages = 1;
-				List<Issue> issues = new ArrayList<>();
-				while (pageIndex <= totalPages) {
+				int pageTotal = 1;
+				int pageSize = 1;
+				Set<Issue> issues = new HashSet<>();
+				while (pageTotal == pageSize) {
+					log.trace("Requesting page " + pageIndex);
 					RestTemplate restTemplate = new RestTemplate();
 					HttpEntity<String> request = new HttpEntity<>(getHeaders());
 					URI uri = getResolvedIssuesForAssignee(id, pageIndex);
 					ResponseEntity<Issues> response = restTemplate.exchange(uri, HttpMethod.GET, request, Issues.class);
-					if (pageIndex == 1) {
-						Paging paging = response.getBody().getPaging();
-						totalPages = paging.getTotal();
-					}
+					Paging paging = response.getBody().getPaging();
+					pageTotal = paging.getTotal();
+					pageSize = paging.getPageSize();
 					issues.addAll(response.getBody().getIssues());
 					pageIndex++;
 				}
@@ -102,9 +105,8 @@ final class SonarDataRetriever {
 
 		URI getResolvedIssuesForAssignee(final String assignee, final int pageIndex) {
 			URI uri = UriComponentsBuilder.fromHttpUrl(sonarUrl + GET_ISSUES_COMMAND)
-				.buildAndExpand(assignee.toLowerCase() + "," + assignee.toUpperCase(), "FIXED", pageIndex, 500)
+				.buildAndExpand(assignee.toLowerCase() + "," + assignee.toUpperCase(), pageIndex, 500)
 				.toUri();
-			System.out.println(uri);
 			return uri;
 		}
 	}

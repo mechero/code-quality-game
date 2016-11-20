@@ -1,27 +1,21 @@
 package es.macero.cqgame.modules.stats.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
+import es.macero.cqgame.modules.badges.domain.SonarBadge;
+import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
+import es.macero.cqgame.modules.stats.domain.SonarStats;
+import es.macero.cqgame.modules.stats.domain.SonarStatsRow;
+import es.macero.cqgame.modules.users.dao.SonarUserRepository;
+import es.macero.cqgame.modules.users.domain.SonarUser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.macero.cqgame.modules.users.dao.SonarUserRepository;
-import es.macero.cqgame.modules.badges.domain.SonarBadge;
-import es.macero.cqgame.modules.stats.domain.SonarStats;
-import es.macero.cqgame.modules.stats.domain.SonarStatsRow;
-import es.macero.cqgame.modules.users.domain.SonarUser;
-import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 final class SonarStatsServiceImpl implements SonarStatsService {
@@ -52,7 +46,7 @@ final class SonarStatsServiceImpl implements SonarStatsService {
     }
 
     @Override
-    public void updateStats(final String id, final List<Issue> issues) {
+    public void updateStats(final String id, final Set<Issue> issues) {
         SonarStats stats = sonarStatsCalculatorService.fromIssueList(issues);
         statsPerId.put(id, stats);
         log.info("Processing " + id + "; Stats: " + stats);

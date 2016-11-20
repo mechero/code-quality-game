@@ -49,12 +49,14 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
             log.info("Response received from server: " + response.getBody());
             return response.getBody();
         } catch (final HttpClientErrorException clientErrorException) {
+            log.error(clientErrorException);
             if (clientErrorException.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 return new SonarServerStatus(SonarServerStatus.Key.UNAUTHORIZED);
             } else {
                 return new SonarServerStatus(SonarServerStatus.Key.UNKNOWN_ERROR, clientErrorException.getMessage());
             }
         } catch (final ResourceAccessException resourceAccessException) {
+            log.error(resourceAccessException);
             return new SonarServerStatus(SonarServerStatus.Key.CONNECTION_ERROR, resourceAccessException.getMessage());
         }
     }

@@ -4,8 +4,8 @@ import es.macero.cqgame.modules.badges.domain.SonarBadge;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UnitTesterBadgeCalculator implements BadgeCalculator {
@@ -18,7 +18,7 @@ public class UnitTesterBadgeCalculator implements BadgeCalculator {
     private static final String RULE_ID_BRANCH = "common-java:InsufficientBranchCoverage";
 
     @Override
-    public Optional<SonarBadge> badgeFromIssueList(List<Issue> issues) {
+    public Optional<SonarBadge> badgeFromIssueList(Set<Issue> issues) {
         long count = issues.stream().filter(i -> i.getRule().equalsIgnoreCase(RULE_ID_LINE) || i.getRule().equalsIgnoreCase(RULE_ID_BRANCH)).count();
         if (count >= 50) {
             return Optional.of(new SonarBadge("Golden Cover", "Fixing UT coverage for 50 legacy classes.", EXTRA_POINTS_GOLDEN));
