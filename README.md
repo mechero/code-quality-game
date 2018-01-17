@@ -4,7 +4,7 @@ A simple gamified web to improve code quality using SonarQube.
 ## Introduction
 This is a (micro) web page that shows a ranking of developers by the quantity of technical debt they are fixing in SonarQube. It encourages a 'nice competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**. 
 
-You can find more information about the goal of this project in [my blog post](https://maceroblog.wordpress.com/2015/06/23/a-gamification-experiment-with-sonarqube/)
+You can find more information about the goal of this project in [my blog post](https://thepracticaldeveloper.com/2015/06/23/a-gamification-experiment-with-sonarqube/)
 
 ## Requirements
 * Java 1.8+
@@ -19,7 +19,7 @@ First you'll need to list the users that are going to participate in the game. T
 ```
 It's important that the `id` matches with the SonarQube username. The `alias` will be used for the rankings and the `team` is used for aggregated Ranking per teams. 
 
-In case your Sonarqube server doesn´t have anonymous access you need to specify credentials for accessing the API. You can create an user with basic permissions for that.
+In case your Sonarqube server doesn't have anonymous access you need to specify credentials for accessing the API. You can create an user with basic permissions for that.
 
 ```
 # Sample credentials for accessing the API
