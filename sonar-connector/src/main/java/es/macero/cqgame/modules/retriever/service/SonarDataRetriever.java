@@ -1,6 +1,5 @@
 package es.macero.cqgame.modules.retriever.service;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import es.macero.cqgame.modules.configuration.service.SonarServerConfigurationService;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issues;
@@ -21,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;

@@ -4,7 +4,7 @@ import es.macero.cqgame.modules.badges.calculators.BadgeCalculator;
 import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
 import es.macero.cqgame.modules.stats.domain.SonarStats;
 import es.macero.cqgame.util.IssueDateFormatter;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
