@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sonarUserList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="../users.xsd">
-	<user id="lena" alias="Lena" team="Team PlaneaConLena.com" />
-	<user id="mechero@github" alias="Mechero" team="TPD.io" />
-	<user id="goya" alias="Paco Goya" team="Team Omega" />
-	<user id="picasso" alias="Pablo Picasso" team="Team Alpha" />
+	<user id="scg01@github" alias="Lena" team="Team PlaneaConLena.com" />
+	<user id="mechero@github" alias="Mechero" team="tpd.io" />
+	<user id="scg02@github" alias="Ms Ruiz" team="Team PlaneaConLena.com" />
 </sonarUserList>
