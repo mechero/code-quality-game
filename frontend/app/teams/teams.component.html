@@ -5,15 +5,17 @@
         <tr>
             <th>Medals</th>
             <th>Ranking</th>
+            <th>Score</th>
             <th>Team</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let team of teams; let i = index" [ngClass]="{'warning': i===0}">
+        <tr *ngFor="let team of teams; let i = index" [ngClass]="{'text-success': i===0}">
             <td *ngIf="i === 0"><img src="img/first31.png"/></td>
             <td *ngIf="i === 1 || i === 2"><img src="img/medal61.png"/></td>
             <td *ngIf="i >= 3"></td>
             <th scope="row">{{i + 1}}</th>
+            <td>{{team.totalPoints}}</td>
             <td>{{team.userTeam}}</td>
         </tr>
         </tbody>

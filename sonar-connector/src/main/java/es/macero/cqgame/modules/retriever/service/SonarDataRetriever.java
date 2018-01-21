@@ -111,11 +111,10 @@ final class SonarDataRetriever {
 		}
 
 		URI getResolvedIssuesForAssignee(final String assignee, final int pageIndex) {
-			URI uri = UriComponentsBuilder.fromHttpUrl(sonarUrl + GET_ISSUES_COMMAND)
+			return UriComponentsBuilder.fromHttpUrl(sonarUrl + GET_ISSUES_COMMAND)
 				.buildAndExpand(sonarOrganization, assignee.toLowerCase() + "," + assignee.toUpperCase(),
 						pageIndex, 500)
 				.toUri();
-			return uri;
 		}
 	}
 

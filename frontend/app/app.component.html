@@ -1,9 +1,14 @@
 <div class="row">
     <div class="col-md-3">
         <h1>{{title}}</h1>
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" routerLinkActive="active"><a routerLink="/teams">Teams</a></li>
-            <li role="presentation" routerLinkActive="active"><a routerLink="/members">Members</a></li>
+        <h5>by <a href="https://thepracticaldeveloper.com?ref=code-quality-game">The Practical Developer</a></h5>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" routerLink="/teams" routerLinkActive="active">Teams</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" routerLink="/members" routerLinkActive="active">Players</a>
+            </li>
         </ul>
     </div>
     <div class="col-md-9">
