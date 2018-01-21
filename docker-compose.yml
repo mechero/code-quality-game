@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  sonar:
+    image: sonarqube:6.7.1-alpine
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    networks:
+      - network-sonar
+
+networks:
+  network-sonar:

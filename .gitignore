@@ -9,3 +9,8 @@
 # IntelliJ configuration files
 **/.idea/
 **/*.iml
+
+# Angular files
+**/node_modules
+/frontend/app/**/*.js
+/frontend/app/**/*.js.map
