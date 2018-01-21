@@ -3,3 +3,11 @@ jdk:
   - oraclejdk8
 before_script: 
   cd sonar-connector
+addons:
+  sonarcloud:
+    organization: "thepracticaldeveloper"
+    branches:
+      - master
+      - develop
+script:
+  - mvn clean install sonar:sonar

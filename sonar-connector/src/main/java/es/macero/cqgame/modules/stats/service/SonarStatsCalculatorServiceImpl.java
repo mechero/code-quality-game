@@ -1,53 +1,56 @@
 package es.macero.cqgame.modules.stats.service;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import es.macero.cqgame.modules.badges.calculators.BadgeCalculator;
+import es.macero.cqgame.modules.badges.domain.SonarBadge;
+import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
+import es.macero.cqgame.modules.stats.domain.SonarStats;
+import es.macero.cqgame.util.IssueDateFormatter;
+import es.macero.cqgame.util.Utils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import es.macero.cqgame.modules.badges.calculators.BadgeCalculator;
-import es.macero.cqgame.modules.badges.domain.SonarBadge;
-import es.macero.cqgame.modules.stats.domain.SonarStats;
-import es.macero.cqgame.util.IssueDateFormatter;
-import es.macero.cqgame.modules.sonarapi.resultbeans.Issue;
-import es.macero.cqgame.util.Utils;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 final class SonarStatsCalculatorServiceImpl implements SonarStatsCalculatorService {
 
-	private static final Log log = LogFactory.getLog(SonarStatsCalculatorServiceImpl.class);
+    private static final Log log = LogFactory.getLog(SonarStatsCalculatorServiceImpl.class);
 
-	private List<BadgeCalculator> badgeCalculators;
+    public static final String FIXED = "FIXED";
+
+    private List<BadgeCalculator> badgeCalculators;
 
 	private LocalDate legacyDate;
-	private LocalDate coverageDate;
 
 	@Autowired
-	SonarStatsCalculatorServiceImpl(@Value("${legacyDate}") final String legacyDateString, @Value("${coverageDate}") final String coverageDateString,
+	SonarStatsCalculatorServiceImpl(@Value("${legacyDate}") final String legacyDateString,
 									final List<BadgeCalculator> badgeCalculators) {
 		this.legacyDate = LocalDate.parse(legacyDateString);
-		this.coverageDate = LocalDate.parse(coverageDateString);
 		this.badgeCalculators = badgeCalculators;
 	}
 
 	@Override
-	public SonarStats fromIssueList(final List<Issue> issues) {
-		// For the stats we only use those issues created before 'legacy date'
-		issues.stream().map(i -> IssueDateFormatter.format(i.getCreationDate())).forEach(log::info);
-		List<Issue> issuesFilteredByLegacyDate = issues.stream()
+	public SonarStats fromIssueList(final Set<Issue> issues) {
+
+		Set<Issue> fixedIssues = issues.stream().filter(
+				i -> i.getResolution() != null && i.getResolution().equals(FIXED)).
+				collect(Collectors.toSet());
+		log.trace("Fixed " + fixedIssues.size() + " issues of " + issues.size() + " total number of issues assigned");
+
+        // For the stats we only use those issues created before 'legacy date'
+		Set<Issue> issuesFilteredByLegacyDate = fixedIssues.stream()
 			.filter(i -> IssueDateFormatter.format(i.getCreationDate())
-				.isBefore(legacyDate)).collect(Collectors.toList());
-		List<Issue> issuesFilteredByCovDate = issues.stream()
-			.filter(i -> IssueDateFormatter.format(i.getCreationDate())
-				.isBefore(coverageDate)).collect(Collectors.toList());
+				.isBefore(legacyDate)).collect(Collectors.toSet());
+        log.trace("Legacy Issues " + issuesFilteredByLegacyDate.size());
 
 		int debtSum = (int) issuesFilteredByLegacyDate.stream().map(Issue::getDebt)
 			.filter(c -> c != null).map(Utils::durationTranslator)
@@ -62,8 +65,8 @@ final class SonarStatsCalculatorServiceImpl implements SonarStatsCalculatorServi
 		int minor = getTotalIssuesForType(SonarStats.SeverityType.MINOR, typeCount);
 		int info = getTotalIssuesForType(SonarStats.SeverityType.INFO, typeCount);
 
-		// Badge calculators use all the issues resolved no matter what date they were created
-		List<SonarBadge> badges = badgeCalculators.stream().map(c -> c.badgeFromIssueList(issuesFilteredByCovDate))
+		// Badge calculators
+		List<SonarBadge> badges = badgeCalculators.stream().map(c -> c.badgeFromIssueList(fixedIssues))
 			.filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 
 		return new SonarStats(debtSum, blocker, critical, major, minor, info, badges);

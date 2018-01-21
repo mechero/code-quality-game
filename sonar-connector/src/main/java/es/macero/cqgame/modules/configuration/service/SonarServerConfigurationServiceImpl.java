@@ -44,17 +44,19 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
             final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser(), config.getPassword());
             HttpEntity<String> request = new HttpEntity<>(authHeaders);
             final ResponseEntity<SonarServerStatus> response = restTemplate
-                    .exchange("http://" + config.getUrl() + API_SYSTEM_STATUS,
+                    .exchange(config.getUrl() + API_SYSTEM_STATUS,
                             HttpMethod.GET, request, SonarServerStatus.class);
             log.info("Response received from server: " + response.getBody());
             return response.getBody();
         } catch (final HttpClientErrorException clientErrorException) {
+            log.error(clientErrorException);
             if (clientErrorException.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 return new SonarServerStatus(SonarServerStatus.Key.UNAUTHORIZED);
             } else {
                 return new SonarServerStatus(SonarServerStatus.Key.UNKNOWN_ERROR, clientErrorException.getMessage());
             }
         } catch (final ResourceAccessException resourceAccessException) {
+            log.error(resourceAccessException);
             return new SonarServerStatus(SonarServerStatus.Key.CONNECTION_ERROR, resourceAccessException.getMessage());
         }
     }
@@ -72,21 +74,10 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
         final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser(), config.getPassword());
         HttpEntity<String> request = new HttpEntity<>(authHeaders);
         final ResponseEntity<SonarAuthenticationResponse> response = restTemplate
-                .exchange("http://" + config.getUrl() + API_AUTHENTICATION_VALIDATE,
+                .exchange(config.getUrl() + API_AUTHENTICATION_VALIDATE,
                         HttpMethod.GET, request, SonarAuthenticationResponse.class);
         log.info("Response to authentication attempt: " + response.getBody());
         return response.getBody().isValid();
-    }
-
-    /**
-     * Saves the server configuration
-     *
-     * @param configuration The server configuration
-     * @return true if the configuration was saved
-     */
-    @Override
-    public boolean saveConfiguration(final SonarServerConfiguration configuration) {
-        return sonarServerConfigurationDao.saveConfiguration(configuration);
     }
 
     /**

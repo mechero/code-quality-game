@@ -7,23 +7,12 @@
 	href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css" />
 <link rel="stylesheet" th:href="@{/blog.css}" />
 <link rel="stylesheet" th:href="@{/style.css}" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
-
 	<div class="pure-g">
 		<div class="sidebar pure-u-1-5">
-			<div class="header">
-				<h1 class="brand-title">Legacy-Code Killers</h1>
-				<h2 class="brand-tagline">This is a classification of the major
-					contributors to pay Sonar's technical debt.</h2>
-				<nav class="nav">
-					<ul class="nav-list">
-						<li class="nav-item"><a class="pure-button"
-							href="users">Users</a></li>
-						<li class="nav-item"><a class="pure-button"
-							href="teams">Teams</a></li>
-					</ul>
-				</nav>
+			<div th:replace="fragment-commons :: sidebar">
 			</div>
 		</div>
 		<div class="content pure-u-4-5">
