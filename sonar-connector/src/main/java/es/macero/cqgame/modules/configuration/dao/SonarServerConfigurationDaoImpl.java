@@ -14,23 +14,20 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
 
     private SonarServerConfiguration sonarServerConfiguration;
 
-    private final String defaultUrl;
-    private final String defaultUser;
-    private final String defaultPassword;
+    private final String sonarUrl;
+    private final String sonarToken;
 
     @Autowired
-    public SonarServerConfigurationDaoImpl(@Value("${sonarUser}") final String sonarUser,
-                                           @Value("${sonarPassword}") final String sonarPassword,
+    public SonarServerConfigurationDaoImpl(@Value("${sonarToken}") final String sonarToken,
                                            @Value("${sonarUrl}") final String sonarUrl) {
-        this.defaultUrl = sonarUrl;
-        this.defaultUser = sonarUser;
-        this.defaultPassword = sonarPassword;
+        this.sonarUrl = sonarUrl;
+        this.sonarToken = sonarToken;
         this.sonarServerConfiguration = createSonarServerConfiguration();
     }
 
     private SonarServerConfiguration createSonarServerConfiguration() {
         log.warn("Configuration file can't be found, using application properties file.");
-        return new SonarServerConfiguration(defaultUrl, defaultUser, defaultPassword);
+        return new SonarServerConfiguration(sonarUrl, sonarToken);
     }
 
     @Override

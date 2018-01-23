@@ -52,8 +52,7 @@ final class SonarDataRetriever {
 		// stats and that causes an error when inserting into the database.
 		statsService.getIds().stream().forEach(
 				new RequestLauncher(statsService, organization, configurationService.getConfiguration().getUrl(),
-						configurationService.getConfiguration().getUser(),
-						configurationService.getConfiguration().getPassword()));
+						configurationService.getConfiguration().getUser()));
 	}
 
 	private static final class RequestLauncher implements Consumer<String> {
@@ -62,14 +61,12 @@ final class SonarDataRetriever {
 		private String sonarOrganization;
 		private String sonarUrl;
 		private String sonarUser;
-		private String sonarPassword;
 
-		RequestLauncher(final SonarStatsService statsService, String sonarOrganization, final String sonarUrl, final String sonarUser, final String sonarPassword) {
+		RequestLauncher(final SonarStatsService statsService, String sonarOrganization, final String sonarUrl, final String sonarUser) {
 			this.statsService = statsService;
 			this.sonarOrganization = sonarOrganization;
 			this.sonarUrl = sonarUrl;
 			this.sonarUser = sonarUser;
-			this.sonarPassword = sonarPassword;
 		}
 
 		@Override
@@ -102,7 +99,7 @@ final class SonarDataRetriever {
 		HttpHeaders getHeaders() {
 			HttpHeaders httpHeaders;
 			if (sonarUser != null && !sonarUser.trim().isEmpty()) {
-				httpHeaders = (ApiHttpUtils.getHeaders(sonarUser, sonarPassword));
+				httpHeaders = (ApiHttpUtils.getHeaders(sonarUser));
 			} else {
 				httpHeaders = new HttpHeaders();
 			}

@@ -1,6 +1,6 @@
 # Code Quality Game [![Build Status](https://travis-ci.org/mechero/code-quality-game.svg?branch=master)](https://travis-ci.org/mechero/code-quality-game)
 
-A simple gamified web to improve code quality using SonarQube.
+A simple gamified web application to improve code quality using SonarQube.
 
 ## Introduction
 
@@ -11,28 +11,37 @@ You can find all the information about the goal and the background of this proje
 ## Requirements
 
 * Java 1.8+
-* Maven: only needed to build the project, later you can deploy directly the jar file.
-* A SonarQube server to connect to. The application is tested with version 6.7.
+* Maven: only needed to build the backend project, later you can run directly the jar file.
+* Node.js: to run the frontend application.
+* A SonarQube server to connect to. The application is tested up to version 6.7 (Jan 2018).
   * You may need to create a user in SonarQube for this application to connect to (if your server doesn't provide anonymous access).
-  * This repository includes a `docker-compose.yml` file that you can use to deploy a SonarQube instance on Docker. To do that, you need to install **Docker**.
+* This repository includes a `docker-compose.yml` file that you can use to deploy a SonarQube instance on Docker. To do that, you need to install **Docker**.
 
 ## Configuration
 
-First you'll need to list the users that are going to participate in the game. This is done through the `users.xml` file.
+### Connection to the server
+
+You can connect this application to your own SonarQube server or also to [SonarCloud.io](https://sonarcloud.io). Go to the `application.properties` file and set the URL of your server.
+
+```
+sonarUrl=https://sonarcloud.io
+```
+
+By default, the app tries to connect in anonymous mode (not authenticated) but, if your server is protected via login, you should create an API Token for a specific user in Sonar and set it to the property `sonarToken`.
+
+The property `sonarOrganization` should be used if you connect to SonarCloud or you have several Organizations configured in your server and you want to discriminate. To do that, just set that property to the value displayed in your Sonar's settings.
+
+### Adding users
+
+You need to list the users that are going to participate in the game in the file `users.xml`.
+
 ```xml
-<user id="pauldark" alias="Paul Dark" team="Team Alpha" />
-```
-It's important that the `id` matches with the SonarQube username. The `alias` will be used for the rankings and the `team` is used for aggregated Ranking per teams. 
-
-In case your Sonarqube server doesn't have anonymous access, you need to specify credentials for the applicaction to access the API. You can create an user with basic permissions for that.
-
-```
-# Sample credentials for accessing the API
-sonarUser=cqgameUser
-sonarPassword=cqgam3
+<user id="mechero@github" alias="Moises" team="Team TPD.IO" />
 ```
 
-Given that this application does not have persistence, it will use only the issues existing in Sonar. This is why I recommend you to extend the time window to delete old issues in Sonar (Project Settings -> General -> Database Cleaner -> 'Delete closed issues after' = 90). All the points/badges will be based on that period of time. This is also an advantage, since it  promotes a continuous participation.
+It's important that the `id` matches with the SonarQube username (you can double-check that in Sonar's member settings). The `alias` will be used when displaying the rankings and the `team` is used to aggregate score per teams (so make sure you repeat some values if you want to use it).
+
+> Given that this application does not have persistence, it will use only the issues existing in Sonar. Take this into account so, if you're keeping history of resolved issues only for a given time, after that the scores will change.
 
 ### Legacy Date
 
