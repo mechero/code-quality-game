@@ -13,8 +13,8 @@ public class ApiHttpUtilsTest {
 
     @Test
     public void testHeaders() {
-        final HttpHeaders headers = ApiHttpUtils.getHeaders("user", "password");
+        final HttpHeaders headers = ApiHttpUtils.getHeaders("user");
         assertEquals(Collections.singletonList(MediaType.APPLICATION_JSON), headers.getAccept());
-        assertEquals("Basic dXNlcjpwYXNzd29yZA==", headers.get("Authorization").get(0));
+        assertEquals("Basic user:", headers.get("Authorization").get(0));
     }
 }
