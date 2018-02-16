@@ -1,12 +1,14 @@
 # Code Quality Game [![Build Status](https://travis-ci.org/mechero/code-quality-game.svg?branch=master)](https://travis-ci.org/mechero/code-quality-game)
 
-A simple gamified web application to improve code quality using SonarQube.
+A simple web application to improve **code quality** using Gamification with SonarQube.
 
 ## Introduction
 
-This is a (micro) web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
+This is a very simple web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
 
-You can find all the information about the goal and the background of this project on [my blog post](https://thepracticaldeveloper.com/2015/06/23/a-gamification-experiment-with-sonarqube/)
+You can find all the information about this game and the background of this project on [The Practical Developer site](https://thepracticaldeveloper.com/code-quality-game/)
+
+This README file describes the technical part of the game: how to build and run the application.
 
 ## Requirements
 
@@ -58,25 +60,12 @@ The main goal of this application is fixing *Legacy Code* (old, ugly, error-pron
 
 ## How to play
 
-The application searches issues assigned to users, and it gives points when they become solved. Therefore, playing is easy:
-
-* Ensure that the code you're going to refactor is covered by Unit Tests. This is not really part of the game but just good software development practices, anyway it's good to keep it mind. Try to avoid changing code
-* Select the issues you want to fix in SonarQube, and assign them to you.
-* Fix the issues! Once the code is reviewed by Sonar, the issue will become Solved and you will obtain points for that.
-
-## Badges
-
-Right now there are two sample badges that you can win.
-
-* **Early Bird**. Configure the `earlyBirdDate` in the properties file. Those players who solve issues before that date will get that badge. This is to promote a better adoption of the game.
-* **Unit Tester Ranks**. These ones are related to the Unit Test Coverage and there are different ranges. If you assign to yourself issues about code coverage and fix them, you'll get badges as soon as you pass 1, 10, 25 and 50 issues. Explore the code to know more about them.
+The application searches issues assigned to users, and it gives points when they get solved. Therefore, playing is easy: just assign the issue to the proper user in Sonar (the one who fixed it or it's planning to) and fix those annoying code pieces! If you want more information you can find it on the TPD blog.
 
 ## Feedback
 
-This is a work in progress, and I'd appreciate if you give me some feedback. Do you have any ideas? Is anything not working for you? Questions? Please open an issue in GitHub.
+This is a work in progress, and I'd appreciate if you give me some feedback. Do you have any ideas? Is anything not working for you? Questions? Please create an issue.
 
 ## Contribute
 
-If you like this project please star it, that at least help with a boost of motivation. If you want to go further you can also [buy me a coffee](https://www.buymeacoffee.com/ZyLJNUR).
-
-If you want to know more about the story behind this project, check [my blog post](https://thepracticaldeveloper.com/2015/06/23/a-gamification-experiment-with-sonarqube/).
+If you like this project please star it, that at least helps me get a boost of motivation. You can also [buy me a coffee](https://www.buymeacoffee.com/ZyLJNUR).
