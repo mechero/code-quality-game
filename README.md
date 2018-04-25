@@ -24,7 +24,7 @@ This README file describes the technical part of the game: how to build and run 
 This application has two parts:
 
 - The backend side is a Spring Boot application. Normally, you need to create a distributable file (`.war` in this case) and run it using Java, but you can also run it directly from the `sonar-connector` folder by executing `mvn spring-boot:run`. Check the configuration section before running it, since you need to change the SonarQube connection settings.
-- The frontend side is built with Angular. You can get it up and running by executing `npm start` (development mode) from the `frontend` folder.
+- The frontend side is built with Angular. You can get it up and running by executing first `npm install` (to install the required dependencies) and then `npm start` (to run it in development mode) from the `frontend` folder.
 
 If you don't have a SonarQube server available, there is a `docker-compose.yml` in the repository as well. If you execute `docker-compose up` within the root folder, you should get an instance running at `http://localhost:9000` (or the Docker VM IP if you're running Docker in a VirtualBox environment).
 
