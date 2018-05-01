@@ -4,40 +4,34 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class UtilsTest
-{
+public class UtilsTest {
 
     @Test
-    public void testDateWithDaysWorks()
-    {
+    public void testDateWithDaysWorks() {
         String input = "1d2h50min";
         assertEquals("P1DT2H50M", Utils.durationTranslator(input));
     }
-    
+
     @Test
-    public void testDateWithoutDaysWorks()
-    {
+    public void testDateWithoutDaysWorks() {
         String input = "2h50min";
         assertEquals("PT2H50M", Utils.durationTranslator(input));
     }
-    
+
     @Test
-    public void testDateOnlyWithMin()
-    {
+    public void testDateOnlyWithMin() {
         String input = "50min";
         assertEquals("PT50M", Utils.durationTranslator(input));
     }
-    
+
     @Test
-    public void testDateOnlyWithHours()
-    {
+    public void testDateOnlyWithHours() {
         String input = "3h";
         assertEquals("PT3H", Utils.durationTranslator(input));
     }
-    
+
     @Test
-    public void testDateOnlyWithDays()
-    {
+    public void testDateOnlyWithDays() {
         String input = "3d";
         assertEquals("P3D", Utils.durationTranslator(input));
     }

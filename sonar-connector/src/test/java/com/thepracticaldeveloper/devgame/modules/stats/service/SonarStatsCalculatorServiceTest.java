@@ -7,8 +7,9 @@ import com.thepracticaldeveloper.devgame.util.IssueDateFormatter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -16,10 +17,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SonarStatsCalculatorServiceTest {
 
     private static final String LEGACY_DATE_STRING = "2016-05-01";
@@ -30,37 +32,36 @@ public class SonarStatsCalculatorServiceTest {
     private BadgeCalculator badgeCalculator;
 
     @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
         service = new SonarStatsCalculatorServiceImpl(LEGACY_DATE_STRING, Collections.singletonList(badgeCalculator));
-        when(badgeCalculator.badgeFromIssueList(anySet())).thenReturn(Optional.empty());
+        given(badgeCalculator.badgeFromIssueList(anySet())).willReturn(Optional.empty());
     }
 
     @Test
     public void emptyListShouldWorkAndReturnZeroPoints() {
         final SonarStats stats = service.fromIssueList(Collections.emptySet());
-        assertEquals(0, stats.getTotalPoints());
+        assertThat(stats.getTotalPoints()).isZero();
     }
 
     @Test
     public void issuesAfterLegacyDateAreNotProcessed() {
         final Issue issue = createIssue(LocalDate.of(2016, 5, 1), 30, SonarStats.SeverityType.BLOCKER);
         final SonarStats stats = service.fromIssueList(Collections.singleton(issue));
-        assertEquals(0, stats.getTotalPoints());
+        assertThat(stats.getTotalPoints()).isZero();
     }
 
     @Test
     public void issuesAtLegacyDateAreNotProcessed() {
         final Issue issue = createIssue(LocalDate.of(2016, 5, 20), 30, SonarStats.SeverityType.BLOCKER);
         final SonarStats stats = service.fromIssueList(Collections.singleton(issue));
-        assertEquals(0, stats.getTotalPoints());
+        assertThat(stats.getTotalPoints()).isZero();
     }
 
     @Test
     public void issuesBeforeLegacyDateAreProcessed() {
         final Issue issue = createIssue(LocalDate.of(2016, 4, 20), 30, SonarStats.SeverityType.BLOCKER);
         final SonarStats stats = service.fromIssueList(Collections.singleton(issue));
-        assertNotEquals(0, stats.getTotalPoints());
+        assertThat(stats.getTotalPoints()).isNotZero();
     }
 
     @Test
@@ -81,14 +82,14 @@ public class SonarStatsCalculatorServiceTest {
         final Issue i5 = createIssue(date, 25, SonarStats.SeverityType.MAJOR);
 
         final SonarStats sonarStats = service.fromIssueList(Stream.of(i1, i2, i3, i4, i5).collect(Collectors.toSet()));
-        assertEquals(1, sonarStats.getMinor());
-        assertEquals(1, sonarStats.getBlocker());
-        assertEquals(1, sonarStats.getCritical());
-        assertEquals(1, sonarStats.getInfo());
-        assertEquals(1, sonarStats.getMajor());
-        assertEquals(75, sonarStats.getTotalPaidDebt());
-        assertEquals(0, sonarStats.getBadges().size());
-        assertNotEquals(0, sonarStats.getTotalPoints());
+        assertThat(sonarStats.getMinor()).isEqualTo(1);
+        assertThat(sonarStats.getBlocker()).isEqualTo(1);
+        assertThat(sonarStats.getCritical()).isEqualTo(1);
+        assertThat(sonarStats.getInfo()).isEqualTo(1);
+        assertThat(sonarStats.getMajor()).isEqualTo(1);
+        assertThat(sonarStats.getTotalPaidDebt()).isEqualTo(75);
+        assertThat(sonarStats.getBadges()).isEmpty();
+        assertThat(sonarStats.getTotalPoints()).isNotZero();
     }
 
     private Issue createIssue(final LocalDate creationDate, final int debtMinutes, final SonarStats.SeverityType severityType) {

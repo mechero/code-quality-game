@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Bean;
 
 public class ApplicationTest {
 
-	@Bean
-	public SonarStatsService service() {
-		return Mockito.mock(SonarStatsService.class);
-	}
+    @Bean
+    public SonarStatsService service() {
+        return Mockito.mock(SonarStatsService.class);
+    }
 
-	@Bean
-	public SonarStatsController controller(SonarStatsService service) {
-		return new SonarStatsController(service);
-	}
-	
+    @Bean
+    public SonarStatsController controller(SonarStatsService service) {
+        return new SonarStatsController(service);
+    }
+
 }
