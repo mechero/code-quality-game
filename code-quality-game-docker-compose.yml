@@ -11,8 +11,8 @@ services:
       - "8080:8080"
     volumes:
       - ~/.m2-docker:/root/.m2
-      - $PWD:/usr/src/
-    working_dir: /usr/src/sonar-connector
+      - $PWD/sonar-connector:/usr/src/
+    working_dir: /usr/src
 
   frontend-code-quality-game:
     image: node:8
@@ -24,5 +24,5 @@ services:
       - "3000:3000"
       - "3001:3001"
     volumes:
-      - $PWD:/usr/src/
-    working_dir: /usr/src/frontend
+      - $PWD/frontend:/usr/src/
+    working_dir: /usr/src
