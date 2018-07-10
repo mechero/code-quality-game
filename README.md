@@ -28,6 +28,31 @@ This application has two parts:
 
 If you don't have a SonarQube server available, there is a `docker-compose.yml` in the repository as well. If you execute `docker-compose up` within the root folder, you should get an instance running at `http://localhost:9000` (or the Docker VM IP if you're running Docker in a VirtualBox environment).
 
+### Docker
+
+Requirements docker `version 18.03.1-ce`.
+
+Run for spring-boot app:
+
+```
+$ docker run -it --rm --name code-quality-game -p 8080:8080 -v ~/.m2-docker:/root/.m2 -v $PWD:/usr/src/ -w /usr/src/sonar-connector maven:3.5.2-jdk-8 mvn spring-boot:run
+```
+
+Run for angular frontend app:
+
+```
+$ docker run -it --rm --name frontend-code-quality-game -p 3000:3000 -p 3001:3001 -v $PWD:/usr/src/ -w /usr/src/frontend node:8 npm start
+```
+
+### Docker compose
+
+Requirements docker-compose `version 1.19.0`
+
+Run:
+```
+$ docker-compose up -f code-quality-game-docker-compose.yml
+```
+
 ## Configuration
 
 ### Connection to the server

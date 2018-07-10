@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+
+  code-quality-game:
+    image: maven:3.5.2-jdk-8
+    command: mvn spring-boot:run
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/.m2-docker:/root/.m2
+      - $PWD/sonar-connector:/usr/src/
+    working_dir: /usr/src
+
+  frontend-code-quality-game:
+    image: node:8
+    command: npm start
+    expose:
+      - "3000"
+      - "3001"
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - $PWD/frontend:/usr/src/
+    working_dir: /usr/src
