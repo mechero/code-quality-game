@@ -2,10 +2,10 @@ version: "3"
 
 services:
   sonar:
-    image: sonarqube:6.7.1-alpine
+    image: sonarqube:lts-alpine
     ports:
-      - "9000:9000"
-      - "9092:9092"
+      - '9000:9000'
+      - '9092:9092'
     networks:
       - network-sonar
 
