@@ -1,0 +1,4 @@
+FROM node:8
+COPY ./ /usr/src/code-quality-game-frontend/
+WORKDIR /usr/src/code-quality-game-frontend
+EXPOSE 3000

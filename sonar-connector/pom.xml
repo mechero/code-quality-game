@@ -9,7 +9,7 @@
     <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
-        <jacoco.version>0.8.0</jacoco.version>
+        <jacoco.version>0.8.1</jacoco.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.exclusions>**/resultbeans/*.java</sonar.exclusions>
         <sonar.scm.provider>git</sonar.scm.provider>
@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
