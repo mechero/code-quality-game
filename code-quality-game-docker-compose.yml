@@ -20,5 +20,13 @@ services:
     networks:
       - network1
 
+  sonar:
+    image: sonarqube:lts-alpine
+    ports:
+      - '9000:9000'
+      - '9092:9092'
+    networks:
+      - network1
+
 networks:
   network1:
