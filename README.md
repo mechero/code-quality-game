@@ -12,21 +12,30 @@ This README file describes the technical part of the game: how to build and run 
 
 ## Requirements
 
-* Java 1.8+
-* Maven: only needed to build the backend project, later you can run directly the jar file.
-* Node.js: to run the frontend application.
-* A SonarQube server to connect to. The application is tested up to version 6.7 (Jan 2018).
-  * You may need to create a user in SonarQube for this application to connect to (if your server doesn't provide anonymous access).
-* This repository includes a `docker-compose.yml` file that you can use to deploy a SonarQube instance on Docker. To do that, you need to install **Docker**.
+* Java 10+
+* Docker (recommended) or Maven/JDK10/Node.js
+* A SonarQube (or SonarCloud) server to connect to. The application is tested up to version 7.1
+  * *IMPORTANT*: If you use Java 10, you may need to update the SonarJava sensor so it's able to read the coverage reports.
+  * You may need to create a user in SonarQube for this application to connect to (if your server doesn't provide anonymous access). See *Connection to the server* for more details.
+  * This repository includes a `docker-compose-sonar.yml` file that you can use to deploy a SonarQube instance on Docker.
+  * By default, this project connects to its own repository on SonarCloud.
 
 ## Running the app
 
-This application has two parts:
+The easiest way to build and run the app is via Docker Compose:
+
+```
+$ docker-compose -f docker-compose-game.yml up
+```
+
+Then, you can access the app by navigating with your browser to `http://localhost:3000`
+
+You can also build the components and run them locally. This application has two parts:
 
 - The backend side is a Spring Boot application. Normally, you need to create a distributable file (`.war` in this case) and run it using Java, but you can also run it directly from the `sonar-connector` folder by executing `mvn spring-boot:run`. Check the configuration section before running it, since you need to change the SonarQube connection settings.
 - The frontend side is built with Angular. You can get it up and running by executing first `npm install` (to install the required dependencies) and then `npm start` (to run it in development mode) from the `frontend` folder.
 
-If you don't have a SonarQube server available, there is a `docker-compose.yml` in the repository as well. If you execute `docker-compose up` within the root folder, you should get an instance running at `http://localhost:9000` (or the Docker VM IP if you're running Docker in a VirtualBox environment).
+If you don't have a SonarQube server available and want to test locally, there is a `docker-compose-sonar.yml` in the repository as well. If you execute `docker-compose -f docker-compose-sonar.yml up` within the root folder, you should get an instance running at `http://localhost:9000` (or the Docker VM IP if you're running Docker in a VirtualBox environment like boot2docker).
 
 ## Configuration
 
@@ -44,7 +53,7 @@ The property `sonarOrganization` should be used if you connect to SonarCloud or 
 
 ### Adding users
 
-You need to list the users that are going to participate in the game in the file `users.xml`.
+You need to list the users that are going to participate in the game in the file `users.xml` (Yes, I know, XML...).
 
 ```xml
 <user id="mechero@github" alias="Moises" team="Team TPD.IO" />
