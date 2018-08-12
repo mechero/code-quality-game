@@ -9,5 +9,6 @@ addons:
     branches:
       - master
       - develop
+      - docker-compose-game
 script:
   - mvn clean install sonar:sonar
