@@ -41,7 +41,7 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
     public SonarServerStatus checkServerDetails(final SonarServerConfiguration config) {
         log.info("Trying to reach Sonar server at " + config.getUrl() + API_SYSTEM_STATUS);
         try {
-            final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser());
+            final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getToken());
             HttpEntity<String> request = new HttpEntity<>(authHeaders);
             final ResponseEntity<SonarServerStatus> response = restTemplate
                     .exchange(config.getUrl() + API_SYSTEM_STATUS,
@@ -71,7 +71,7 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
     @Override
     public boolean checkServerAuthentication(final SonarServerConfiguration config) {
         log.info("Trying to authenticate with provided user/password...");
-        final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getUser());
+        final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getToken());
         HttpEntity<String> request = new HttpEntity<>(authHeaders);
         final ResponseEntity<SonarAuthenticationResponse> response = restTemplate
                 .exchange(config.getUrl() + API_AUTHENTICATION_VALIDATE,

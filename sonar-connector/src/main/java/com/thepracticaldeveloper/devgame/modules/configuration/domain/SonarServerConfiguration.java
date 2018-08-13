@@ -2,37 +2,29 @@ package com.thepracticaldeveloper.devgame.modules.configuration.domain;
 
 public class SonarServerConfiguration {
     private String url;
-    private String user;
+    private String token;
 
     public SonarServerConfiguration() {
     }
 
-    public SonarServerConfiguration(final String url, final String user) {
+    public SonarServerConfiguration(final String url, final String token) {
         this.url = url;
-        this.user = user;
+        this.token = token;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUrl(final String url) {
-        this.url = url;
-    }
-
-    public void setUser(final String user) {
-        this.user = user;
+    public String getToken() {
+        return token;
     }
 
     @Override
     public String toString() {
         return "SonarServerConfiguration{" +
                 "url='" + url + '\'' +
-                ", user='" + user + '\'' +
+                ", token_exists='" + (token != null) + '\'' +
                 '}';
     }
 }

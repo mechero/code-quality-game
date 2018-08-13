@@ -52,7 +52,7 @@ final class SonarDataRetriever {
 		// stats and that causes an error when inserting into the database.
 		statsService.getIds().stream().forEach(
 				new RequestLauncher(statsService, organization, configurationService.getConfiguration().getUrl(),
-						configurationService.getConfiguration().getUser()));
+						configurationService.getConfiguration().getToken()));
 	}
 
 	private static final class RequestLauncher implements Consumer<String> {
