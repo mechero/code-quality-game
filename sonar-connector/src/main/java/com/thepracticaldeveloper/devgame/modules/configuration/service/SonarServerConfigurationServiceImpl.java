@@ -70,7 +70,7 @@ final class SonarServerConfigurationServiceImpl implements SonarServerConfigurat
      */
     @Override
     public boolean checkServerAuthentication(final SonarServerConfiguration config) {
-        log.info("Trying to authenticate with provided user/password...");
+        log.info("Trying to authenticate with provided token...");
         final HttpHeaders authHeaders = ApiHttpUtils.getHeaders(config.getToken());
         HttpEntity<String> request = new HttpEntity<>(authHeaders);
         final ResponseEntity<SonarAuthenticationResponse> response = restTemplate

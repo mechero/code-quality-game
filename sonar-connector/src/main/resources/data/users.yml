@@ -1,0 +1,9 @@
+teams:
+  - name: Team PlaneaConLena.com
+    users:
+      scg01@github: Lena
+      anotheruser@github: Nice Automat
+  - name: Team TPD.io
+    users:
+      mechero@github: Mechero
+      scg02@github: Cool Robot

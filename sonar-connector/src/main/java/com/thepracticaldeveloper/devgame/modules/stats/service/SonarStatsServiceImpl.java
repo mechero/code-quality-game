@@ -4,8 +4,8 @@ import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Issue;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStats;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStatsRow;
-import com.thepracticaldeveloper.devgame.modules.users.dao.SonarUserRepository;
-import com.thepracticaldeveloper.devgame.modules.users.domain.SonarUser;
+import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
+import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +16,30 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 final class SonarStatsServiceImpl implements SonarStatsService {
 
     private static final Log log = LogFactory.getLog(SonarStatsServiceImpl.class);
 
-    private Map<String, SonarUser> idsAndUsers;
+    private Map<String, User> idsAndUsers;
     private Map<String, SonarStats> statsPerId;
 
-    private final SonarUserRepository sonarDao;
+    private final UserMongoRepository userRepository;
     private final SonarStatsCalculatorService sonarStatsCalculatorService;
 
     @Autowired
-    public SonarStatsServiceImpl(final SonarUserRepository sonarDao, final SonarStatsCalculatorService sonarStatsCalculatorService) {
-        this.sonarDao = sonarDao;
+    public SonarStatsServiceImpl(final UserMongoRepository userRepository, final SonarStatsCalculatorService sonarStatsCalculatorService) {
+        this.userRepository = userRepository;
         this.sonarStatsCalculatorService = sonarStatsCalculatorService;
         statsPerId = new ConcurrentHashMap<>();
         loadUsers();
     }
 
     private void loadUsers() {
-        idsAndUsers = sonarDao.findAll().stream().collect(Collectors.toMap(SonarUser::getId, Function.identity()));
+        idsAndUsers = StreamSupport.stream(userRepository.findAllUsersWithTeam().spliterator(), false)
+                .collect(Collectors.toMap(User::getLogin, Function.identity()));
     }
 
     @Override
@@ -53,7 +55,7 @@ final class SonarStatsServiceImpl implements SonarStatsService {
     }
 
     @Override
-    public Collection<SonarUser> getUsers() {
+    public Collection<User> getUsers() {
         return idsAndUsers.values();
     }
 
@@ -61,7 +63,7 @@ final class SonarStatsServiceImpl implements SonarStatsService {
     public Collection<SonarStatsRow> getSortedStatsPerUser() {
         List<SonarStatsRow> rows = new ArrayList<>();
         for (Entry<String, SonarStats> entry : statsPerId.entrySet()) {
-            SonarUser user = idsAndUsers.get(entry.getKey());
+            User user = idsAndUsers.get(entry.getKey());
             SonarStats stats = entry.getValue();
             rows.add(new SonarStatsRow(user.getAlias(), user.getTeam(), stats.getTotalPoints(),
                     stats.getTotalPaidDebt(), stats.getBlocker(),
