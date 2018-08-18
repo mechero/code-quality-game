@@ -1,0 +1,25 @@
+<h3>Player Stats</h3>
+<div class="grid grid-pad">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Ranking</th>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Score</th>
+      <th>Badges</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let member of members; let i = index" [ngClass]="{'text-success': i===0}">
+      <td *ngIf="i === 0"><i class="fas fa-trophy fa-2x text-success" aria-hidden="true"></i></td>
+      <td *ngIf="i === 1 || i === 2"><i class="fas fa-trophy text-warning" aria-hidden="true"></i></td>
+      <td *ngIf="i >= 3">{{i + 1}}</td>
+      <td>{{member.userAlias}}</td>
+      <td>{{member.userTeam}}</td>
+      <td>{{member.totalPoints}}</td>
+      <td><span *ngFor="let b of member.badges" class="badge badge-success">{{b.name}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

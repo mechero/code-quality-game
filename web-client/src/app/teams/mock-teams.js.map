@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "mock-teams.js",
+  "sourceRoot": "",
+  "sources": [
+    "mock-teams.ts"
+  ],
+  "names": [],
+  "mappings": ";;AAEa,QAAA,KAAK,GAAW;IACzB,EAAE,EAAE,EAAE,EAAE,EAAE,IAAI,EAAE,iBAAiB,EAAE;IACnC,EAAE,EAAE,EAAE,EAAE,EAAE,IAAI,EAAE,cAAc,EAAE;CACnC,CAAC"
+}

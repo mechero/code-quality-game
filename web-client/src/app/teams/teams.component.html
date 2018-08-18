@@ -1,0 +1,23 @@
+<h3>Team Stats</h3>
+<div class="grid grid-pad">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Ranking</th>
+      <th>Team</th>
+      <th>Total Score</th>
+      <th>Total Paid Debt (min)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let team of teams; let i = index" [ngClass]="{'text-success': i===0}">
+      <td *ngIf="i === 0"><i class="fas fa-trophy fa-2x text-success" aria-hidden="true"></i></td>
+      <td *ngIf="i === 1 || i === 2"><i class="fas fa-trophy text-warning" aria-hidden="true"></i></td>
+      <td *ngIf="i >= 3">{{i + 1}}</td>
+      <td>{{team.userTeam}}</td>
+      <td>{{team.totalPoints}}</td>
+      <td>{{team.totalPaidDebt}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
