@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {SERVER_URL} from '../config.component';
 import {StatsRow} from '../common/StatsRow';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class TeamsService {
 
-  private teamsUrl = SERVER_URL + '/stats/teams';
+  private teamsUrl = environment.serverUrl + '/stats/teams';
 
   constructor(private http: HttpClient) {
   }
@@ -23,7 +23,10 @@ export class TeamsService {
   // }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
+    console.error('An error occurred accessing ' + environment.serverUrl, error);
+    if (error instanceof HttpErrorResponse) {
+      console.error("Response status: " + error.status + " | Message: " + error.message);
+    }
     return Promise.reject(error.message || error);
   }
 }

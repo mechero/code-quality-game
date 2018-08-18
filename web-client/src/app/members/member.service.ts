@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {StatsRow} from '../common/StatsRow';
-import {SERVER_URL} from '../config.component';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from "../../environments/environment";
 
 
 @Injectable()
 export class MemberService {
 
-  private membersUrl = SERVER_URL + '/stats/users';
+  private membersUrl = environment.serverUrl + '/stats/users';
 
   constructor(private http: HttpClient) {
   }
@@ -24,7 +24,10 @@ export class MemberService {
   // }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
+    console.error('An error occurred accessing ' + environment.serverUrl, error);
+    if (error instanceof HttpErrorResponse) {
+      console.error("Response status: " + error.status + " | Message: " + error.message);
+    }
     return Promise.reject(error.message || error);
   }
 }

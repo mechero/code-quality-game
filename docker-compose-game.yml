@@ -6,19 +6,35 @@ services:
     build:
       context: ./sonar-connector
     image: code-quality-game
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
     ports:
       - "8080:8080"
     networks:
       - network1
 
+  mongo:
+    image: mongo:3.4
+    hostname: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - network1
+
   code-quality-game-ui:
     build:
-      context: ./frontend
-    image: code-quality-game-frontend
+      context: ./web-client
+    image: code-quality-game-web-client
     ports:
-      - "3000:3000"
+      - "80:80"
     networks:
       - network1
 
 networks:
   network1:
+volumes:
+  mongodata:
