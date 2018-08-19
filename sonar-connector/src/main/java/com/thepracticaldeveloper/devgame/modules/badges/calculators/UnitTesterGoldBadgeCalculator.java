@@ -17,8 +17,8 @@ public class UnitTesterGoldBadgeCalculator implements BadgeCalculator {
 
     private static final int EXTRA_POINTS = 1000;
 
-    private static final String RULE_ID_LINE = "common-java:InsufficientLineCoverage";
-    private static final String RULE_ID_BRANCH = "common-java:InsufficientBranchCoverage";
+    private static final String RULE_ID_LINE = "InsufficientLineCoverage";
+    private static final String RULE_ID_BRANCH = "InsufficientBranchCoverage";
 
     @Override
     public String badgeKey() {
@@ -28,7 +28,7 @@ public class UnitTesterGoldBadgeCalculator implements BadgeCalculator {
     @Override
     public Optional<BadgeCard> badgeFromIssueList(final String userId, final Set<Issue> issues) {
         long count = issues.stream()
-                .filter(i -> i.getRule().equalsIgnoreCase(RULE_ID_LINE) || i.getRule().equalsIgnoreCase(RULE_ID_BRANCH)).count();
+                .filter(i -> i.getRule().contains(RULE_ID_LINE) || i.getRule().contains(RULE_ID_BRANCH)).count();
         if (count >= 100) {
             return Optional.of(new BadgeCard(UUID.randomUUID().toString(), userId, KEY, Instant.now(), EXTRA_POINTS));
         } else {
