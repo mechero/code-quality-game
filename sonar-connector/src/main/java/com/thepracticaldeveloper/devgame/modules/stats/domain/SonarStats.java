@@ -5,9 +5,6 @@ import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 import java.util.List;
 
 public class SonarStats {
-	public enum SeverityType {
-		BLOCKER, CRITICAL, MAJOR, MINOR, INFO
-	}
 
 	private int totalPaidDebt;
 	private int blocker;

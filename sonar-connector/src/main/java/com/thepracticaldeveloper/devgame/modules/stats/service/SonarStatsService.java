@@ -10,7 +10,7 @@ import java.util.Set;
 public interface SonarStatsService {
     Set<String> getIds();
 
-    void updateStats(String id, Set<Issue> issues);
+    void updateStats(String sonarLogin, Set<Issue> issues);
 
     Collection<User> getUsers();
 

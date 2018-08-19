@@ -91,13 +91,13 @@ final class SonarUsersRetriever {
         return addedUsers;
     }
 
-    URI buildGetUsersURI(final int pageIndex) {
+    private URI buildGetUsersURI(final int pageIndex) {
         return UriComponentsBuilder.fromHttpUrl(configurationService.getConfiguration().getUrl() + GET_USERS_URL)
                 .buildAndExpand(pageIndex, 500)
                 .toUri();
     }
 
-    HttpHeaders getHeaders() {
+    private HttpHeaders getHeaders() {
         HttpHeaders httpHeaders;
         var token = configurationService.getConfiguration().getToken();
         if (token != null && !token.trim().isEmpty()) {

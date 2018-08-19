@@ -5,6 +5,7 @@ import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 import java.util.Collection;
 
 public final class SonarStatsRow {
+    
     private String userAlias;
     private String userTeam;
     private int totalPoints;

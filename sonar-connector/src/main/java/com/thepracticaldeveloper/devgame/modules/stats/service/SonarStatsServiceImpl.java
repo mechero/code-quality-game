@@ -2,8 +2,10 @@ package com.thepracticaldeveloper.devgame.modules.stats.service;
 
 import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Issue;
+import com.thepracticaldeveloper.devgame.modules.stats.domain.ScoreCard;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStats;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStatsRow;
+import com.thepracticaldeveloper.devgame.modules.stats.repository.ScoreCardMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import org.apache.commons.logging.Log;
@@ -27,11 +29,15 @@ final class SonarStatsServiceImpl implements SonarStatsService {
     private Map<String, SonarStats> statsPerId;
 
     private final UserMongoRepository userRepository;
+    private final ScoreCardMongoRepository scoreCardMongoRepository;
     private final SonarStatsCalculatorService sonarStatsCalculatorService;
 
     @Autowired
-    public SonarStatsServiceImpl(final UserMongoRepository userRepository, final SonarStatsCalculatorService sonarStatsCalculatorService) {
+    public SonarStatsServiceImpl(final UserMongoRepository userRepository,
+                                 final ScoreCardMongoRepository scoreCardMongoRepository,
+                                 final SonarStatsCalculatorService sonarStatsCalculatorService) {
         this.userRepository = userRepository;
+        this.scoreCardMongoRepository = scoreCardMongoRepository;
         this.sonarStatsCalculatorService = sonarStatsCalculatorService;
         statsPerId = new ConcurrentHashMap<>();
         loadUsers();
@@ -48,10 +54,10 @@ final class SonarStatsServiceImpl implements SonarStatsService {
     }
 
     @Override
-    public void updateStats(final String id, final Set<Issue> issues) {
+    public void updateStats(final String sonarLogin, final Set<Issue> issues) {
         SonarStats stats = sonarStatsCalculatorService.fromIssueList(issues);
-        statsPerId.put(id, stats);
-        log.info("Processing " + id + "; Stats: " + stats);
+        statsPerId.put(sonarLogin, stats);
+        log.info("Processing " + sonarLogin + "; Stats: " + stats);
     }
 
     @Override
