@@ -4,6 +4,7 @@ import com.thepracticaldeveloper.devgame.modules.configuration.service.SonarServ
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Issue;
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Issues;
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Paging;
+import com.thepracticaldeveloper.devgame.modules.stats.service.BadgeService;
 import com.thepracticaldeveloper.devgame.modules.stats.service.ScoreCardService;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import com.thepracticaldeveloper.devgame.modules.users.service.SonarUserService;
@@ -37,6 +38,7 @@ final class SonarDataRetriever {
 
     private final SonarUserService userService;
     private final ScoreCardService scoreCardService;
+    private final BadgeService badgeCardService;
     private final SonarServerConfigurationService configurationService;
 
     private final String organization;
@@ -44,10 +46,12 @@ final class SonarDataRetriever {
     @Autowired
     public SonarDataRetriever(final SonarUserService userService,
                               final ScoreCardService scoreCardService,
+                              final BadgeService badgeCardService,
                               final SonarServerConfigurationService configurationService,
                               final @Value("${sonar.organization}") String organization) {
         this.userService = userService;
         this.scoreCardService = scoreCardService;
+        this.badgeCardService = badgeCardService;
         this.configurationService = configurationService;
         this.organization = organization;
     }
@@ -57,20 +61,22 @@ final class SonarDataRetriever {
         // It seems that sonar doesn't allow parallel queries with same user since it creates a register for internal
         // stats and that causes an error when inserting into the database.
         userService.getAllActiveUsers().forEach(
-                new RequestLauncher(scoreCardService, organization, configurationService.getConfiguration().getUrl(),
+                new RequestLauncher(scoreCardService, badgeCardService, organization, configurationService.getConfiguration().getUrl(),
                         configurationService.getConfiguration().getToken())
         );
     }
 
     private static final class RequestLauncher implements Consumer<User> {
 
-        private ScoreCardService scoreCardService;
-        private String sonarOrganization;
-        private String sonarUrl;
-        private String token;
+        private final ScoreCardService scoreCardService;
+        private final BadgeService badgeCardService;
+        private final String sonarOrganization;
+        private final String sonarUrl;
+        private final String token;
 
-        RequestLauncher(final ScoreCardService scoreCardService, String sonarOrganization, final String sonarUrl, final String token) {
+        RequestLauncher(final ScoreCardService scoreCardService, final BadgeService badgeCardService, String sonarOrganization, final String sonarUrl, final String token) {
             this.scoreCardService = scoreCardService;
+            this.badgeCardService = badgeCardService;
             this.sonarOrganization = sonarOrganization;
             this.sonarUrl = sonarUrl;
             this.token = token;
@@ -96,7 +102,8 @@ final class SonarDataRetriever {
                     issues.addAll(response.getBody().getIssues());
                     pageIndex++;
                 }
-                scoreCardService.saveNewCardsFromIssueList(user.getLogin(), issues);
+                scoreCardService.saveNewCardsFromIssueList(user.getId(), issues);
+                badgeCardService.saveNewBadgesFromIssueList(user.getId(), issues);
             } catch (final HttpServerErrorException serverException) {
                 log.error(serverException);
                 throw serverException;

@@ -3,35 +3,33 @@ package com.thepracticaldeveloper.devgame.modules.badges.calculators;
 import com.thepracticaldeveloper.devgame.modules.badges.domain.BadgeDetails;
 import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Issue;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.BadgeCard;
-import com.thepracticaldeveloper.devgame.util.IssueDateFormatter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @Component
-public class EarlyBirdBadgeCalculator implements BadgeCalculator {
+public class UnitTesterGoldBadgeCalculator implements BadgeCalculator {
 
-    public static final String KEY = BadgeDetails.EARLY_BIRD.name();
+    public static final String KEY = BadgeDetails.UNIT_TESTER_GOLD.name();
 
-    private static final int EXTRA_POINTS = 100;
+    private static final int EXTRA_POINTS = 1000;
 
-    @Value("${game.dates.earlyBird}")
-    private String earlyBirdDate;
+    private static final String RULE_ID_LINE = "common-java:InsufficientLineCoverage";
+    private static final String RULE_ID_BRANCH = "common-java:InsufficientBranchCoverage";
 
     @Override
     public String badgeKey() {
-        return KEY;
+        return "UT_GOLD";
     }
 
     @Override
-    public Optional<BadgeCard> badgeFromIssueList(final String userId, Set<Issue> issues) {
-        if (issues.stream().filter(i -> i.getCloseDate() != null)
-                .anyMatch(i -> IssueDateFormatter.format(i.getCloseDate()).isBefore(LocalDate.parse(earlyBirdDate)))) {
+    public Optional<BadgeCard> badgeFromIssueList(final String userId, final Set<Issue> issues) {
+        long count = issues.stream()
+                .filter(i -> i.getRule().equalsIgnoreCase(RULE_ID_LINE) || i.getRule().equalsIgnoreCase(RULE_ID_BRANCH)).count();
+        if (count >= 100) {
             return Optional.of(new BadgeCard(UUID.randomUUID().toString(), userId, KEY, Instant.now(), EXTRA_POINTS));
         } else {
             return Optional.empty();

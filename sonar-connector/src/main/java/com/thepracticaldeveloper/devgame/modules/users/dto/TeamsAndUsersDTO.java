@@ -1,8 +1,5 @@
 package com.thepracticaldeveloper.devgame.modules.users.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
 import java.util.List;
 import java.util.Map;
 
@@ -53,17 +50,6 @@ public class TeamsAndUsersDTO {
                     "name='" + name + '\'' +
                     ", users=" + users +
                     '}';
-        }
-    }
-
-    public static void main(String[] args) {
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        try {
-            TeamsAndUsersDTO teamsAndUsersDTO = mapper.readValue(TeamsAndUsersDTO.class.getClassLoader().getResourceAsStream("data/users.yml"), TeamsAndUsersDTO.class);
-            System.out.println(teamsAndUsersDTO.toString());
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 

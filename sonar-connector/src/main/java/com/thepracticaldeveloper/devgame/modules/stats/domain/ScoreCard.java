@@ -17,20 +17,20 @@ public class ScoreCard {
     private String userId;
 
     private Instant wonAt;
-    private int totalPoints;
-    private int totalPaidDebt;
+    private int score;
+    private int paidDebtMinutes;
     private SeverityType severityType;
 
     public ScoreCard() {
     }
 
-    public ScoreCard(String id, String sonarId, String userId, Instant wonAt, int totalPoints, int totalPaidDebt, SeverityType severityType) {
+    public ScoreCard(String id, String sonarId, String userId, Instant wonAt, int score, int paidDebtMinutes, SeverityType severityType) {
         this.id = id;
         this.sonarId = sonarId;
         this.userId = userId;
         this.wonAt = wonAt;
-        this.totalPoints = totalPoints;
-        this.totalPaidDebt = totalPaidDebt;
+        this.score = score;
+        this.paidDebtMinutes = paidDebtMinutes;
         this.severityType = severityType;
     }
 
@@ -66,20 +66,20 @@ public class ScoreCard {
         this.wonAt = wonAt;
     }
 
-    public int getTotalPoints() {
-        return totalPoints;
+    public int getScore() {
+        return score;
     }
 
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public int getTotalPaidDebt() {
-        return totalPaidDebt;
+    public int getPaidDebtMinutes() {
+        return paidDebtMinutes;
     }
 
-    public void setTotalPaidDebt(int totalPaidDebt) {
-        this.totalPaidDebt = totalPaidDebt;
+    public void setPaidDebtMinutes(int paidDebtMinutes) {
+        this.paidDebtMinutes = paidDebtMinutes;
     }
 
     public SeverityType getSeverityType() {
@@ -91,14 +91,42 @@ public class ScoreCard {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ScoreCard scoreCard = (ScoreCard) o;
+
+        if (score != scoreCard.score) return false;
+        if (paidDebtMinutes != scoreCard.paidDebtMinutes) return false;
+        if (id != null ? !id.equals(scoreCard.id) : scoreCard.id != null) return false;
+        if (sonarId != null ? !sonarId.equals(scoreCard.sonarId) : scoreCard.sonarId != null) return false;
+        if (userId != null ? !userId.equals(scoreCard.userId) : scoreCard.userId != null) return false;
+        if (wonAt != null ? !wonAt.equals(scoreCard.wonAt) : scoreCard.wonAt != null) return false;
+        return severityType == scoreCard.severityType;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (sonarId != null ? sonarId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (wonAt != null ? wonAt.hashCode() : 0);
+        result = 31 * result + score;
+        result = 31 * result + paidDebtMinutes;
+        result = 31 * result + (severityType != null ? severityType.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "ScoreCard{" +
                 "id='" + id + '\'' +
                 ", sonarId='" + sonarId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", wonAt=" + wonAt +
-                ", totalPoints=" + totalPoints +
-                ", totalPaidDebt=" + totalPaidDebt +
+                ", score=" + score +
+                ", paidDebtMinutes=" + paidDebtMinutes +
                 ", severityType=" + severityType +
                 '}';
     }

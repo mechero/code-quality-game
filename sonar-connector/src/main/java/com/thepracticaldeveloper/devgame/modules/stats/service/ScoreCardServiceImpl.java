@@ -35,7 +35,7 @@ public class ScoreCardServiceImpl implements ScoreCardService {
     }
 
     @Override
-    public void saveNewCardsFromIssueList(final String sonarLogin, final Set<Issue> issues) {
+    public void saveNewCardsFromIssueList(final String userId, final Set<Issue> issues) {
         final Set<Issue> fixedIssues = issues.stream().filter(
                 i -> i.getResolution() != null && i.getResolution().equals(FIXED)).
                 collect(Collectors.toSet());
@@ -49,19 +49,19 @@ public class ScoreCardServiceImpl implements ScoreCardService {
         final long newResolvedIssues = issuesFilteredByLegacyDate.stream()
                 // checks that the issue has not been mapped already to any user
                 .filter(issue -> !cardRepository.existsBySonarId(issue.getKey()))
-                .map(issue -> issueToScoreCard(sonarLogin, issue))
+                .map(issue -> issueToScoreCard(userId, issue))
                 .map(cardRepository::save).count();
 
-        log.info("{} new score cards stored for user {}", newResolvedIssues, sonarLogin);
+        log.info("{} new score cards stored for user {}", newResolvedIssues, userId);
     }
 
-    private static ScoreCard issueToScoreCard(final String sonarLogin, final Issue issue) {
+    private static ScoreCard issueToScoreCard(final String userId, final Issue issue) {
         final long debt = Optional.ofNullable(issue.getDebt())
                 .map(Utils::durationTranslator).map(Duration::parse)
                 .map(Duration::toMinutes).orElse(0L);
         final SeverityType severityType = Optional.ofNullable(issue.getSeverity()).map(SeverityType::valueOf)
                 .orElse(SeverityType.MAJOR);
         return new ScoreCard(UUID.randomUUID().toString(),
-                issue.getKey(), sonarLogin, Instant.now(), severityType.getScore(), (int) debt, severityType);
+                issue.getKey(), userId, Instant.now(), severityType.getScore(), (int) debt, severityType);
     }
 }
