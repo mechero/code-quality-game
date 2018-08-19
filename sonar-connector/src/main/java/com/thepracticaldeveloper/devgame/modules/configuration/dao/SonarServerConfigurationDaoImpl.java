@@ -18,8 +18,8 @@ public class SonarServerConfigurationDaoImpl implements SonarServerConfiguration
     private final String sonarToken;
 
     @Autowired
-    public SonarServerConfigurationDaoImpl(@Value("${sonarToken}") final String sonarToken,
-                                           @Value("${sonarUrl}") final String sonarUrl) {
+    public SonarServerConfigurationDaoImpl(@Value("${sonar.token}") final String sonarToken,
+                                           @Value("${sonar.server}") final String sonarUrl) {
         this.sonarUrl = sonarUrl;
         this.sonarToken = sonarToken;
         this.sonarServerConfiguration = createSonarServerConfiguration();

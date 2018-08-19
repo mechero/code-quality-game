@@ -14,7 +14,7 @@ import java.util.Set;
 public class EarlyBirdBadgeCalculator implements BadgeCalculator {
     private static final int EXTRA_POINTS = 100;
 
-    @Value("${earlyBirdDate}")
+    @Value("${game.dates.earlyBird}")
     private String earlyBirdDate;
 
     @Override

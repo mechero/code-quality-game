@@ -40,7 +40,7 @@ final class SonarDataRetriever {
 
 	@Autowired
 	public SonarDataRetriever(final SonarStatsService statsService, final SonarServerConfigurationService configurationService,
-							  final @Value("${sonarOrganization}") String organization) {
+							  final @Value("${sonar.organization}") String organization) {
 		this.statsService = statsService;
 		this.configurationService = configurationService;
 		this.organization = organization;

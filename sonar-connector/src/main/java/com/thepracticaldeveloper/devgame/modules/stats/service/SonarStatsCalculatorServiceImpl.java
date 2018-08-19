@@ -32,7 +32,7 @@ final class SonarStatsCalculatorServiceImpl implements SonarStatsCalculatorServi
 	private LocalDate legacyDate;
 
 	@Autowired
-	SonarStatsCalculatorServiceImpl(@Value("${legacyDate}") final String legacyDateString,
+	SonarStatsCalculatorServiceImpl(@Value("${game.dates.legacy}") final String legacyDateString,
 									final List<BadgeCalculator> badgeCalculators) {
 		this.legacyDate = LocalDate.parse(legacyDateString);
 		this.badgeCalculators = badgeCalculators;
