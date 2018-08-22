@@ -3,7 +3,6 @@ package com.thepracticaldeveloper.devgame.modules.stats.service;
 import com.thepracticaldeveloper.devgame.modules.badges.domain.BadgeDetails;
 import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SeverityType;
-import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStats;
 import com.thepracticaldeveloper.devgame.modules.stats.domain.SonarStatsRow;
 import com.thepracticaldeveloper.devgame.modules.stats.repository.BadgeCardMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.stats.repository.ScoreCardMongoRepository;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,8 +22,6 @@ import java.util.stream.Stream;
 final class SonarStatsServiceImpl implements SonarStatsService {
 
     private static final Log log = LogFactory.getLog(SonarStatsServiceImpl.class);
-
-    private Map<String, SonarStats> statsPerId;
 
     private final UserMongoRepository userRepository;
     private final ScoreCardMongoRepository scoreCardMongoRepository;
@@ -38,7 +34,6 @@ final class SonarStatsServiceImpl implements SonarStatsService {
         this.userRepository = userRepository;
         this.scoreCardMongoRepository = scoreCardMongoRepository;
         this.badgeCardMongoRepository = badgeCardMongoRepository;
-        statsPerId = new ConcurrentHashMap<>();
     }
 
     @Override

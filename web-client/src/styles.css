@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+.gameBackgroundPanel{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 1em;
+}
+.gamePageContent{
+  width: 800px;
+}

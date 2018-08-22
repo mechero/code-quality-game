@@ -1,17 +1,29 @@
-<div class="row">
-  <div class="col-md-3">
-    <h1>{{title}}</h1>
-    <h5>by <a href="https://thepracticaldeveloper.com?ref=code-quality-game">The Practical Developer</a></h5>
-    <ul class="nav nav-pills flex-column">
-      <li class="nav-item" role="presentation">
+<div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <img src="assets/img/monkey_logo.gif" width="32" height="32" class="mr-2"/>
+    <a class="navbar-brand" href="#">Code Quality Game</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/teams" routerLinkActive="active">Teams</a>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/members" routerLinkActive="active">Players</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
     </ul>
-  </div>
-  <div class="col-md-9">
-    <router-outlet></router-outlet>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+  <div class="gameBackgroundPanel">
+    <div class="gamePageContent">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
