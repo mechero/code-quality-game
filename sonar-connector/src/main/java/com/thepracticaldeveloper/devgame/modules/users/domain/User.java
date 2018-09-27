@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public final class User {
 
-    public static final String NO_TEAM_ASSIGNED = "--NO-TEAM--";
-
     @Id
     private String id;
     @Indexed

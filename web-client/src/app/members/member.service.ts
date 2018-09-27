@@ -22,7 +22,14 @@ export class MemberService {
   }
 
   getUsers(): Promise<User[]> {
-    return this.http.get(this.usersUrl)
+    return this.http.get(this.usersUrl + '?assigned')
+      .toPromise()
+      .then(response => response as User[])
+      .catch(this.handleError);
+  }
+
+  getUnassignedUsers(): Promise<User[]> {
+    return this.http.get(this.usersUrl + '?unassigned')
       .toPromise()
       .then(response => response as User[])
       .catch(this.handleError);

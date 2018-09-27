@@ -12,9 +12,13 @@ public interface UserMongoRepository extends CrudRepository<User, String> {
 
     Optional<User> findUserByLogin(final String login);
 
-    @Query("{'team': {$not: {$eq: '" + User.NO_TEAM_ASSIGNED + "'}}}")
+    @Query("{'team': {$not: {$eq: null}}}")
     Stream<User> findAllUsersWithTeam();
 
+    @Query("{'team': {$not: {$eq: null}}}")
     Iterable<User> findAll(final Sort sort);
+
+    @Query("{'team': null}")
+    Iterable<User> findAllUnassigned(final Sort sort);
 
 }

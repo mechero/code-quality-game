@@ -83,7 +83,7 @@ final class SonarUsersRetriever {
             if (!matchingUser.isPresent()) {
                 log.info("Adding new user: {}", user.getLogin());
                 repository.save(
-                        new User(UUID.randomUUID().toString(), user.getLogin(), user.getName(), User.NO_TEAM_ASSIGNED)
+                        new User(UUID.randomUUID().toString(), user.getLogin(), user.getName(), null)
                 );
                 addedUsers++;
             }

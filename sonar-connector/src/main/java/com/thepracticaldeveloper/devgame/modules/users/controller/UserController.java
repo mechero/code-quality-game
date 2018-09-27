@@ -32,9 +32,14 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    @GetMapping(params = "byTeam")
-    public ResponseEntity<Iterable<User>> getAllByTeam() {
+    @GetMapping(params = "assigned")
+    public ResponseEntity<Iterable<User>> getAllAssignedUsersByTeam() {
         return ResponseEntity.ok(userRepository.findAll(Sort.by("team").ascending()));
+    }
+
+    @GetMapping(params = "unassigned")
+    public ResponseEntity<Iterable<User>> getAllUnAssignedUsers() {
+        return ResponseEntity.ok(userRepository.findAllUnassigned(Sort.by("alias").ascending()));
     }
 
     public ResponseEntity<User> createUser(@Valid @RequestBody final UserDTO userDTO) {
