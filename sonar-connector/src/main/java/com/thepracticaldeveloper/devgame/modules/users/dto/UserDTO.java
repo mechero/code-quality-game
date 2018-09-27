@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class UserDTO {
 
     @NotBlank
-    private String name;
+    private String alias;
     @NotBlank
     private String login;
     private String team;
@@ -13,14 +13,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(final String name, final String login, final String team) {
-        this.name = name;
+    public UserDTO(final String alias, final String login, final String team) {
+        this.alias = alias;
         this.login = login;
         this.team = team;
     }
 
-    public String getName() {
-        return name;
+    public String getAlias() {
+        return alias;
     }
 
     public String getLogin() {
@@ -29,5 +29,14 @@ public class UserDTO {
 
     public String getTeam() {
         return team;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "alias='" + alias + '\'' +
+                ", login='" + login + '\'' +
+                ", team='" + team + '\'' +
+                '}';
     }
 }

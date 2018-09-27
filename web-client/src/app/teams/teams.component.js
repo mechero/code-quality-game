@@ -18,7 +18,7 @@ let TeamsComponent = class TeamsComponent {
   }
 
   ngOnInit() {
-    this.teamsService.getTeams().then(teams = > this.teams = teams
+    this.teamsService.getTeamStats().then(teams = > this.teams = teams
   )
     ;
   }

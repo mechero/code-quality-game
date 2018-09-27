@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Member} from './Member';
+import {User} from './Member';
 import {MemberService} from './member.service';
 import {StatsRow} from '../common/StatsRow';
 
@@ -9,24 +9,23 @@ import {StatsRow} from '../common/StatsRow';
   selector: 'members',
   templateUrl: 'members.component.html'
 })
-
 export class MembersComponent implements OnInit {
   ngOnInit(): void {
     this.getMembers();
   }
 
-  members: StatsRow[];
-  selectedMember: Member;
+  memberStats: StatsRow[];
+  selectedMember: User;
 
   constructor(private memberService: MemberService) {
   }
 
-  onSelect(member: Member): void {
+  onSelect(member: User): void {
     this.selectedMember = member;
   }
 
   getMembers(): void {
-    this.memberService.getMembers().then(members => this.members = members);
+    this.memberService.getMemberStats().then(memberStats => this.memberStats = memberStats);
   }
 
   gotoDetail(): void {

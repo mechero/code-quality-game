@@ -1,0 +1,38 @@
+<div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Login</th>
+      <th>Alias</th>
+      <th>Team</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td *ngIf="user.id !== editingId">{{user.login}}</td>
+      <td *ngIf="user.id === editingId">
+        <input type="text" [(ngModel)]="user.login"/>
+      </td>
+      <td *ngIf="user.id !== editingId">{{user.alias}}</td>
+      <td *ngIf="user.id === editingId">
+        <input type="text" [(ngModel)]="user.alias"/>
+      </td>
+      <td *ngIf="user.id !== editingId">{{user.team}}</td>
+      <td *ngIf="user.id === editingId">
+        <select id="team" [(ngModel)]="user.team">
+          <option value="--NO-TEAM--">--NO-TEAM--</option>
+          <option *ngFor="let team of teams" [value]="team.name">{{team.name}}</option>
+        </select>
+      </td>
+      <td *ngIf="user.id !== editingId">
+        <button class="btn btn-primary btn-sm" (click)="editUser(user.id)">Modify</button>
+      </td>
+      <td *ngIf="user.id === editingId">
+        <button class="btn btn-primary btn-sm" (click)="saveUser(user)">Save</button>&nbsp;
+        <button class="btn btn-danger btn-sm" (click)="cancel()">Cancel</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,6 +1,7 @@
 package com.thepracticaldeveloper.devgame.modules.users.dao;
 
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,5 +14,7 @@ public interface UserMongoRepository extends CrudRepository<User, String> {
 
     @Query("{'team': {$not: {$eq: '" + User.NO_TEAM_ASSIGNED + "'}}}")
     Stream<User> findAllUsersWithTeam();
+
+    Iterable<User> findAll(final Sort sort);
 
 }

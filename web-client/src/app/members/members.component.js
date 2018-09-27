@@ -26,7 +26,7 @@ let MembersComponent = class MembersComponent {
   }
 
   getMembers() {
-    this.memberService.getMembers().then(members = > this.members = members
+    this.memberService.getMemberStats().then(members = > this.memberStats = members
   )
     ;
   }

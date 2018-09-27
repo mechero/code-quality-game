@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let member of members; let i = index" [ngClass]="{'text-primary': i===0}">
+    <tr *ngFor="let member of memberStats; let i = index" [ngClass]="{'text-primary': i===0}">
       <td *ngIf="i === 0"><i class="fas fa-trophy fa-2x text-primary" aria-hidden="true"></i></td>
       <td *ngIf="i === 1 || i === 2"><i class="fas fa-trophy text-success" aria-hidden="true"></i></td>
       <td *ngIf="i >= 3">{{i + 1}}</td>

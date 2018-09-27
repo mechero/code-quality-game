@@ -9,12 +9,14 @@ import {TeamsComponent} from './teams/teams.component';
 import {MembersComponent} from './members/members.component';
 import {TeamsService} from './teams/teams.service';
 import {MemberService} from './members/member.service';
+import {OrganizerComponent} from "./settings/organizer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MembersComponent,
-    TeamsComponent
+    TeamsComponent,
+    OrganizerComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ package com.thepracticaldeveloper.devgame.modules.users.controller;
 
 import com.thepracticaldeveloper.devgame.modules.users.dao.TeamMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.Team;
-import com.thepracticaldeveloper.devgame.modules.users.dto.TeamDTO;
+import com.thepracticaldeveloper.devgame.modules.users.dto.CreateTeamDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +25,7 @@ public class TeamController {
     }
 
     @PostMapping
-    public ResponseEntity<Team> addTeam(@RequestBody final TeamDTO teamDTO) {
+    public ResponseEntity<Team> addTeam(@RequestBody final CreateTeamDTO teamDTO) {
         final Optional<Team> existingTeam = repository.findByName(teamDTO.getName());
         if (existingTeam.isPresent()) {
             return ResponseEntity.unprocessableEntity().build();

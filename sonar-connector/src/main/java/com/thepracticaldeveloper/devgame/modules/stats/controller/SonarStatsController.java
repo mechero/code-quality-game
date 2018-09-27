@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(value = {"/stats", "/"})
+@RequestMapping(value = {"/stats"})
 public class SonarStatsController {
     private SonarStatsService sonarStatsService;
 

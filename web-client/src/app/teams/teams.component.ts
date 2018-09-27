@@ -15,7 +15,7 @@ export class TeamsComponent implements OnInit {
   teams: StatsRow[];
 
   ngOnInit(): void {
-    this.teamsService.getTeams().then(teams => this.teams = teams);
+    this.teamsService.getTeamStats().then(teams => this.teams = teams);
   }
 
 }

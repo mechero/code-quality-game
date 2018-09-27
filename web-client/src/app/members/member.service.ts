@@ -2,20 +2,36 @@ import {Injectable} from '@angular/core';
 import {StatsRow} from '../common/StatsRow';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from "../../environments/environment";
+import {User} from "./User";
 
 
 @Injectable()
 export class MemberService {
 
-  private membersUrl = environment.serverUrl + '/stats/users';
+  private memberStatsUrl = environment.serverUrl + '/stats/users';
+  private usersUrl = environment.serverUrl + '/users';
 
   constructor(private http: HttpClient) {
   }
 
-  getMembers(): Promise<StatsRow[]> {
-    return this.http.get(this.membersUrl)
+  getMemberStats(): Promise<StatsRow[]> {
+    return this.http.get(this.memberStatsUrl)
       .toPromise()
       .then(response => response as StatsRow[])
+      .catch(this.handleError);
+  }
+
+  getUsers(): Promise<User[]> {
+    return this.http.get(this.usersUrl)
+      .toPromise()
+      .then(response => response as User[])
+      .catch(this.handleError);
+  }
+
+  updateUser(user: User) {
+    return this.http.put(this.usersUrl + '/' + user.id, user)
+      .toPromise()
+      .then(response => response as User)
       .catch(this.handleError);
   }
 

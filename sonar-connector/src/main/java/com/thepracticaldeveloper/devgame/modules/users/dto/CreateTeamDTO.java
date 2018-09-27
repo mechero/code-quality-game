@@ -2,15 +2,15 @@ package com.thepracticaldeveloper.devgame.modules.users.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class TeamDTO {
+public class CreateTeamDTO {
 
     @NotBlank
     private String name;
 
-    public TeamDTO() {
+    public CreateTeamDTO() {
     }
 
-    public TeamDTO(String name) {
+    public CreateTeamDTO(String name) {
         this.name = name;
     }
 
