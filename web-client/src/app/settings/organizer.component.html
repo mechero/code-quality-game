@@ -1,4 +1,12 @@
 <div>
+  <div>
+    <label for="checkShowAssigned">Show Users assigned to team</label>
+    <input id="checkShowAssigned" type="checkbox" [(ngModel)]="showAssigned"
+           [disabled]="editingId !== null" (change)="this.update()">
+    <label for="checkShowUnassigned">Show Users without assignment</label>
+    <input id="checkShowUnassigned" type="checkbox" [(ngModel)]="showUnassigned"
+           [disabled]="editingId !== null" (change)="this.update()">
+  </div>
   <table class="table table-hover">
     <thead>
     <tr>
