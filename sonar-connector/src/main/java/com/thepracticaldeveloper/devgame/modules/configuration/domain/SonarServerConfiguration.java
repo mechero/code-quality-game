@@ -3,13 +3,15 @@ package com.thepracticaldeveloper.devgame.modules.configuration.domain;
 public class SonarServerConfiguration {
     private String url;
     private String token;
+    private String organization;
 
     public SonarServerConfiguration() {
     }
 
-    public SonarServerConfiguration(final String url, final String token) {
+    public SonarServerConfiguration(final String url, final String token, final String organization) {
         this.url = url;
         this.token = token;
+        this.organization = organization;
     }
 
     public String getUrl() {
@@ -20,11 +22,16 @@ public class SonarServerConfiguration {
         return token;
     }
 
+    public String getOrganization() {
+        return organization;
+    }
+
     @Override
     public String toString() {
         return "SonarServerConfiguration{" +
                 "url='" + url + '\'' +
-                ", token_exists='" + (token != null) + '\'' +
+                ", token='" + token + '\'' +
+                ", organization='" + organization + '\'' +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Paging;
 import com.thepracticaldeveloper.devgame.modules.stats.service.BadgeService;
 import com.thepracticaldeveloper.devgame.modules.stats.service.ScoreCardService;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
-import com.thepracticaldeveloper.devgame.modules.users.service.SonarUserService;
+import com.thepracticaldeveloper.devgame.modules.users.service.UserService;
 import com.thepracticaldeveloper.devgame.util.ApiHttpUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,7 @@ final class SonarDataRetriever {
     private static final Log log = LogFactory.getLog(SonarDataRetriever.class);
     private static final String GET_ISSUES_COMMAND = "/api/issues/search?organizations={organization}&assignees={assignees}&p={page}&ps={pageSize}";
 
-    private final SonarUserService userService;
+    private final UserService userService;
     private final ScoreCardService scoreCardService;
     private final BadgeService badgeCardService;
     private final SonarServerConfigurationService configurationService;
@@ -44,7 +44,7 @@ final class SonarDataRetriever {
     private final String organization;
 
     @Autowired
-    public SonarDataRetriever(final SonarUserService userService,
+    public SonarDataRetriever(final UserService userService,
                               final ScoreCardService scoreCardService,
                               final BadgeService badgeCardService,
                               final SonarServerConfigurationService configurationService,

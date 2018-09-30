@@ -5,7 +5,7 @@ import com.thepracticaldeveloper.devgame.modules.users.domain.Team;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import com.thepracticaldeveloper.devgame.modules.users.dto.CreateTeamDTO;
 import com.thepracticaldeveloper.devgame.modules.users.dto.MessageResponseDTO;
-import com.thepracticaldeveloper.devgame.modules.users.service.SonarUserService;
+import com.thepracticaldeveloper.devgame.modules.users.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +18,9 @@ import java.util.UUID;
 public class TeamController {
 
     private final TeamMongoRepository repository;
-    private final SonarUserService userService;
+    private final UserService userService;
 
-    public TeamController(final TeamMongoRepository repository, final SonarUserService userService) {
+    public TeamController(final TeamMongoRepository repository, final UserService userService) {
         this.repository = repository;
         this.userService = userService;
     }

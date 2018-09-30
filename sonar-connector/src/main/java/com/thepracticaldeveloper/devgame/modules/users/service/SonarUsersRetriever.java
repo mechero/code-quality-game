@@ -6,6 +6,7 @@ import com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.Users;
 import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import com.thepracticaldeveloper.devgame.util.ApiHttpUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -27,14 +28,18 @@ final class SonarUsersRetriever {
 
     private static final Logger log = LoggerFactory.getLogger(SonarUsersRetriever.class);
     private static final String GET_USERS_URL = "/api/users/search?p={page}&ps={pageSize}";
+    private static final String GET_USERS_BY_ORG_URL = "/api/organizations/search_members?organization={organization}&p={page}&ps={pageSize}";
 
     private final UserMongoRepository repository;
     private final SonarServerConfigurationService configurationService;
+    private final boolean shouldFilterByOrganization;
 
     SonarUsersRetriever(final UserMongoRepository repository,
                         final SonarServerConfigurationService configurationService) {
         this.repository = repository;
         this.configurationService = configurationService;
+        this.shouldFilterByOrganization = StringUtils.isNotEmpty(configurationService.getConfiguration().getToken()) &&
+                StringUtils.isNotEmpty(configurationService.getConfiguration().getOrganization());
     }
 
     @Scheduled(fixedRate = 30 * 60000)
@@ -45,7 +50,7 @@ final class SonarUsersRetriever {
         Set<com.thepracticaldeveloper.devgame.modules.sonarapi.resultbeans.User> users = new HashSet<>();
         int totalProcessed = 0;
         while (totalProcessed == 0 || totalProcessed < pageTotal) {
-            log.trace("Requesting page " + pageIndex);
+            log.trace("Retrieving users, page " + pageIndex);
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<String> request = new HttpEntity<>(getHeaders());
             URI uri = buildGetUsersURI(pageIndex);
@@ -61,7 +66,7 @@ final class SonarUsersRetriever {
                 if (pageSize == 0) break;
             } catch (final HttpClientErrorException httpEx) {
                 if (httpEx.getStatusCode().is4xxClientError()) {
-                    log.error("Server responded with client error status: {} {}",
+                    log.warn("Server responded with client error status: {} {}",
                             httpEx.getRawStatusCode(), httpEx.getResponseBodyAsString());
                     break;
                 }
@@ -92,9 +97,15 @@ final class SonarUsersRetriever {
     }
 
     private URI buildGetUsersURI(final int pageIndex) {
-        return UriComponentsBuilder.fromHttpUrl(configurationService.getConfiguration().getUrl() + GET_USERS_URL)
-                .buildAndExpand(pageIndex, 500)
-                .toUri();
+        if (shouldFilterByOrganization) {
+            return UriComponentsBuilder.fromHttpUrl(configurationService.getConfiguration().getUrl() + GET_USERS_BY_ORG_URL)
+                    .buildAndExpand(configurationService.getConfiguration().getOrganization(), pageIndex, 500)
+                    .toUri();
+        } else {
+            return UriComponentsBuilder.fromHttpUrl(configurationService.getConfiguration().getUrl() + GET_USERS_URL)
+                    .buildAndExpand(pageIndex, 500)
+                    .toUri();
+        }
     }
 
     private HttpHeaders getHeaders() {

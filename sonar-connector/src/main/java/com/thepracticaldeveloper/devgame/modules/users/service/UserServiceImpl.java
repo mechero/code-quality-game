@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
-public class SonarUserServiceImpl implements SonarUserService {
+public class UserServiceImpl implements UserService {
 
     private final UserMongoRepository userRepository;
 
-    public SonarUserServiceImpl(final UserMongoRepository userRepository) {
+    public UserServiceImpl(final UserMongoRepository userRepository) {
         this.userRepository = userRepository;
     }
 
