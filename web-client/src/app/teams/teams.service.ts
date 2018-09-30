@@ -41,7 +41,7 @@ export class TeamsService {
 
   private handleError(error: any): Promise<any> {
     if (error.status === 422) {
-      return Promise.resolve(new MessageResponse(error.error.message));
+      return Promise.resolve(new MessageResponse(error.error.message, true));
     } else {
       console.error('An error occurred accessing ' + environment.serverUrl, error);
       if (error instanceof HttpErrorResponse) {

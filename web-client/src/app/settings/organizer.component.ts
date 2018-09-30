@@ -24,6 +24,7 @@ export class OrganizerComponent implements OnInit {
   showUnassigned: boolean = true;
   editingNewTeam: boolean = false;
   newTeamName: string = null;
+  errorMessage: string = null;
 
   ngOnInit(): void {
     this.update();
@@ -83,9 +84,17 @@ export class OrganizerComponent implements OnInit {
     this.editingNewTeam = false;
   }
 
+  updateErrorMessage(msg: string) {
+    this.errorMessage = msg;
+  }
+
   async deleteTeam(teamId: string) {
     let deleteTeamPromise = this.teamsService.deleteTeam(teamId)
-      .then(response => console.log(response.message));
+      .then(response => {
+        if(response.error) {
+          this.updateErrorMessage(response.message);
+        }
+      });
     // TODO proper error handling here and above
     await deleteTeamPromise;
     this.update();

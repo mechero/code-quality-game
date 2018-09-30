@@ -1,4 +1,10 @@
 <div>
+  <div *ngIf="errorMessage">
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" (click)="errorMessage = null">&times;</button>
+      <strong>{{errorMessage}}</strong>
+    </div>
+  </div>
   <h1 class="border-bottom">Teams</h1>
   <div class="team-container">
     <div *ngFor="let team of teams" class="team-item btn btn-outline-info">
