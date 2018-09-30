@@ -4,6 +4,7 @@ import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
@@ -18,5 +19,10 @@ public class SonarUserServiceImpl implements SonarUserService {
     @Override
     public Stream<User> getAllActiveUsers() {
         return userRepository.findAllUsersWithTeam();
+    }
+
+    @Override
+    public List<User> findUsersByTeam(final String teamName) {
+        return userRepository.findAllByTeam(teamName);
     }
 }

@@ -20,8 +20,10 @@ export class OrganizerComponent implements OnInit {
   assignedUsers: User[] = [];
   orphanUsers: User[] = [];
   editingId: string;
-  showAssigned: boolean;
-  showUnassigned: boolean;
+  showAssigned: boolean = true;
+  showUnassigned: boolean = true;
+  editingNewTeam: boolean = false;
+  newTeamName: string = null;
 
   ngOnInit(): void {
     this.update();
@@ -30,8 +32,6 @@ export class OrganizerComponent implements OnInit {
 
   async update() {
     this.teamsService.getTeams().then(teams => this.teams = teams);
-    console.log('assigned', this.showAssigned);
-    console.log('unassigned', this.showUnassigned);
     let userPromise, orphanPromise;
     if (this.showAssigned) {
       userPromise = this.usersService.getUsers().then(users => this.assignedUsers = users.slice(0, 10));
@@ -46,7 +46,6 @@ export class OrganizerComponent implements OnInit {
       this.orphanUsers = [];
     }
     this.users = this.assignedUsers.concat(this.orphanUsers);
-    console.log('users', this.users);
   }
 
   editUser(id: string) {
@@ -66,6 +65,30 @@ export class OrganizerComponent implements OnInit {
 
   noEditing(): void {
     this.editingId = null;
+  }
+
+  addNewTeam(): void {
+    this.editingNewTeam = true;
+  }
+
+  async saveNewTeam() {
+    let newTeamPromise = this.teamsService.createTeam(this.newTeamName);
+    await newTeamPromise;
+    this.editingNewTeam = false;
+    this.update();
+  }
+
+  cancelNewTeamEditing(): void {
+    this.newTeamName = null;
+    this.editingNewTeam = false;
+  }
+
+  async deleteTeam(teamId: string) {
+    let deleteTeamPromise = this.teamsService.deleteTeam(teamId)
+      .then(response => console.log(response.message));
+    // TODO proper error handling here and above
+    await deleteTeamPromise;
+    this.update();
   }
 
 }

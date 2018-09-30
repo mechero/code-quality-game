@@ -11,6 +11,7 @@ body {
 }
 .footer {
   flex-shrink: 0;
+  margin-bottom: 0;
 }
 .container-fluid {
   padding-left: 0;
@@ -25,4 +26,44 @@ body {
 .gamePageContent{
   width: 800px;
   max-width: 800px;
+}
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 25px 0 25px 0;
+  align-items: center;
+}
+.team-item {
+  display: flex;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  align-items: center;
+}
+.team-item-label {
+  padding-right: 10px;
+}
+.checks-container {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.checkbox-and-label {
+  margin-right: 15px;
+}
+.checkbox-in-flex {
+  padding-right: 10px;
+}
+.players-container {
+  margin: 25px 0 25px 0;
+}
+.sm-margin-right {
+  margin-right: 5px;
+}
+.new-team-box {
+  display: flex;
+  margin: 10px 10px 10px 10px;
+  align-items: center;
+}
+.badge-normal {
+  font-size: 100%;
 }
