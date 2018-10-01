@@ -2,6 +2,7 @@ package com.thepracticaldeveloper.devgame.modules.users.controller;
 
 import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
+import com.thepracticaldeveloper.devgame.modules.users.dto.MessageResponseDTO;
 import com.thepracticaldeveloper.devgame.modules.users.dto.UserDTO;
 import com.thepracticaldeveloper.devgame.modules.users.service.YamlUserCreatorService;
 import org.slf4j.Logger;
@@ -38,8 +39,14 @@ public class UserController {
     }
 
     @GetMapping(params = "unassigned")
-    public ResponseEntity<Iterable<User>> getAllUnAssignedUsers() {
+    public ResponseEntity<Iterable<User>> getAllUnassignedUsers() {
         return ResponseEntity.ok(userRepository.findAllUnassigned(Sort.by("alias").ascending()));
+    }
+
+    @DeleteMapping(params = "unassigned")
+    public ResponseEntity<MessageResponseDTO> deleteAllUnassignedUsers() {
+        userRepository.deleteAllByTeamIsNull();
+        return ResponseEntity.ok(new MessageResponseDTO("All unassigned users have been removed"));
     }
 
     public ResponseEntity<User> createUser(@Valid @RequestBody final UserDTO userDTO) {

@@ -4,13 +4,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {TeamsComponent} from './teams/teams.component';
 import {MembersComponent} from './members/members.component';
 import {OrganizerComponent} from "./settings/organizer.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/teams', pathMatch: 'full'},
   {path: 'teams', component: TeamsComponent},
-  // { path: 'detail/:id', component: MemberDetailComponent },
   {path: 'members', component: MembersComponent},
-  {path: 'organizer', component: OrganizerComponent}
+  {path: 'organizer', component: OrganizerComponent},
+  {path: 'settings', component: SettingsComponent}
 ];
 
 @NgModule({

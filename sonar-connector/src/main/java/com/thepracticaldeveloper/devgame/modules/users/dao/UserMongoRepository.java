@@ -24,4 +24,6 @@ public interface UserMongoRepository extends CrudRepository<User, String> {
     @Query("{'team': null}")
     Iterable<User> findAllUnassigned(final Sort sort);
 
+    void deleteAllByTeamIsNull();
+
 }

@@ -10,13 +10,15 @@ import {MembersComponent} from './members/members.component';
 import {TeamsService} from './teams/teams.service';
 import {MemberService} from './members/member.service';
 import {OrganizerComponent} from "./settings/organizer.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     MembersComponent,
     TeamsComponent,
-    OrganizerComponent
+    OrganizerComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import com.thepracticaldeveloper.devgame.modules.stats.repository.BadgeCardMongo
 import com.thepracticaldeveloper.devgame.modules.stats.repository.ScoreCardMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.dao.UserMongoRepository;
 import com.thepracticaldeveloper.devgame.modules.users.domain.User;
+import com.thepracticaldeveloper.devgame.modules.users.dto.MessageResponseDTO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +100,15 @@ final class SonarStatsServiceImpl implements SonarStatsService {
                 r1.getMinor() + r2.getMinor(), r1.getInfo() + r2.getInfo(), allBadges);
     }
 
-
+    @Override
+    public MessageResponseDTO deleteAllStats() {
+        try {
+            badgeCardMongoRepository.deleteAll();
+            scoreCardMongoRepository.deleteAll();
+            return new MessageResponseDTO("Stats were deleted successfully");
+        } catch (final Exception e) {
+            log.error("Error while trying to delete statistics", e);
+            return new MessageResponseDTO("Error while trying to delete statistics", true);
+        }
+    }
 }

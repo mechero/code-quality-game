@@ -28,8 +28,5 @@ export class MembersComponent implements OnInit {
     this.memberService.getMemberStats().then(memberStats => this.memberStats = memberStats);
   }
 
-  gotoDetail(): void {
-    // this.router.navigate(['/detail', this.selectedMember.id]);
-  }
 }
 

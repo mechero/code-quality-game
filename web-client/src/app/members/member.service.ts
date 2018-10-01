@@ -3,6 +3,7 @@ import {StatsRow} from '../common/StatsRow';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {User} from "./User";
+import {MessageResponse} from "../common/MessageResponse";
 
 
 @Injectable()
@@ -35,6 +36,13 @@ export class MemberService {
       .catch(this.handleError);
   }
 
+  deleteUnassignedUsers(): Promise<MessageResponse> {
+    return this.http.delete(this.usersUrl + '?unassigned')
+      .toPromise()
+      .then(response => response as MessageResponse)
+      .catch(this.handleError);
+  }
+
   updateUser(user: User) {
     return this.http.put(this.usersUrl + '/' + user.id, user)
       .toPromise()
@@ -42,9 +50,12 @@ export class MemberService {
       .catch(this.handleError);
   }
 
-  // getMember(id: number): Promise<Member> {
-  //     return this.getMembers().then(members => members.find(member => member.id === id));
-  // }
+  removeAllStats(): Promise<MessageResponse> {
+    return this.http.delete(this.memberStatsUrl)
+      .toPromise()
+      .then(response => response as MessageResponse)
+      .catch(this.handleError);
+  }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred accessing ' + environment.serverUrl, error);
