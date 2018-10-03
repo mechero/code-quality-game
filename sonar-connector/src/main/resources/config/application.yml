@@ -9,6 +9,7 @@ game:
   dates:
     legacy: 2018-01-21
     earlyBird: 2018-01-30
+  code:
 
 spring:
   data:

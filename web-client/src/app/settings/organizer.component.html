@@ -48,10 +48,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of users">
-        <td *ngIf="user.id !== editingId">{{user.login}}</td>
-        <td *ngIf="user.id === editingId">
-          <input type="text" [(ngModel)]="user.login"/>
-        </td>
+        <td>{{user.login}}</td>
         <td *ngIf="user.id !== editingId">{{user.alias}}</td>
         <td *ngIf="user.id === editingId">
           <input type="text" [(ngModel)]="user.alias"/>

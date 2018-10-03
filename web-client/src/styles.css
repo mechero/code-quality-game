@@ -24,8 +24,8 @@ body {
   margin-top: 1em;
 }
 .gamePageContent{
-  width: 800px;
-  max-width: 800px;
+  width: 1024px;
+  max-width: 1024px;
 }
 .team-container {
   display: flex;
@@ -66,4 +66,7 @@ body {
 }
 .badge-normal {
   font-size: 100%;
+}
+#players,#teams td {
+  font-size: 18px;
 }

@@ -35,13 +35,13 @@ export class OrganizerComponent implements OnInit {
     this.teamsService.getTeams().then(teams => this.teams = teams);
     let userPromise, orphanPromise;
     if (this.showAssigned) {
-      userPromise = this.usersService.getUsers().then(users => this.assignedUsers = users.slice(0, 10));
+      userPromise = this.usersService.getUsers().then(users => this.assignedUsers = users);
       await userPromise;
     } else {
       this.assignedUsers = [];
     }
     if (this.showUnassigned) {
-      orphanPromise = this.usersService.getUnassignedUsers().then(users => this.orphanUsers = users.slice(0, 10));
+      orphanPromise = this.usersService.getUnassignedUsers().then(users => this.orphanUsers = users);
       await orphanPromise;
     } else {
       this.orphanUsers = [];
