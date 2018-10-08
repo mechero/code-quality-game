@@ -38,7 +38,7 @@
       </div>
     </div>
     <table class="table table-hover table-striped table-dark">
-      <thead class="table-success">
+      <thead>
       <tr>
         <th>Login</th>
         <th>Alias</th>
@@ -64,7 +64,7 @@
           <button class="btn btn-primary btn-sm" (click)="editUser(user.id)">Modify</button>
         </td>
         <td *ngIf="user.id === editingId">
-          <button class="btn btn-primary btn-sm" (click)="saveUser(user)">Save</button>&nbsp;
+          <button class="btn btn-info btn-sm" (click)="saveUser(user)">Save</button>&nbsp;
           <button class="btn btn-danger btn-sm" (click)="cancel()">Cancel</button>
         </td>
       </tr>

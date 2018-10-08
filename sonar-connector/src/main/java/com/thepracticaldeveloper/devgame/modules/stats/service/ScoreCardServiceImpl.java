@@ -32,6 +32,7 @@ public class ScoreCardServiceImpl implements ScoreCardService {
                                 final ScoreCardMongoRepository cardRepository) {
         this.legacyDate = LocalDate.parse(legacyDate);
         this.cardRepository = cardRepository;
+        log.info("Legacy date is configured to {}", legacyDate);
     }
 
     @Override

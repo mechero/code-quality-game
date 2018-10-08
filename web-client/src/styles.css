@@ -3,6 +3,10 @@ html, body {
   height: 100%;
 }
 body {
+
+}
+.body-flex {
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -12,6 +16,12 @@ body {
 .footer {
   flex-shrink: 0;
   margin-bottom: 0;
+  padding: 10px 0;
+}
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .container-fluid {
   padding-left: 0;
@@ -67,6 +77,24 @@ body {
 .badge-normal {
   font-size: 100%;
 }
-#players,#teams td {
+#players td {
   font-size: 18px;
+}
+#teams td {
+  font-size: 18px;
+}
+.navbar-item-custom {
+  font-size: 18px;
+  margin-right: 1rem;
+}
+.navbar-nopadding {
+  padding: 0 0.5rem;
+}
+.ptr {
+  display: flex;
+  align-items: center;
+}
+.ptr-text {
+  font-size: 18px;
+  margin-right: 10px;
 }

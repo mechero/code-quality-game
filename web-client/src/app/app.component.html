@@ -1,32 +1,34 @@
-<div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <img src="assets/img/monkey_logo.gif" width="32" height="32" class="mr-2"/>
-    <a class="navbar-brand" href="#">Code Quality Game</a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/teams" routerLinkActive="active">Teams</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/members">Players</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/organizer">Organizer</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/settings">Settings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Help</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </nav>
-  <div class="gameBackgroundPanel">
-    <div class="gamePageContent">
-      <router-outlet></router-outlet>
+<div class="body-flex">
+  <div class="content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-nopadding">
+      <a class="navbar-brand" href="#"><img src="assets/img/quboo_logo_orange_250.png" width="180px" class="mr-2"/></a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item navbar-item-custom">
+          <a class="nav-link" routerLink="/teams" routerLinkActive="active">Teams</a>
+        </li>
+        <li class="nav-item navbar-item-custom">
+          <a class="nav-link" routerLink="/members">Players</a>
+        </li>
+        <li class="nav-item navbar-item-custom">
+          <a class="nav-link" routerLink="/organizer">Organizer</a>
+        </li>
+        <li class="nav-item navbar-item-custom">
+          <a class="nav-link" routerLink="/settings">Settings</a>
+        </li>
+        <li class="nav-item navbar-item-custom">
+          <a class="nav-link" href="#">Help</a>
+        </li>
+      </ul>
+      <div class="my-2 my-lg-0 ptr">
+        <div class="ptr-text">Support Quboo</div>
+        <div><a href="https://www.patreon.com/quboo"><img src="assets/img/become_a_patron_button.png"/></a></div>
+      </div>
+    </nav>
+    <div class="gameBackgroundPanel">
+      <div class="gamePageContent">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
+  <footer></footer>
 </div>

@@ -11,6 +11,9 @@ import {TeamsService} from './teams/teams.service';
 import {MemberService} from './members/member.service';
 import {OrganizerComponent} from "./settings/organizer.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {FooterComponent} from "./footer/footer.component";
+import {FooterService} from "./footer/footer.service";
+import {AngularFontAwesomeModule} from "angular-font-awesome";
 
 @NgModule({
   declarations: [
@@ -18,15 +21,17 @@ import {SettingsComponent} from "./settings/settings.component";
     MembersComponent,
     TeamsComponent,
     OrganizerComponent,
-    SettingsComponent
+    SettingsComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFontAwesomeModule
   ],
-  providers: [TeamsService, MemberService],
+  providers: [TeamsService, MemberService, FooterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,4 +1,4 @@
-# Code Quality Game [![Build Status](https://travis-ci.org/mechero/code-quality-game.svg?branch=master)](https://travis-ci.org/mechero/code-quality-game)
+# Quboo - Code Quality Game [![Build Status](https://travis-ci.org/mechero/code-quality-game.svg?branch=master)](https://travis-ci.org/mechero/code-quality-game)
 
 A simple web application to improve **code quality** using Gamification with SonarQube.
 
@@ -6,9 +6,9 @@ A simple web application to improve **code quality** using Gamification with Son
 
 This is a very simple web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
 
-You can find all the information about this game and the background of this project on [The Practical Developer site](https://thepracticaldeveloper.com/code-quality-game/)
+You can find all the information about this game and the background of this project on [The Official Quboo website](http://quboo.tpd.io)
 
-This README file describes the technical part of the game: how to build and run the application.
+From here onwards, this README file describes the code of the game. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](http://quboo.tpd.io).
 
 ## Requirements
 
@@ -28,7 +28,7 @@ The easiest way to build and run the app is via Docker Compose:
 $ docker-compose -f docker-compose-game.yml up
 ```
 
-Then, you can access the app by navigating with your browser to `http://localhost:3000`
+Then, you can access the app by navigating with your browser to `http://localhost:1827`
 
 You can also build the components and run them locally. This application has two parts:
 
@@ -51,18 +51,6 @@ By default, the app tries to connect in anonymous mode (not authenticated) but, 
 
 The property `sonarOrganization` should be used if you connect to SonarCloud or you have several Organizations configured in your server and you want to discriminate. To do that, just set that property to the value displayed in your Sonar's settings.
 
-### Adding users
-
-You need to list the users that are going to participate in the game in the file `users.xml` (Yes, I know, XML...).
-
-```xml
-<user id="mechero@github" alias="Moises" team="Team TPD.IO" />
-```
-
-It's important that the `id` matches with the SonarQube username (you can double-check that in Sonar's member settings). The `alias` will be used when displaying the rankings and the `team` is used to aggregate score per teams (so make sure you repeat some values if you want to use it).
-
-> Given that this application does not have persistence, it will use only the existing issues in Sonar. Take this into account so, if you're keeping history of resolved issues only for a given time, after that time the scores will change.
-
 ### Legacy Date
 
 The main goal of this application is fixing *Legacy Code* (old, ugly, error-prone). To be able to customize that for every project the property `legacyDate` in the `application.properties` file allows you to set up from which day backwards you're considering your code *legacy*. If you're setting up a new environment with a new SonarQube server, you can just set the date to today.
@@ -77,4 +65,4 @@ This is a work in progress, and I'd appreciate if you give me some feedback. Do 
 
 ## Contribute
 
-If you like this project please star it, that at least helps me get a boost of motivation. You can also [buy me a coffee](https://www.buymeacoffee.com/ZyLJNUR).
+If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits. You can also star it on GitHub.

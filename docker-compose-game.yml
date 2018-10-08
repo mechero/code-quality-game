@@ -5,11 +5,17 @@ services:
   code-quality-game:
     build:
       context: ./sonar-connector
-    image: code-quality-game
+    image: "code-quality-game:${BACKEND_VERSION}"
     depends_on:
       - mongo
     environment:
       SPRING_DATA_MONGODB_HOST: mongo
+      GAME_DATES_LEGACY: "${LEGACY_DATE}"
+      GAME_DATES_EARLYBIRD: "${EARLYBIRD_DATE}"
+      GAME_CODE: "${QUBOO_CODE}"
+      SONAR_SERVER: "${SONAR_SERVER}"
+      SONAR_ORGANIZATION: "${SONAR_ORGANIZATION}"
+      SONAR_TOKEN: "${SONAR_TOKEN}"
     ports:
       - "8080:8080"
     networks:
@@ -28,9 +34,9 @@ services:
   code-quality-game-ui:
     build:
       context: ./web-client
-    image: code-quality-game-web-client
+    image: "code-quality-game-web-client:${UI_VERSION}"
     ports:
-      - "80:80"
+      - "1827:1827"
     networks:
       - network1
 
