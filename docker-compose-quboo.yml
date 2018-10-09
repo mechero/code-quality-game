@@ -2,10 +2,8 @@ version: "3"
 
 services:
 
-  code-quality-game:
-    build:
-      context: ./sonar-connector
-    image: "code-quality-game:${BACKEND_VERSION}"
+  quboo-backend:
+    image: "mechero/quboo-backend:1.0"
     depends_on:
       - mongo
     environment:
@@ -31,10 +29,8 @@ services:
     networks:
       - network1
 
-  code-quality-game-ui:
-    build:
-      context: ./web-client
-    image: "code-quality-game-web-client:${UI_VERSION}"
+  quboo-web-client:
+    image: "mechero/quboo-web-client:1.0"
     ports:
       - "1827:1827"
     networks:
