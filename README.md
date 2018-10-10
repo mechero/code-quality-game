@@ -6,11 +6,21 @@ A simple web application to improve **code quality** using Gamification with Son
 
 This is a very simple web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
 
-You can find all the information about this game and the background of this project on [The Official Quboo website](http://quboo.tpd.io)
+You can find all the information about this game and the background of this project on [The Official Quboo website](https://quboo.tpd.io)
 
-From here onwards, this README file describes the code of the game. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](http://quboo.tpd.io).
+## Installation
 
-## Requirements
+Simple way: go to [Installation section](https://quboo.tpd.io/docs/installation) in the Quboo website and follow the instructions.
+
+## Contribute
+
+If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits. You can also star it on GitHub.
+
+## Building the project yourself
+
+**From here onwards, this README file describes the game code. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](https://quboo.tpd.io).**
+
+### Requirements
 
 * Java 10+
 * Docker (recommended) or Maven/JDK10/Node.js
@@ -20,7 +30,7 @@ From here onwards, this README file describes the code of the game. If you just 
   * This repository includes a `docker-compose-sonar.yml` file that you can use to deploy a SonarQube instance on Docker.
   * By default, this project connects to its own repository on SonarCloud.
 
-## Running the app
+### Building and Running the app
 
 The easiest way to build and run the app is via Docker Compose:
 
@@ -28,7 +38,7 @@ The easiest way to build and run the app is via Docker Compose:
 $ docker-compose -f docker-compose-game.yml up
 ```
 
-**Note that you have to configure the game settings via environment variables, as described in the section Configuration on the [Quboo website](http://quboo.tpd.io).**
+**Note that you have to configure the game settings via environment variables, as described in the section Configuration on the [Quboo website](https://quboo.tpd.io).**
 
 The command above will build the application inside docker containers the first time you run it, and will generate the corresponding Docker images.
 
@@ -44,7 +54,3 @@ If you don't have a SonarQube server available and want to test locally, there i
 ## Feedback
 
 You can help making this game better. Just contact me or open an issue. Any feedback is appreciated!
-
-## Contribute
-
-If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits. You can also star it on GitHub.
