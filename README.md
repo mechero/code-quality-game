@@ -14,7 +14,9 @@ Simple way: go to [Installation section](https://quboo.tpd.io/docs/installation)
 
 ## Contribute
 
-If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits. You can also star it on GitHub.
+If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits (no banners, extra badges). You can also star it on GitHub.
+
+In case you want to become a code contributor, you can submit your Pull Request. The best option for new functionalities is that you contact me in advance to see if I can integrate it. If it gets accepted, I'll include you in the list of contributors and you'll get a code.
 
 ## Building the project yourself
 
