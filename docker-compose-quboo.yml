@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+
+  quboo-backend:
+    image: "mechero/quboo-backend:1.0"
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      GAME_DATES_LEGACY: "${LEGACY_DATE}"
+      GAME_DATES_EARLYBIRD: "${EARLYBIRD_DATE}"
+      GAME_CODE: "${QUBOO_CODE}"
+      SONAR_SERVER: "${SONAR_SERVER}"
+      SONAR_ORGANIZATION: "${SONAR_ORGANIZATION}"
+      SONAR_TOKEN: "${SONAR_TOKEN}"
+    ports:
+      - "8080:8080"
+    networks:
+      - network1
+
+  mongo:
+    image: mongo:3.4
+    hostname: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - network1
+
+  quboo-web-client:
+    image: "mechero/quboo-web-client:1.0"
+    ports:
+      - "1827:1827"
+    networks:
+      - network1
+
+networks:
+  network1:
+volumes:
+  mongodata:

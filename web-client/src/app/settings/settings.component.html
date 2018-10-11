@@ -1,0 +1,44 @@
+<div>
+  <div *ngIf="responseMessage">
+    <div [ngClass]="{'alert alert-dismissible': true, 'alert-danger': responseMessage.error, 'alert-success': !responseMessage.error}">
+      <button type="button" class="close" (click)="responseMessage = null">&times;</button>
+      <strong>{{responseMessage.message}}</strong>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Delete all unassigned players</h4>
+      <p class="card-text">You can delete all players that are not assigned to a team.</p>
+      <p class="card-text text-muted"><em>This is useful when you want to do a cleaning of users. Bear in mind that,
+        if you have enabled User Sync with the server, you may get again unassigned users if they
+        still exist there.</em></p>
+      <p class="card-text text-danger">This is a destructive action. Those players will also lose their statistics.
+        Write below 'remove-all-unassigned' to enable the button.</p>
+      <p class="card-text"><input type="text" [(ngModel)]="removeAllUnassignedText"></p>
+      <p>
+        <button class="btn btn-primary" [disabled]="!canRemoveAllUnassigned()" (click)="removeAllUnnassignedUsers()">
+          Delete unassigned players
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Delete all statistics</h4>
+      <p class="card-text">You can delete all the statistics that are stored in this game: points and badges for all the
+        players.</p>
+      <p class="card-text text-muted"><em>This is useful when you want to do a game reset and start over again.
+        During the next synchronization with the server, you'll get only the history of resolved issues that is kept
+        there.</em></p>
+      <p class="card-text text-danger">This is a destructive action. All players will lose their statistics.
+        Even after synchronization, the results may be different since the server might be storing data only
+        for a limited period of time (e.g. the last month). Write below 'remove-all-stats' to enable the button.</p>
+      <p class="card-text"><input type="text" [(ngModel)]="removeAllStatsText"></p>
+      <p>
+        <button class="btn btn-primary" [disabled]="!canRemoveAllStats()" (click)="removeAllStats()">Delete all the
+          statistics
+        </button>
+      </p>
+    </div>
+  </div>
+</div>

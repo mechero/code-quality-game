@@ -38,7 +38,7 @@ public class SonarServerConfigurationServiceTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         configurationService = new SonarServerConfigurationServiceImpl(sonarServerConfigurationDaoMock, restTemplateMock);
-        config = new SonarServerConfiguration("http://localhost:9000", "token");
+        config = new SonarServerConfiguration("http://localhost:9000", "token", null);
     }
 
     @Test

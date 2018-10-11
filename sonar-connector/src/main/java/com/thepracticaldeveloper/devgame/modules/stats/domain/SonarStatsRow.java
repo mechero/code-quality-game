@@ -2,9 +2,11 @@ package com.thepracticaldeveloper.devgame.modules.stats.domain;
 
 import com.thepracticaldeveloper.devgame.modules.badges.domain.SonarBadge;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public final class SonarStatsRow {
+
     private String userAlias;
     private String userTeam;
     private int totalPoints;
@@ -28,6 +30,42 @@ public final class SonarStatsRow {
         this.minor = minor;
         this.info = info;
         this.badges = badges;
+    }
+
+    public SonarStatsRow(final String userAlias, final String userTeam) {
+        this(userAlias, userTeam, 0, 0, 0, 0, 0, 0, 0, new ArrayList<>());
+    }
+
+    public void addTotalPoints(int points) {
+        this.totalPoints += points;
+    }
+
+    public void addPaidDebt(int debt) {
+        this.totalPaidDebt += debt;
+    }
+
+    public void addBlocker(int blocker) {
+        this.blocker += blocker;
+    }
+
+    public void addCritical(int critical) {
+        this.critical = critical;
+    }
+
+    public void addMajor(int major) {
+        this.major = major;
+    }
+
+    public void addMinor(int minor) {
+        this.minor = minor;
+    }
+
+    public void addInfo(int info) {
+        this.info = info;
+    }
+
+    public void addBadge(SonarBadge badge) {
+        this.badges.add(badge);
     }
 
     public String getUserAlias() {

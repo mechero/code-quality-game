@@ -1,0 +1,74 @@
+<div>
+  <div *ngIf="errorMessage">
+    <div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" (click)="errorMessage = null">&times;</button>
+      <strong>{{errorMessage}}</strong>
+    </div>
+  </div>
+  <h1 class="border-bottom">Teams</h1>
+  <div class="team-container">
+    <div *ngFor="let team of teams" class="team-item btn btn-outline-info">
+      <div class="team-item-label">{{team.name}}</div>
+      <button class="btn btn-danger btn-sm" (click)="deleteTeam(team.id)">Delete</button>
+    </div>
+    <div>
+      <button class="btn btn-info btn-sm" (click)="addNewTeam()">Add new team</button>
+    </div>
+    <div *ngIf="editingNewTeam" class="new-team-box">
+      <label for="newTeamName" class="sm-margin-right">Team Name</label>
+      <input id="newTeamName" type="text" [(ngModel)]="newTeamName" class="sm-margin-right">
+      <button class="btn btn-primary btn-sm sm-margin-right" (click)="saveNewTeam()">Save</button>
+      <button class="btn btn-danger btn-sm" (click)="cancelNewTeamEditing()">Cancel</button>
+    </div>
+  </div>
+  <h1 class="border-bottom">Players</h1>
+  <div class="players-container">
+    <div class="checks-container">
+      <div class="custom-control custom-checkbox checkbox-and-label">
+        <input id="checkShowAssigned" type="checkbox" class="custom-control-input checkbox-in-flex"
+               [(ngModel)]="showAssigned"
+               [disabled]="editingId !== null" (change)="this.update()">
+        <label class="custom-control-label" for="checkShowAssigned">Show Users assigned to team</label>
+      </div>
+      <div class="custom-control custom-checkbox checkbox-and-label">
+        <input id="checkShowUnassigned" type="checkbox" class="custom-control-input checkbox-in-flex"
+               [(ngModel)]="showUnassigned"
+               [disabled]="editingId !== null" (change)="this.update()">
+        <label class="custom-control-label" for="checkShowUnassigned">Show Users without assignment</label>
+      </div>
+    </div>
+    <table class="table table-hover table-striped table-dark">
+      <thead>
+      <tr>
+        <th>Login</th>
+        <th>Alias</th>
+        <th>Team</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.login}}</td>
+        <td *ngIf="user.id !== editingId">{{user.alias}}</td>
+        <td *ngIf="user.id === editingId">
+          <input type="text" [(ngModel)]="user.alias"/>
+        </td>
+        <td *ngIf="user.id !== editingId"><span class="badge badge-pill badge-info badge-normal">{{user.team}}</span></td>
+        <td *ngIf="user.id === editingId">
+          <select id="team" [(ngModel)]="user.team">
+            <option value="--NO-TEAM--">--NO-TEAM--</option>
+            <option *ngFor="let team of teams" [value]="team.name">{{team.name}}</option>
+          </select>
+        </td>
+        <td *ngIf="user.id !== editingId">
+          <button class="btn btn-primary btn-sm" (click)="editUser(user.id)">Modify</button>
+        </td>
+        <td *ngIf="user.id === editingId">
+          <button class="btn btn-info btn-sm" (click)="saveUser(user)">Save</button>&nbsp;
+          <button class="btn btn-danger btn-sm" (click)="cancel()">Cancel</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StatsRow.js",
+  "sourceRoot": "",
+  "sources": [
+    "StatsRow.ts"
+  ],
+  "names": [],
+  "mappings": ";;AACA;CAWC;AAXD,4BAWC"
+}
