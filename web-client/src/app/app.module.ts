@@ -14,6 +14,7 @@ import {SettingsComponent} from "./settings/settings.component";
 import {FooterComponent} from "./footer/footer.component";
 import {FooterService} from "./footer/footer.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
+import {RetrieverService} from "./retriever/retriever.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import {AngularFontAwesomeModule} from "angular-font-awesome";
     AppRoutingModule,
     AngularFontAwesomeModule
   ],
-  providers: [TeamsService, MemberService, FooterService],
+  providers: [TeamsService, MemberService, FooterService, RetrieverService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

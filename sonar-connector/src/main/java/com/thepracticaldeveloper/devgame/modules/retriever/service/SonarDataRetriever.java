@@ -26,12 +26,13 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 @Service
 @EnableAsync
 @EnableScheduling
-final class SonarDataRetriever {
+public final class SonarDataRetriever {
 
     private static final Log log = LogFactory.getLog(SonarDataRetriever.class);
     private static final String GET_ISSUES_COMMAND = "/api/issues/search?organizations={organization}&assignees={assignees}&p={page}&ps={pageSize}";
@@ -42,6 +43,7 @@ final class SonarDataRetriever {
     private final SonarServerConfigurationService configurationService;
 
     private final String organization;
+    private AtomicBoolean retrieving;
 
     @Autowired
     public SonarDataRetriever(final UserService userService,
@@ -54,16 +56,27 @@ final class SonarDataRetriever {
         this.badgeCardService = badgeCardService;
         this.configurationService = configurationService;
         this.organization = organization;
+        this.retrieving = new AtomicBoolean(false);
     }
 
     @Scheduled(fixedRate = 10 * 60000)
     public void retrieveData() {
-        // It seems that sonar doesn't allow parallel queries with same user since it creates a register for internal
-        // stats and that causes an error when inserting into the database.
-        userService.getAllActiveUsers().forEach(
-                new RequestLauncher(scoreCardService, badgeCardService, organization, configurationService.getConfiguration().getUrl(),
-                        configurationService.getConfiguration().getToken())
-        );
+        try {
+            if (retrieving.compareAndSet(false, true)) {
+                // It seems that sonar doesn't allow parallel queries with same user since it creates a register for internal
+                // stats and that causes an error when inserting into the database.
+                userService.getAllActiveUsers().forEach(
+                        new RequestLauncher(scoreCardService, badgeCardService, organization, configurationService.getConfiguration().getUrl(),
+                                configurationService.getConfiguration().getToken())
+                );
+                retrieving.set(false);
+            } else {
+                log.info("Ignoring retrieval request since a retrieval is already in progress...");
+            }
+        } catch (final Throwable t) {
+            log.error("Failed to retrieve data", t);
+            retrieving.set(false);
+        }
     }
 
     private static final class RequestLauncher implements Consumer<User> {
