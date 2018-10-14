@@ -12,7 +12,7 @@ export class FooterComponent implements OnInit {
     this.getCode();
   }
 
-  code: Code = new Code('-NO-CODE-');
+  code: Code = new Code('-NOCODE-');
 
   constructor(private footerService: FooterService) {
   }

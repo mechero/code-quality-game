@@ -22,7 +22,7 @@
           <a class="nav-link" (click)="forceRetrieval()"><fa name="refresh"></fa></a>
         </li>
       </ul>
-      <div class="my-2 my-lg-0 ptr">
+      <div class="my-2 my-lg-0 ptr" *ngIf="code.name === '-NOCODE-'">
         <div><a href="https://www.patreon.com/quboo"><img src="assets/img/become_a_patron_button.png"/></a></div>
       </div>
     </nav>
