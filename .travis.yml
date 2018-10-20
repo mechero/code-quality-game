@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - oraclejdk10
+  - openjdk10
 before_script: 
   cd sonar-connector
 addons:
