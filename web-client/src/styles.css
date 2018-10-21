@@ -20,7 +20,7 @@ body {
 }
 .footer-content {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
 }
 .container-fluid {
@@ -77,11 +77,18 @@ body {
 .badge-normal {
   font-size: 100%;
 }
+.badge-stats {
+  font-size: 75%;
+  font-weight: lighter;
+  margin-right: 5px;
+}
 #players td {
   font-size: 18px;
+  vertical-align: middle;
 }
 #teams td {
   font-size: 18px;
+  vertical-align: middle;
 }
 .navbar-item-custom {
   font-size: 18px;

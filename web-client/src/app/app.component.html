@@ -19,11 +19,18 @@
           <a class="nav-link" href="https://quboo.tpd.io">Help</a>
         </li>
         <li class="nav-item navbar-item-custom">
-          <a class="nav-link" (click)="forceRetrieval()"><fa name="refresh"></fa></a>
+          <a class="nav-link" (click)="forceRetrieval()">
+            <fa name="refresh" style="cursor: pointer"></fa>
+          </a>
         </li>
       </ul>
       <div class="my-2 my-lg-0 ptr" *ngIf="code.name === '-NOCODE-'">
-        <div><a href="https://www.patreon.com/quboo"><img src="assets/img/become_a_patron_button.png"/></a></div>
+        <div>
+          <a href="https://www.patreon.com/quboo">
+            <img src="assets/img/become_a_patron_button.png"
+                 alt="Become a Patreon" style="border: 2px solid white"/>
+          </a>
+        </div>
       </div>
     </nav>
     <div class="gameBackgroundPanel">

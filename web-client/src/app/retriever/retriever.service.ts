@@ -11,13 +11,12 @@ export class RetrieverService {
   }
 
   forceRetrieval(): Promise<String> {
-    return this.http.post(this.forceRetrievalUrl, null)
+    return this.http.post(this.forceRetrievalUrl, {})
       .toPromise()
       .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred accessing ' + this.forceRetrievalUrl, error);
     if (error instanceof HttpErrorResponse) {
       console.error("Response status: " + error.status + " | Message: " + error.message);
     }

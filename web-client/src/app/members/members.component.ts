@@ -11,6 +11,7 @@ import {StatsRow} from '../common/StatsRow';
 })
 export class MembersComponent implements OnInit {
   ngOnInit(): void {
+    setInterval(() => this.getMembers(), 20 * 1000);
     this.getMembers();
   }
 
@@ -25,6 +26,7 @@ export class MembersComponent implements OnInit {
   }
 
   getMembers(): void {
+    console.log('get members');
     this.memberService.getMemberStats().then(memberStats => this.memberStats = memberStats);
   }
 
