@@ -1,14 +1,6 @@
 language: java
 jdk:
   - openjdk10
-addons:
-  sonarcloud:
-    organization: "thepracticaldeveloper"
-
-sudo: required
-
-services:
-- docker
 
 stages:
   - tests-sonar
@@ -18,10 +10,15 @@ stages:
 jobs:
   include:
   - stage: tests-sonar
+    addons:
+      sonarcloud:
+        organization: "thepracticaldeveloper"
     before_script: cd sonar-connector
     script:
       - mvn clean install sonar:sonar
   - stage: docker-build
+    sudo: required
+    services: docker
     script: docker-compose -f docker-compose-build.yml build
   - stage: deploy
     script: echo "Deploying... (noop)"
