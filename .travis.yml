@@ -1,14 +1,28 @@
 language: java
 jdk:
   - openjdk10
-before_script: 
-  cd sonar-connector
 addons:
   sonarcloud:
     organization: "thepracticaldeveloper"
-    branches:
-      - master
-      - develop
-      - docker-compose-game
-script:
-  - mvn clean install sonar:sonar
+
+sudo: required
+
+services:
+- docker
+
+stages:
+  - tests-sonar
+  - docker-build
+  - deploy
+
+jobs:
+  include:
+  - stage: tests-sonar
+    before_script: cd sonar-connector
+    script:
+      - mvn clean install sonar:sonar
+  - stage: docker-build
+    script: docker-compose -f docker-compose-build.yml build
+  - stage: deploy
+    script: echo "Deploying... (noop)"
+
