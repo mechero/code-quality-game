@@ -43,7 +43,8 @@ final class SonarStatsServiceImpl implements SonarStatsService {
         return users.map(user -> {
             final SonarStatsRow statsRow = new SonarStatsRow(user.getAlias(), user.getTeam());
             scoreCardMongoRepository.findAllByUserId(user.getId()).forEach(scoreCard -> {
-                statsRow.addTotalPoints(scoreCard.getScore());
+                // The total score is proportional to the severity
+                statsRow.addTotalPoints(scoreCard.getScore() * scoreCard.getSeverityType().getScore());
                 statsRow.addPaidDebt(scoreCard.getPaidDebtMinutes());
                 addSeverityTypeCounter(statsRow, scoreCard.getSeverityType());
             });

@@ -11,6 +11,8 @@ import {User} from "../members/User";
 })
 export class OrganizerComponent implements OnInit {
 
+  readonly TEAM_NOT_ASSIGNED: string = '--NO-TEAM--';
+
   constructor(private teamsService: TeamsService,
               private usersService: MemberService) {
   }
@@ -53,7 +55,8 @@ export class OrganizerComponent implements OnInit {
     this.editingId = id;
   }
 
-  async saveUser(user: User) {
+  async saveUser(_user: User) {
+    let user = new User(_user.id, _user.login, _user.alias, _user.team === this.TEAM_NOT_ASSIGNED ? null : _user.team);
     let userPromise = this.usersService.updateUser(user);
     await userPromise;
     this.noEditing();

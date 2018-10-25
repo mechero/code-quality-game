@@ -3,20 +3,20 @@
   <table class="table table-striped table-dark" id="teams">
     <thead>
     <tr>
-      <th>Ranking</th>
-      <th>Team</th>
-      <th>Total Score</th>
-      <th>Total Paid Debt (min)</th>
+      <th style="width: 8%">Ranking</th>
+      <th style="width: 42%">Team</th>
+      <th style="width: 25%; text-align: right">Total Score</th>
+      <th style="width: 25%; text-align: center">Total Paid Debt (min)</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let team of teams; let i = index"
         [ngClass]="{'text-primary': i===0}">
-      <td *ngIf="i === 0"><fa name="trophy" size="2x"></fa></td>
-      <td *ngIf="i > 0">{{i + 1}}</td>
+      <td *ngIf="i === 0" align="center"><img src="/assets/img/quboo_gold.png" alt="Golden Quboo" width="40px"/></td>
+      <td *ngIf="i > 0" align="center">{{i + 1}}</td>
       <td>{{team.userTeam}}</td>
-      <td>{{team.totalPoints}}</td>
-      <td>{{team.totalPaidDebt}}</td>
+      <td style="text-align: right">{{team.totalPoints}}</td>
+      <td style="text-align: center">{{team.totalPaidDebt}}</td>
     </tr>
     </tbody>
   </table>

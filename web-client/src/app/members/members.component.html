@@ -3,21 +3,31 @@
   <table class="table table-striped table-dark" id="players">
     <thead>
     <tr>
-      <th>Ranking</th>
-      <th>Name</th>
-      <th>Team</th>
-      <th>Score</th>
-      <th>Badges</th>
+      <th style="width: 8%">Ranking</th>
+      <th style="width: 15%">Name</th>
+      <th style="width: 15%">Team</th>
+      <th style="width: 12%; text-align: right">Score</th>
+      <th style="width: 30%">Badges</th>
+      <th style="width: 4%"><fa name="ban"></fa></th>
+      <th style="width: 4%"><fa name="exclamation-circle"></fa> </th>
+      <th style="width: 4%"><fa name="arrow-circle-up"></fa></th>
+      <th style="width: 4%"><fa name="arrow-circle-down"></fa></th>
+      <th style="width: 4%"><fa name="info-circle"></fa></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let member of memberStats; let i = index" [ngClass]="{'text-primary': i===0}">
-      <td *ngIf="i === 0"><fa name="trophy" size="2x"></fa></td>
-      <td *ngIf="i > 0">{{i + 1}}</td>
+      <td *ngIf="i === 0" align="center"><img src="/assets/img/quboo_gold.png" alt="Golden Quboo" width="40px"/></td>
+      <td *ngIf="i > 0" align="center">{{i + 1}}</td>
       <td>{{member.userAlias}}</td>
       <td>{{member.userTeam}}</td>
-      <td>{{member.totalPoints}}</td>
-      <td><span *ngFor="let b of member.badges" class="badge badge-info">{{b.name}}</span></td>
+      <td align="right">{{member.totalPoints}}</td>
+      <td><span *ngFor="let b of member.badges" class="badge badge-success">{{b.name}}</span></td>
+      <td><span class="badge-stats">{{member.blocker}}</span></td>
+      <td><span class="badge-stats">{{member.critical}}</span></td>
+      <td><span class="badge-stats">{{member.major}}</span></td>
+      <td><span class="badge-stats">{{member.minor}}</span></td>
+      <td><span class="badge-stats">{{member.info}}</span></td>
     </tr>
     </tbody>
   </table>

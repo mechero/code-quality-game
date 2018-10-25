@@ -56,7 +56,7 @@
         <td *ngIf="user.id !== editingId"><span class="badge badge-pill badge-info badge-normal">{{user.team}}</span></td>
         <td *ngIf="user.id === editingId">
           <select id="team" [(ngModel)]="user.team">
-            <option value="--NO-TEAM--">--NO-TEAM--</option>
+            <option value="{{TEAM_NOT_ASSIGNED}}">{{TEAM_NOT_ASSIGNED}}</option>
             <option *ngFor="let team of teams" [value]="team.name">{{team.name}}</option>
           </select>
         </td>

@@ -25,8 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   forceRetrieval() {
-    this.retrieverService.forceRetrieval().then(
-      msg => console.log(msg)
-    );
+    this.retrieverService.forceRetrieval().then(); // does nothing, just wait for the UI to be refreshed automatically
   }
 }

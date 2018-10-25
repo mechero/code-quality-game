@@ -1,6 +1,7 @@
 package com.thepracticaldeveloper.devgame.modules.retriever.controller;
 
 import com.thepracticaldeveloper.devgame.modules.retriever.service.SonarDataRetriever;
+import com.thepracticaldeveloper.devgame.modules.users.dto.MessageResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,8 @@ public class RetrieverController {
     }
 
     @PostMapping("/now")
-    public ResponseEntity<String> retrieveNow() {
+    public ResponseEntity<MessageResponseDTO> retrieveNow() {
         sonarDataRetriever.retrieveData();
-        return ResponseEntity.ok().body("requested");
+        return ResponseEntity.ok().body(new MessageResponseDTO("Requested"));
     }
 }

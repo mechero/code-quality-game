@@ -15,6 +15,11 @@ export class TeamsComponent implements OnInit {
   teams: StatsRow[];
 
   ngOnInit(): void {
+    setInterval(() => this.getTeams(), 20 * 1000);
+    this.getTeams();
+  }
+
+  getTeams(): void {
     this.teamsService.getTeamStats().then(teams => this.teams = teams);
   }
 
