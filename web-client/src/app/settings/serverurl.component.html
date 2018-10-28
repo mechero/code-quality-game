@@ -1,0 +1,27 @@
+<button id="showModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#serverUrlModal" [hidden]="true">
+  Server URL modal (hidden)
+</button>
+<div class="modal fade show" id="serverUrlModal" tabindex="-1" role="dialog" aria-labelledby="serverUrlTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serverUrlTitle">Set the Quboo Server URL</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="serverUrlInput">Quboo backend service URL:</label>
+          <input type="url" class="form-control" id="serverUrlInput" aria-describedby="serverUrlHelp"
+                 placeholder="Enter Quboo Server URL" [(ngModel)]="url">
+          <small id="serverUrlHelp" class="form-text text-muted">Enter the URL where the Quboo backend service can be accessed {{url}}</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveServerUrl()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

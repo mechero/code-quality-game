@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {environment} from "../../environments/environment";
 import {Code} from "./Code";
+import {getStoredServerUrl} from "../settings/Settings";
 
 
 @Injectable()
 export class FooterService {
 
-  private codeUrl = environment.serverUrl + '/code';
+  private codeUrl = '/code';
 
   constructor(private http: HttpClient) {
   }
 
   getCode(): Promise<Code> {
-    return this.http.get(this.codeUrl)
+    return this.http.get(getStoredServerUrl() + this.codeUrl)
       .toPromise()
       .then(response => response as Code)
       .catch(this.handleError);

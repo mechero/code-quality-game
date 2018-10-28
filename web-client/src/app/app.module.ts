@@ -15,6 +15,7 @@ import {FooterComponent} from "./footer/footer.component";
 import {FooterService} from "./footer/footer.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import {RetrieverService} from "./retriever/retriever.service";
+import {ServerUrlComponent} from "./settings/serverurl.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {RetrieverService} from "./retriever/retriever.service";
     TeamsComponent,
     OrganizerComponent,
     SettingsComponent,
-    FooterComponent
+    FooterComponent,
+    ServerUrlComponent
   ],
   imports: [
     BrowserModule,

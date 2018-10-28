@@ -7,6 +7,19 @@
   </div>
   <div class="card">
     <div class="card-body">
+      <h4 class="card-title">Quboo Service URL</h4>
+      <p class="card-text">Where is the Quboo backend service installed?</p>
+      <p>
+        <button id="showModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#serverUrlModal">
+          Change
+        </button>
+        <span style="margin-left: 10px">Saved value: {{getCurrentServerUrl()}}</span>
+        <server-url></server-url>
+      </p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
       <h4 class="card-title">Delete all unassigned players</h4>
       <p class="card-text">You can delete all players that are not assigned to a team.</p>
       <p class="card-text text-muted"><em>This is useful when you want to do a cleaning of users. Bear in mind that,

@@ -26,7 +26,6 @@ export class MembersComponent implements OnInit {
   }
 
   getMembers(): void {
-    console.log('get members');
     this.memberService.getMemberStats().then(memberStats => this.memberStats = memberStats);
   }
 
