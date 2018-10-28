@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TeamsService} from './teams.service';
 import {StatsRow} from '../common/StatsRow';
+import {ServerUrlService} from "../settings/server-url.service";
 
 @Component({
   moduleId: module.id,
@@ -9,14 +10,15 @@ import {StatsRow} from '../common/StatsRow';
 })
 export class TeamsComponent implements OnInit {
 
-  constructor(private teamsService: TeamsService) {
+  constructor(private teamsService: TeamsService, private serverUrlService: ServerUrlService) {
   }
 
   teams: StatsRow[];
 
   ngOnInit(): void {
-    setInterval(() => this.getTeams(), 20 * 1000);
+    setInterval(() => this.getTeams(), 2 * 60 * 1000);
     this.getTeams();
+    this.serverUrlService.change.subscribe(ignore => this.getTeams());
   }
 
   getTeams(): void {

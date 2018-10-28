@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {User} from './Member';
+import {User} from './User';
 import {MemberService} from './member.service';
 import {StatsRow} from '../common/StatsRow';
+import {ServerUrlService} from "../settings/server-url.service";
 
 @Component({
   moduleId: module.id,
@@ -10,15 +11,17 @@ import {StatsRow} from '../common/StatsRow';
   templateUrl: 'members.component.html'
 })
 export class MembersComponent implements OnInit {
+
   ngOnInit(): void {
-    setInterval(() => this.getMembers(), 20 * 1000);
+    setInterval(() => this.getMembers(), 2 * 60 * 1000);
     this.getMembers();
+    this.serverUrlService.change.subscribe(ignore => this.getMembers());
   }
 
   memberStats: StatsRow[];
   selectedMember: User;
 
-  constructor(private memberService: MemberService) {
+  constructor(private memberService: MemberService, private serverUrlService: ServerUrlService) {
   }
 
   onSelect(member: User): void {
