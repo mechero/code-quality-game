@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {TeamsService} from "../teams/teams.service";
 import {MemberService} from "../members/member.service";
 import {MessageResponse} from "../common/MessageResponse";
+import {SERVER_URL_KEY} from "./Settings";
 
 @Component({
   moduleId: module.id,
@@ -38,6 +39,10 @@ export class SettingsComponent {
   removeAllStats(): void {
     this.usersService.removeAllStats().then(response => this.setMessage(response));
     this.removeAllStatsText = null;
+  }
+
+  getCurrentServerUrl(): string {
+    return localStorage.getItem(SERVER_URL_KEY);
   }
 
 }

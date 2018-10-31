@@ -15,6 +15,8 @@ import {FooterComponent} from "./footer/footer.component";
 import {FooterService} from "./footer/footer.service";
 import {AngularFontAwesomeModule} from "angular-font-awesome";
 import {RetrieverService} from "./retriever/retriever.service";
+import {ServerUrlComponent} from "./settings/server-url.component";
+import {ServerUrlService} from "./settings/server-url.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {RetrieverService} from "./retriever/retriever.service";
     TeamsComponent,
     OrganizerComponent,
     SettingsComponent,
-    FooterComponent
+    FooterComponent,
+    ServerUrlComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import {RetrieverService} from "./retriever/retriever.service";
     AppRoutingModule,
     AngularFontAwesomeModule
   ],
-  providers: [TeamsService, MemberService, FooterService, RetrieverService],
+  providers: [TeamsService, MemberService, FooterService, RetrieverService, ServerUrlService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

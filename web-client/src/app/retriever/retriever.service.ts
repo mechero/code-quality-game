@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {environment} from "../../environments/environment";
+import {getStoredServerUrl} from "../settings/Settings";
 
 @Injectable()
 export class RetrieverService {
 
-  private forceRetrievalUrl = environment.serverUrl + '/retriever/now';
+  private forceRetrievalUrl = '/retriever/now';
 
   constructor(private http: HttpClient) {
   }
 
   forceRetrieval(): Promise<String> {
-    return this.http.post(this.forceRetrievalUrl, {})
+    return this.http.post(getStoredServerUrl() + this.forceRetrievalUrl, {})
       .toPromise()
       .catch(this.handleError);
   }
