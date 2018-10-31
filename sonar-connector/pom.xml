@@ -63,7 +63,6 @@
                 <version>2.22.1</version>
                 <configuration>
                     <forkCount>0</forkCount>
-                    <argLine>-Xmx4098m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>
         </plugins>
