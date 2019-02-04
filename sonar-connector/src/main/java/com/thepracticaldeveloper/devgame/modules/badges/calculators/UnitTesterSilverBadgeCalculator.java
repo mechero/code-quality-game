@@ -22,7 +22,7 @@ public class UnitTesterSilverBadgeCalculator implements BadgeCalculator {
 
     @Override
     public String badgeKey() {
-        return "UT_SILVER";
+        return KEY;
     }
 
     @Override
