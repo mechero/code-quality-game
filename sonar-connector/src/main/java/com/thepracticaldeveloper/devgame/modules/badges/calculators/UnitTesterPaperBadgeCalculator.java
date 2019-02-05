@@ -22,7 +22,7 @@ public class UnitTesterPaperBadgeCalculator implements BadgeCalculator {
 
     @Override
     public String badgeKey() {
-        return "UT_PAPER";
+        return KEY;
     }
 
     @Override
