@@ -2,6 +2,8 @@
 
 A simple web application to improve **code quality** using Gamification with SonarQube.
 
+Go to the [Quboo Cloud](https://quboo.io) website and create a free account if you prefer to skip installation and use Quboo as a service. 
+
 ## Introduction
 
 This is a very simple web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
@@ -10,17 +12,15 @@ You can find all the information about this game and the background of this proj
 
 ## Installation
 
-Simple way: go to [Installation section](https://quboo.tpd.io/docs/installation) in the Quboo website and follow the instructions.
+Simple way: go to [Standalone Installation](https://quboo.tpd.io/docs/standalone) on the Quboo website and follow the instructions.
 
 ## Contribute
 
-If you like this project you can [become a patron](https://www.patreon.com/quboo) and get some benefits (no banners, extra badges). You can also star it on GitHub.
-
-In case you want to become a code contributor, you can submit your Pull Request. The best option for new functionalities is that you contact me in advance to see if I can integrate it. If it gets accepted, I'll include you in the list of contributors and you'll get a code.
+In case you want to become a code contributor, you can submit your Pull Request. The best option for new functionalities is contacting me in advance to see if I can integrate it. If it gets accepted, I'll include you in the list of contributors and you'll get a code.
 
 ## Building the project yourself
 
-**From here onwards, this README file describes the game code. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](https://quboo.tpd.io).**
+**From here onwards, this README file describes the game code. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](https://quboo.tpd.io/docs/standalone).**
 
 ### Requirements
 
