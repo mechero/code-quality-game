@@ -26,13 +26,17 @@ public class ScoreCardServiceImpl implements ScoreCardService {
     private static final Logger log = LoggerFactory.getLogger(ScoreCardServiceImpl.class);
 
     private final LocalDate legacyDate;
+    private final LocalDate campaignStartDate;
     private final ScoreCardMongoRepository cardRepository;
 
     public ScoreCardServiceImpl(@Value("${game.dates.legacy}") final String legacyDate,
+                                @Value("${game.dates.campaignStart}") final String campaignStartDate,
                                 final ScoreCardMongoRepository cardRepository) {
         this.legacyDate = LocalDate.parse(legacyDate);
+        this.campaignStartDate = LocalDate.parse(campaignStartDate);
         this.cardRepository = cardRepository;
         log.info("Legacy date is configured to {}", legacyDate);
+        log.info("Campaign Start date is configured to {}", campaignStartDate);
     }
 
     @Override
@@ -42,10 +46,14 @@ public class ScoreCardServiceImpl implements ScoreCardService {
                 collect(Collectors.toSet());
         log.trace("Fixed {} issues of {} issues assigned", fixedIssues.size(), issues.size());
 
-        // For the stats we only use those issues created before 'legacy date'
+        // For the stats we only use those issues created before 'legacy date'...
+        // ... and after 'campaign start date'.
         final Set<Issue> issuesFilteredByLegacyDate = fixedIssues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
-                        .isBefore(legacyDate)).collect(Collectors.toSet());
+                        .isBefore(legacyDate))
+                .filter(i -> IssueDateFormatter.format(i.getCloseDate())
+                        .isAfter(campaignStartDate))
+                .collect(Collectors.toSet());
 
         final long newResolvedIssues = issuesFilteredByLegacyDate.stream()
                 // checks that the issue has not been mapped already to any user

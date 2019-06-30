@@ -3,13 +3,14 @@ version: "3"
 services:
 
   quboo-backend:
-    image: "mechero/quboo-backend:1.0"
+    image: "mechero/quboo-backend:1.1"
     depends_on:
       - mongo
     environment:
       SPRING_DATA_MONGODB_HOST: mongo
       GAME_DATES_LEGACY: "${LEGACY_DATE}"
       GAME_DATES_EARLYBIRD: "${EARLYBIRD_DATE}"
+      GAME_DATES_CAMPAIGNSTART: "${CAMPAIGNSTART_DATE}"
       GAME_CODE: "${QUBOO_CODE}"
       SONAR_SERVER: "${SONAR_SERVER}"
       SONAR_ORGANIZATION: "${SONAR_ORGANIZATION}"
