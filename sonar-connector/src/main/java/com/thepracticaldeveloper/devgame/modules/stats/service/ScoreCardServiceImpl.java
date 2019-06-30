@@ -36,6 +36,7 @@ public class ScoreCardServiceImpl implements ScoreCardService {
         this.campaignStartDate = LocalDate.parse(campaignStartDate);
         this.cardRepository = cardRepository;
         log.info("Legacy date is configured to {}", legacyDate);
+        log.info("Campaign Start date is configured to {}", campaignStartDate);
     }
 
     @Override
