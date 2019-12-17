@@ -8,7 +8,7 @@
     <description>Code Quality Game</description>
     <packaging>war</packaging>
     <properties>
-        <java.version>10</java.version>
+        <java.version>11</java.version>
         <jacoco.version>0.8.1</jacoco.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.exclusions>**/resultbeans/*.java</sonar.exclusions>
@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.8.RELEASE</version>
     </parent>
 
     <build>
@@ -27,8 +27,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>10</source>
-                    <target>10</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <!-- This is needed if deploying with embedded server -->

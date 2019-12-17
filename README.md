@@ -8,11 +8,11 @@ Go to the [Quboo Cloud](https://quboo.io) website and create a free account if y
 
 This is a very simple web page that shows a ranking of developers by how much technical debt they are fixing on SonarQube. It encourages a 'friendly competition' and tries to solve one of the main problems of fixing legacy code: **it's boring**.
 
-You can find all the information about this game and the background of this project on [The Official Quboo website](https://quboo.tpd.io)
+You can find all the information about this game and the background of this project on [The Official Quboo website](https://docs.quboo.io)
 
 ## Installation
 
-Simple way: go to [Standalone Installation](https://quboo.tpd.io/docs/standalone) on the Quboo website and follow the instructions.
+Simple way: go to [Standalone Installation](https://docs.quboo.io/docs/standalone/) on the Quboo website and follow the instructions.
 
 ## Contribute
 
@@ -20,12 +20,12 @@ In case you want to become a code contributor, you can submit your Pull Request.
 
 ## Building the project yourself
 
-**From here onwards, this README file describes the game code. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](https://quboo.tpd.io/docs/standalone).**
+**From here onwards, this README file describes the game code. If you just want to install it and use it, you better continue reading the instructions on the [Quboo website](https://docs.quboo.io/docs/standalone/).**
 
 ### Requirements
 
-* Java 10+
-* Docker (recommended) or Maven/JDK10/Node.js
+* Java 11+
+* Docker (recommended) or Maven/JDK11/Node.js
 * A SonarQube (or SonarCloud) server to connect to. The application is tested up to version 7.1
   * *IMPORTANT*: If you use Java 10, you may need to update the SonarJava sensor so it's able to read the coverage reports.
   * You may need to create a user in SonarQube for this application to connect to (if your server doesn't provide anonymous access). See *Connection to the server* for more details.
@@ -37,7 +37,7 @@ In case you want to become a code contributor, you can submit your Pull Request.
 The easiest way to build and run the app is via Docker Compose:
 
 ```
-$ docker-compose -f docker-compose-game.yml up
+$ docker-compose -f docker-compose-quboo.yml up
 ```
 
 **Note that you have to configure the game settings via environment variables, as described in the section Configuration on the [Quboo website](https://quboo.tpd.io).**

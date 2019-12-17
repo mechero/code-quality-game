@@ -3,7 +3,7 @@ version: "3"
 services:
 
   quboo-backend:
-    image: "mechero/quboo-backend:1.1"
+    image: "mechero/quboo-backend:1.2"
     depends_on:
       - mongo
     environment:
