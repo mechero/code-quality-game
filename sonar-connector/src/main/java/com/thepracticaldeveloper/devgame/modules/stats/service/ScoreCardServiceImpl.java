@@ -51,7 +51,8 @@ public class ScoreCardServiceImpl implements ScoreCardService {
         final Set<Issue> issuesFilteredByLegacyDate = fixedIssues.stream()
                 .filter(i -> IssueDateFormatter.format(i.getCreationDate())
                         .isBefore(legacyDate))
-                .filter(i -> IssueDateFormatter.format(i.getCloseDate())
+                // closeDate might be null, see https://github.com/mechero/code-quality-game/issues/21
+                .filter(i -> IssueDateFormatter.format(Optional.ofNullable(i.getCloseDate()).orElse(i.getUpdateDate()))
                         .isAfter(campaignStartDate))
                 .collect(Collectors.toSet());
 
